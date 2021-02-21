@@ -7,26 +7,27 @@
     tools:context=".ui.dashboard.DashboardFragment">
 
     <LinearLayout
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:orientation="vertical"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal">
 
         <com.prolificinteractive.materialcalendarview.MaterialCalendarView
             android:id="@+id/weeklyCalendarView"
-            android:layout_width="387dp"
+            android:layout_width="391dp"
             android:layout_height="wrap_content"
-            app:mcv_calendarMode="week">
+            android:layout_weight="3"
+            app:mcv_calendarMode="month">
 
         </com.prolificinteractive.materialcalendarview.MaterialCalendarView>
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/dashboard_recyclerView"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:layout_weight="7">
+
+        </androidx.recyclerview.widget.RecyclerView>
+
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
