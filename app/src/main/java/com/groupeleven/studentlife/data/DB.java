@@ -34,7 +34,9 @@ public class DB {
                             " startTime DATETIME, "+
                             " endTime DATETIME, "+
                             " status TINYINT NOT NULL,"+
-                            " type VARCHAR(50)"+
+                            " type VARCHAR(50),"+
+                            " quantity int,"+
+                            " quantityUnit VARCHAR(50)"+
                         ");";
         try {
             connection.createStatement(). executeUpdate(tasks);
@@ -70,7 +72,9 @@ public class DB {
                                             startTime,
                                             endTime,
                                             resultSet.getInt("status"),
-                                            resultSet.getString("type"));
+                                            resultSet.getString("type"),
+                                            resultSet.getInt("quantity"),
+                                            resultSet.getString("quantityUnit"));
                     }
                 }
             }
@@ -83,14 +87,16 @@ public class DB {
     public boolean insertTask(Task t){
         boolean out = true;
         try{
-            PreparedStatement cmd = connection.prepareStatement("INSERT INTO tasks(taskName, priority, startTime, endTime, status, type)"+
-                                                                        " values(?, ?, ?, ?, ?, ?)");
+            PreparedStatement cmd = connection.prepareStatement("INSERT INTO tasks(taskName, priority, startTime, endTime, status, type, quantity, quantityUnit)"+
+                                                                        " values(?, ?, ?, ?, ?, ?, ?, ?)");
             cmd.setString(1, t.getTaskName());
             cmd.setInt(2, t.getPriority());
             cmd.setString(3, t.getStartTime());
             cmd.setString(4, t.getEndTime());
             cmd.setInt(5, t.getStatus());
             cmd.setString(6, t.getType());
+            cmd.setInt(7, t.getQuantity());
+            cmd.setString(8, t.getQuantityUnit());
 
             cmd.executeUpdate();
         }
@@ -106,14 +112,16 @@ public class DB {
         boolean out = true;
         try{
             PreparedStatement cmd = connection.prepareStatement("UPDATE tasks SET taskName=?, priority=?, startTime=?, endTime=?, status=?, type=?"+
-                                                                " WHERE tid = ?");
+                                                                ", quantity=?, quantityUnit=? WHERE tid = ?");
             cmd.setString(1, t.getTaskName());
             cmd.setInt(2, t.getPriority());
             cmd.setString(3, t.getStartTime());
             cmd.setString(4, t.getEndTime());
             cmd.setInt(5, t.getStatus());
             cmd.setString(6, t.getType());
-            cmd.setInt(7, t.getTid());
+            cmd.setInt(7, t.getQuantity());
+            cmd.setString(8, t.getQuantityUnit());
+            cmd.setInt(9, t.getTid());
 
             cmd.executeUpdate();
         }
