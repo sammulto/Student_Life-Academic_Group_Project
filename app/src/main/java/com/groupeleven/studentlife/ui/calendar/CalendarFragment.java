@@ -18,6 +18,7 @@ public class CalendarFragment extends Fragment {
 
     private CalendarViewModel calendarViewModel;
 
+
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         calendarViewModel =
