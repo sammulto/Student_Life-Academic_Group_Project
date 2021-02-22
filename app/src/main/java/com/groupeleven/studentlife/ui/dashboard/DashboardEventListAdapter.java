@@ -11,10 +11,14 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
+import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import com.groupeleven.studentlife.R;
+
 import org.jetbrains.annotations.NotNull;
+
 import java.util.List;
+
 
 public class DashboardEventListAdapter extends RecyclerView.Adapter<DashboardEventListAdapter.ViewHolder>{
 
@@ -39,6 +43,7 @@ public class DashboardEventListAdapter extends RecyclerView.Adapter<DashboardEve
     public DashboardEventListAdapter(List<DashboardTempData> eventList){
         this.eventList = eventList;
     }
+
 
     @NotNull
     @Override
