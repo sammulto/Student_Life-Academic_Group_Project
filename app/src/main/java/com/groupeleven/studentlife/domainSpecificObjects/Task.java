@@ -22,18 +22,24 @@ public class Task {
     private String type;
 
 
+    private int quantity;
+    private String quantityUnit;
+
+
 
     public Task(String taskName){
         this.taskName = taskName;
 
     }
 
+    //Should only be used by DB class
     public Task(int tid, String taskName){
         this.tid = tid;
         this.taskName = taskName;
     }
 
-    public Task(int tid, String taskName, int priority, String startTime, String endTime, int status, String type){
+    //Should only be used by DB class
+    public Task(int tid, String taskName, int priority, String startTime, String endTime, int status, String type, int quantity, String quantityUnit){
         this.tid = tid;
         this.taskName = taskName;
         this.priority = priority;
@@ -41,15 +47,28 @@ public class Task {
         this.endTime = endTime;
         this.status = status;
         this.type = type;
+        this.quantity = quantity;
+        this.quantityUnit = quantityUnit;
     }
 
-    public Task(String taskName, int priority, String startTime, String endTime, int status){
-        this.tid = tid;
+    public Task(String taskName, int priority, String startTime, String endTime, int status, String type, int quantity, String quantityUnit){
         this.taskName = taskName;
         this.priority = priority;
         this.startTime = startTime;
         this.endTime = endTime;
         this.status = status;
+        this.type = type;
+        this.quantity = quantity;
+        this.quantityUnit = quantityUnit;
+    }
+
+    public Task(String taskName, int priority, String startTime, String endTime, int status, String type){
+        this.taskName = taskName;
+        this.priority = priority;
+        this.startTime = startTime;
+        this.endTime = endTime;
+        this.status = status;
+        this.type = type;
     }
 
     @Override
@@ -60,15 +79,17 @@ public class Task {
         return tid == task.tid &&
                 priority == task.priority &&
                 status == task.status &&
+                quantity == task.quantity &&
                 Objects.equals(taskName, task.taskName) &&
                 Objects.equals(startTime, task.startTime) &&
                 Objects.equals(endTime, task.endTime) &&
-                Objects.equals(type, task.type);
+                Objects.equals(type, task.type) &&
+                Objects.equals(quantityUnit, task.quantityUnit);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(tid, taskName, priority, startTime, endTime, status, type);
+        return Objects.hash(tid, taskName, priority, startTime, endTime, status, type, quantity, quantityUnit);
     }
 
     public String getTaskName() {
@@ -121,6 +142,22 @@ public class Task {
 
     public void setType(String type) {
         this.type = type;
+    }
+
+    public int getQuantity() {
+        return quantity;
+    }
+
+    public void setQuantity(int quantity) {
+        this.quantity = quantity;
+    }
+
+    public String getQuantityUnit() {
+        return quantityUnit;
+    }
+
+    public void setQuantityUnit(String quantityUnit) {
+        this.quantityUnit = quantityUnit;
     }
 
 }
