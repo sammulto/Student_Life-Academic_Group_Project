@@ -6,22 +6,39 @@
     android:layout_height="wrap_content"
     android:paddingTop="10dp"
     android:paddingBottom="10dp"
-    android:paddingLeft="15dp"
-    android:paddingRight="15dp"
+    android:paddingLeft="12dp"
+    android:paddingRight="12dp"
     >
 
     <TextView
-        android:id="@+id/event_item"
+        android:id="@+id/dashboard_task_end_time"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_weight="9" />
+        android:layout_height="match_parent"
+        android:layout_weight="3"
+        android:paddingLeft="3dp"
+        android:paddingRight="3dp"
+        android:textAlignment="textStart"
+        android:textColor="@color/normalText" />
 
-    <Button
-        android:id="@+id/action_button"
+    <TextView
+        android:id="@+id/dashboard_task_name"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:paddingLeft="16dp"
-        android:paddingRight="16dp"
-        android:textSize="12sp"
-        android:layout_weight="1"/>
+        android:layout_height="match_parent"
+        android:layout_weight="9"
+        android:paddingLeft="3dp"
+        android:paddingRight="3dp"
+        android:textAlignment="textStart"
+        android:textColor="@color/normalText"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/dashboard_task_status"
+        android:layout_width="30dp"
+        android:layout_height="match_parent"
+        android:layout_weight="2"
+        android:paddingLeft="3dp"
+        android:paddingRight="3dp"
+        android:textAlignment="textEnd"
+        android:textColor="@color/normalText" />
+
 </LinearLayout>
