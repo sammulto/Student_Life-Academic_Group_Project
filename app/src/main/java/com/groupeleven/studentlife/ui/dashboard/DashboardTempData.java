@@ -7,33 +7,22 @@
 package com.groupeleven.studentlife.ui.dashboard;
 
 import android.annotation.SuppressLint;
+import com.groupeleven.studentlife.data.DB;
+import com.groupeleven.studentlife.domainSpecificObjects.Task;
 
-import java.util.ArrayList;
 
 public class DashboardTempData {
+    private static DB database = new DB();
     
-    private String title;
-    private String event;
-    
-    public DashboardTempData(String title,String event){
-        this.title = title;
-        this.event = event;
-    }
-    
-    public String getTitle(){
-        return title;
-    }
-    
-    public String getEvent(){
-        return event;
-    }
+    public DashboardTempData(){}
 
-    public static ArrayList<DashboardTempData> createTempData(int quantity){
-        ArrayList<DashboardTempData> list = new ArrayList<>();
-        
+    public static Task[] createTempData(int quantity){
+
         for(int i = 0; i < quantity; i++){
-            list.add(new DashboardTempData("Title " + i, "Event " + i));
+            Task newTask = new Task("Task Name" + i, 0, "2020-01-01 12:12:12", "2020-01-01 12:12:12", i, "test Type");
+            database.insertTask(newTask);
         }
-        return list;
+
+        return database.getTasks();
     }
 }
