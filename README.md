@@ -13,3 +13,21 @@ The primary intended users for this app are post-secondary students. This app sp
 Not only would it benefit new students, it would also benefit those who are already in the later part of their degree. It is not a simple task to stay organized and having an application to do some of the work would be invaluable for students who are already busy enough as it is. 
 
 This application will be considered a success if students can rely on this system to keep their schedule organized. This will be determined by examining the accuracy of the time estimations and the amount of friction this application causes on their current workflow. 
+
+
+# Branching Strategy
+
+This repository deploys Github Flow branching strategy.
+
+Two Branches will be kept throughout the project:
+* master: the main branch, protected from pushing
+* backup: an extra protection for the main branch, protected from pushing    
+
+The master branch will be merged to the backup branch from time to time.
+
+## Commit
+* Before committing, developer should pull from the master branch to make sure their local repository is up to date.* Developer needs to commit to a new branch (or his/her current working branch if a new branch is created before).
+
+## Push and Merge
+* Developer can only push to his/her current working branch.* After the works are pushed to the current working branch, developer can create a merge request.* Upon a merge request is created, group members will review the codes and approve the merge request.
+* After merging, the current working branch can be kept for further commitments or can be deleted.
