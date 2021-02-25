@@ -3,7 +3,7 @@
     <string name="title_calendar">Calendar</string>
     <string name="title_dashboard">Dashboard</string>
     <string name="title_todolist">To-do List</string>
-    
+    <string name="noEvent">No Upcoming Event</string>
     <string-array name="priority">
         <item>Choose priority</item>item
         <item>Low</item>item>

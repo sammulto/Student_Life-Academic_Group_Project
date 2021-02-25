@@ -27,5 +27,4 @@ public class DashboardLogic {
         return list;
     }
 
-
 }
