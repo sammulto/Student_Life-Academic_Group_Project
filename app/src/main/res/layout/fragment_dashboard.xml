@@ -17,11 +17,12 @@
 
         <com.prolificinteractive.materialcalendarview.MaterialCalendarView
             android:id="@+id/weeklyCalendarView"
-            android:layout_width="387dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:mcv_calendarMode="week">
+            app:mcv_calendarMode="week"
+            app:mcv_dateTextAppearance="@color/normalText">
 
-        </com.prolificinteractive.materialcalendarview.MaterialCalendarView>
+    </com.prolificinteractive.materialcalendarview.MaterialCalendarView>
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/dashboard_recyclerView"

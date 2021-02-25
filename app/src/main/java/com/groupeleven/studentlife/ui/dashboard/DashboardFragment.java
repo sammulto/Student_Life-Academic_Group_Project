@@ -15,11 +15,13 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.groupeleven.studentlife.R;
+import com.groupeleven.studentlife.domainSpecificObjects.Task;
+
 import java.util.ArrayList;
 
 public class DashboardFragment extends Fragment {
 
-    private ArrayList<DashboardTempData> sampleData;
+    private Task[] sampleData;
 
     private DashboardViewModel dashboardViewModel;
 
