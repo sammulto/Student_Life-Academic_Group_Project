@@ -2,6 +2,7 @@ package com.groupeleven.studentlife.ui.todolist;
 
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.text.InputType;
@@ -18,6 +19,8 @@ import android.widget.TimePicker;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 
 import com.groupeleven.studentlife.R;
 import com.groupeleven.studentlife.logic.TodolistLogic;
@@ -180,4 +183,11 @@ public class Toadd extends AppCompatActivity{
             }
         });
     }
+
+    public void finish() {
+        setResult(RESULT_OK);
+        super.finish();
+    }
+
+
 }

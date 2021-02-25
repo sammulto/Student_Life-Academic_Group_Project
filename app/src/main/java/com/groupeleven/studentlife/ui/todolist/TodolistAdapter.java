@@ -68,7 +68,8 @@ public class TodolistAdapter extends RecyclerView.Adapter<TodolistAdapter.ViewHo
         return taskList.length;
     }
 
-    public void fresh(){
+    public void refresh(){
+        taskList = logic.getData();
         this.notifyDataSetChanged();
     }
 
@@ -95,7 +96,6 @@ public class TodolistAdapter extends RecyclerView.Adapter<TodolistAdapter.ViewHo
                 public void onClick(View v) {
                     Intent in = new Intent(itemView.getContext(), Toedit.class);
                     in.putExtra(taskList[id].getTaskName(),id);
-
                     itemView.getContext().startActivity(in);
                 }
             });
@@ -109,12 +109,10 @@ public class TodolistAdapter extends RecyclerView.Adapter<TodolistAdapter.ViewHo
                 public void onClick(View v) {
                     if(!logic.deleteTask(id)){
                         Toast.makeText(itemView.getContext(),"Delete task fail",Toast.LENGTH_SHORT).show();
-
                     }
                     else{
                         Toast.makeText(itemView.getContext(),"Task deleted task successfully",Toast.LENGTH_SHORT).show();
-                        notifyItemRemoved(id);
-
+                        refresh();
                     }
                 }
             });

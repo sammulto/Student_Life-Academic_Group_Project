@@ -6,7 +6,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
@@ -33,6 +32,7 @@ public class TodolistFragment extends Fragment {
     private TodolistAdapter taskAdapter;
     private Task[] taskList;
 
+
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         todolistViewModel =
@@ -48,6 +48,7 @@ public class TodolistFragment extends Fragment {
             public void onClick(View v){
                 Intent in = new Intent(getActivity(), Toadd.class);
                 startActivity(in);
+               // startActivityForResult(in,0);
             }
         });
 //--------------------------------------------------------------------------------------------------
@@ -81,4 +82,15 @@ public class TodolistFragment extends Fragment {
         }
 //--------------------------------------------------------------------------------------------------
     }
+
+    //upon resume, update the list data
+    @Override
+    public void onResume() {
+        taskList = logic.getData();
+        taskAdapter = new TodolistAdapter(taskList);
+        taskRecycle.setAdapter(taskAdapter);
+        taskRecycle.setLayoutManager(new LinearLayoutManager(getContext()));
+        super.onResume();
+    }
+
 }
