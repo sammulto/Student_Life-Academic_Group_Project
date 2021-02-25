@@ -14,6 +14,17 @@ Not only would it benefit new students, it would also benefit those who are alre
 
 This application will be considered a success if students can rely on this system to keep their schedule organized. This will be determined by examining the accuracy of the time estimations and the amount of friction this application causes on their current workflow. 
 
+# Adding a Feature
+
+Feature: Time Estimator
+
+To start, the first thing that was done before implementing the feature was creating a separate branch called timeEstimator on the local copy of the repository. The feature was then implemented in whole. Afterwards multiple tests were written that test each path of the time estimator. These paths are dependent on the type of task it is given (i.e., homework, reading, lecture), and the unit of measurement for the quantity of work that must be done (i.e., days, weeks, pages). Once all the tests passed, the changes were then committed to the local repository, and shortly after the changes were pushed to the remote repository under the timeEstimator branch. A merge request was then created and then it was signed off by another group member. 
+
+Links:
+
+- Feature: [https://code.cs.umanitoba.ca/3350-winter-2021-a01/your-internet-neighbours-group-11/-/issues/1](https://code.cs.umanitoba.ca/3350-winter-2021-a01/your-internet-neighbours-group-11/-/issues/1)
+- Merge Requests: [https://code.cs.umanitoba.ca/3350-winter-2021-a01/your-internet-neighbours-group-11/-/merge_requests/5](https://code.cs.umanitoba.ca/3350-winter-2021-a01/your-internet-neighbours-group-11/-/merge_requests/5)
+- Tests: [https://code.cs.umanitoba.ca/3350-winter-2021-a01/your-internet-neighbours-group-11/-/blob/master/app/src/test/java/com/groupeleven/studentlife/logicTests/TimeEstimatorUnitTests.java](https://code.cs.umanitoba.ca/3350-winter-2021-a01/your-internet-neighbours-group-11/-/blob/master/app/src/test/java/com/groupeleven/studentlife/logicTests/TimeEstimatorUnitTests.java)
 
 # Branching Strategy
 
