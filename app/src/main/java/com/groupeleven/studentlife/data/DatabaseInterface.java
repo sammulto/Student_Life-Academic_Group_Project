@@ -2,7 +2,7 @@ package com.groupeleven.studentlife.data;
 
 import com.groupeleven.studentlife.domainSpecificObjects.Task;
 
-public interface I_task_DB {
+public interface DatabaseInterface {
     public void insertTask(int tid, String taskName);
 
     public void insertTask(int tid, String taskName, int priority, String startTime, String endTime, int status, String type, int quantity, String quantityUnit);
