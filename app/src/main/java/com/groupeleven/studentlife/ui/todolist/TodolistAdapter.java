@@ -68,11 +68,6 @@ public class TodolistAdapter extends RecyclerView.Adapter<TodolistAdapter.ViewHo
         return taskList.length;
     }
 
-    public void refresh(){
-        taskList = logic.getData();
-        this.notifyDataSetChanged();
-    }
-
     // ViewHolder class provides refs to views (rows in RecyclerView)
     public class ViewHolder extends RecyclerView.ViewHolder{
 
@@ -80,6 +75,12 @@ public class TodolistAdapter extends RecyclerView.Adapter<TodolistAdapter.ViewHo
         FloatingActionButton edit;
         FloatingActionButton delete;
         TodolistLogic logic;
+
+        //update the adapter with new data
+        public void refreshAdapterData(){
+            TodolistAdapter.this.taskList = logic.getData();
+            TodolistAdapter.this.notifyDataSetChanged();
+        }
 
         //itemView is the entire row in RecyclerView
         public ViewHolder(View itemView){
@@ -97,6 +98,7 @@ public class TodolistAdapter extends RecyclerView.Adapter<TodolistAdapter.ViewHo
                     Intent in = new Intent(itemView.getContext(), Toedit.class);
                     in.putExtra(taskList[id].getTaskName(),id);
                     itemView.getContext().startActivity(in);
+                    refreshAdapterData();
                 }
             });
 //--------------------------------------------------------------------------------------------------
@@ -112,7 +114,8 @@ public class TodolistAdapter extends RecyclerView.Adapter<TodolistAdapter.ViewHo
                     }
                     else{
                         Toast.makeText(itemView.getContext(),"Task deleted task successfully",Toast.LENGTH_SHORT).show();
-                        refresh();
+                        TodolistAdapter.this.taskList = logic.getData();
+                        refreshAdapterData();
                     }
                 }
             });

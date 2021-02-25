@@ -48,7 +48,6 @@ public class TodolistFragment extends Fragment {
             public void onClick(View v){
                 Intent in = new Intent(getActivity(), Toadd.class);
                 startActivity(in);
-               // startActivityForResult(in,0);
             }
         });
 //--------------------------------------------------------------------------------------------------
@@ -86,11 +85,20 @@ public class TodolistFragment extends Fragment {
     //upon resume, update the list data
     @Override
     public void onResume() {
+
+        //update task list
         taskList = logic.getData();
+
+        //set welcome message visibility
+        if(taskList.length!=0)
+            welcome.setVisibility(View.INVISIBLE);
+
+        //set up a new adapter
         taskAdapter = new TodolistAdapter(taskList);
         taskRecycle.setAdapter(taskAdapter);
         taskRecycle.setLayoutManager(new LinearLayoutManager(getContext()));
         super.onResume();
+
     }
 
 }
