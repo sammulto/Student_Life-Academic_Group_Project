@@ -20,7 +20,6 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.groupeleven.studentlife.R;
 import com.groupeleven.studentlife.data.DB;
 import com.groupeleven.studentlife.domainSpecificObjects.Task;
-import com.groupeleven.studentlife.ui.dashboard.DashboardTempData;
 
 import java.util.ArrayList;
 
