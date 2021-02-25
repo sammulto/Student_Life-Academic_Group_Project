@@ -60,6 +60,7 @@ public class TodolistFragment extends Fragment {
         logic = new TodolistLogic();
         taskList= logic.getData();
         taskRecycle = view.findViewById(R.id.task_recyclerView);
+
 //--------------------------------------------------------------------------------------------------
 //  RecyclerView stuffs
         taskAdapter = new TodolistAdapter(taskList);
