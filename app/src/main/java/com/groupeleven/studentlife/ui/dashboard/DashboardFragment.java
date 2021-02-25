@@ -63,11 +63,12 @@ public class DashboardFragment extends Fragment {
     }
 
     //on resume update the list data
-    @Override
-    public void onResume() {
-        super.onResume();
-        adapter.refreshView();
-    }
+//    @Override
+//    public void onResume() {
+//        super.onResume();
+//        listData = null;
+//        adapter.notifyDataSetChanged();
+//    }
 
 
 

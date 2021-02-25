@@ -170,6 +170,7 @@ public class Toedit extends AppCompatActivity {
                 if (logic.editTask(taskName, intPriority, taskDate+" "+fixedTaskTime)) {
                     finish();
                     Toast.makeText(Toedit.this,"Task updated successfully",Toast.LENGTH_SHORT).show();
+
                 }
                 else {
                     String whereFault = logic.whichDataNotfill(taskName,taskPriority,taskDate,taskTime);

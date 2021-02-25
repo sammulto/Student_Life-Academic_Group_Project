@@ -68,10 +68,6 @@ public class TodolistAdapter extends RecyclerView.Adapter<TodolistAdapter.ViewHo
         return taskList.length;
     }
 
-    public void fresh(){
-        this.notifyDataSetChanged();
-    }
-
     // ViewHolder class provides refs to views (rows in RecyclerView)
     public class ViewHolder extends RecyclerView.ViewHolder{
 
@@ -79,6 +75,12 @@ public class TodolistAdapter extends RecyclerView.Adapter<TodolistAdapter.ViewHo
         FloatingActionButton edit;
         FloatingActionButton delete;
         TodolistLogic logic;
+
+        //update the adapter with new data
+        public void refreshAdapterData(){
+            TodolistAdapter.this.taskList = logic.getData();
+            TodolistAdapter.this.notifyDataSetChanged();
+        }
 
         //itemView is the entire row in RecyclerView
         public ViewHolder(View itemView){
@@ -95,8 +97,8 @@ public class TodolistAdapter extends RecyclerView.Adapter<TodolistAdapter.ViewHo
                 public void onClick(View v) {
                     Intent in = new Intent(itemView.getContext(), Toedit.class);
                     in.putExtra(taskList[id].getTaskName(),id);
-
                     itemView.getContext().startActivity(in);
+                    refreshAdapterData();
                 }
             });
 //--------------------------------------------------------------------------------------------------
@@ -109,12 +111,11 @@ public class TodolistAdapter extends RecyclerView.Adapter<TodolistAdapter.ViewHo
                 public void onClick(View v) {
                     if(!logic.deleteTask(id)){
                         Toast.makeText(itemView.getContext(),"Delete task fail",Toast.LENGTH_SHORT).show();
-
                     }
                     else{
                         Toast.makeText(itemView.getContext(),"Task deleted task successfully",Toast.LENGTH_SHORT).show();
-                        notifyItemRemoved(id);
-
+                        TodolistAdapter.this.taskList = logic.getData();
+                        refreshAdapterData();
                     }
                 }
             });

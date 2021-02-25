@@ -6,7 +6,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
@@ -32,6 +31,7 @@ public class TodolistFragment extends Fragment {
     private RecyclerView taskRecycle;
     private TodolistAdapter taskAdapter;
     private Task[] taskList;
+
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -81,4 +81,24 @@ public class TodolistFragment extends Fragment {
         }
 //--------------------------------------------------------------------------------------------------
     }
+
+    //upon resume, update the list data
+    @Override
+    public void onResume() {
+
+        //update task list
+        taskList = logic.getData();
+
+        //set welcome message visibility
+        if(taskList.length!=0)
+            welcome.setVisibility(View.INVISIBLE);
+
+        //set up a new adapter
+        taskAdapter = new TodolistAdapter(taskList);
+        taskRecycle.setAdapter(taskAdapter);
+        taskRecycle.setLayoutManager(new LinearLayoutManager(getContext()));
+        super.onResume();
+
+    }
+
 }
