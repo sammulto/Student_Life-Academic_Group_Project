@@ -5,7 +5,7 @@ import com.groupeleven.studentlife.domainSpecificObjects.Task;
 
 import java.util.ArrayList;
 
-public class task_DB implements I_task_DB{
+public class FakeDB implements DatabaseInterface{
     ArrayList<Task> database;
 
     public task_DB(){
