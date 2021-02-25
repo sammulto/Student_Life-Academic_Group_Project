@@ -1,3 +1,7 @@
+/*
+ *  This is a fake database for iteration 1
+ */
+
 package com.groupeleven.studentlife.data;
 
 
@@ -6,27 +10,11 @@ import com.groupeleven.studentlife.domainSpecificObjects.Task;
 import java.util.ArrayList;
 
 public class FakeDB implements DatabaseInterface{
-    ArrayList<Task> database;
+    static ArrayList<Task> database = new ArrayList<>();
 
-    public task_DB(){
-        database = new ArrayList<>();
-    }
+    public FakeDB(){}
 
-    public void insertTask(int tid, String taskName){
-        database.add(new Task(tid, taskName));
-    }
-
-    public void insertTask(int tid, String taskName, int priority, String startTime, String endTime, int status, String type, int quantity, String quantityUnit){
-        database.add(new Task(tid, taskName, priority, startTime, endTime, status, type, quantity, quantityUnit));
-    }
-
-    public void insertTask(String taskName, int priority, String startTime, String endTime, int status, String type, int quantity, String quantityUnit){
-        database.add(new Task(taskName, priority, startTime, endTime, status, type, quantity, quantityUnit));
-    }
-
-    public void insertTask(String taskName, int priority, String startTime, String endTime, int status, String type){
-        database.add(new Task(taskName, priority, startTime, endTime, status, type));
-    }
+    public boolean insertTask(Task t){ return database.add(t); }
 
     @Override
     public Task[] getTasks() {

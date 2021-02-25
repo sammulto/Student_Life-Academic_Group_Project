@@ -3,13 +3,7 @@ package com.groupeleven.studentlife.data;
 import com.groupeleven.studentlife.domainSpecificObjects.Task;
 
 public interface DatabaseInterface {
-    public void insertTask(int tid, String taskName);
-
-    public void insertTask(int tid, String taskName, int priority, String startTime, String endTime, int status, String type, int quantity, String quantityUnit);
-
-    public void insertTask(String taskName, int priority, String startTime, String endTime, int status, String type, int quantity, String quantityUnit);
-
-    public void insertTask(String taskName, int priority, String startTime, String endTime, int status, String type);
+    public boolean insertTask(Task t);
 
     public Task[] getTasks();
 
