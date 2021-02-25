@@ -43,29 +43,31 @@ public class DashboardEventListAdapter extends RecyclerView.Adapter<DashboardEve
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        //get data according to position
+
+        TextView taskNameView = holder.taskNameTextView;
+        TextView taskStatusView = holder.taskStatusTextView;
+        TextView taskEndTimeView = holder.taskEndTimeTextView;
         Task task = taskList[position];
-        int status = task.getStatus();
+        int priority = task.getPriority(); // task's status code
+        String priorityText = " ";
+
+        //for date formatting
         SimpleDateFormat orgFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.CANADA);
         SimpleDateFormat newFormat = new SimpleDateFormat("MMM dd", Locale.CANADA);
-        String statusText;
-        String endTime = "Parse Failed";
+        String endTime = " ";
 
         //populate information for the views
-        TextView taskNameView = holder.taskNameTextView;
         taskNameView.setText(task.getTaskName());
 
-        TextView taskStatusView = holder.taskStatusTextView;
-        if(status < 5){
-            statusText = "HIGH";
-        }else if (status < 10){
-            statusText = "MEDIUM";
-        }else{
-            statusText = "LOW";
+        if(priority == 1){
+            priorityText = "HIGH";
+        }else if (priority == 2){
+            priorityText = "MEDIUM";
+        }else if (priority == 3){
+            priorityText = "LOW";
         }
-        taskStatusView.setText(statusText);
+        taskStatusView.setText(priorityText);
 
-        TextView taskEndTimeView = holder.taskEndTimeTextView;
         try {
             endTime = newFormat.format(orgFormat.parse(task.getEndTime()));
         } catch (ParseException e) {
@@ -81,6 +83,9 @@ public class DashboardEventListAdapter extends RecyclerView.Adapter<DashboardEve
         return taskList.length;
     }
 
+    public void refreshView(){
+        this.notifyDataSetChanged();
+    }
 
     // ViewHolder class provides refs to views (rows in RecyclerView)
     public class ViewHolder extends RecyclerView.ViewHolder{
