@@ -9,14 +9,17 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.StudentLife">
+        <activity
+            android:name=".ui.todolist.Toedit"
+            android:parentActivityName=".ui.todolist.Toedit"></activity>
 
-        <activity android:name=".ui.todolist.Toadd"
-            android:parentActivityName=".ui.todolist.Toadd"
-            >
-        </activity>
+        <activity
+            android:name=".ui.todolist.Toadd"
+            android:parentActivityName=".ui.todolist.Toadd"></activity>
         <activity
             android:name=".MainActivity"
-            android:label="@string/app_name">
+            android:label="@string/app_name"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
