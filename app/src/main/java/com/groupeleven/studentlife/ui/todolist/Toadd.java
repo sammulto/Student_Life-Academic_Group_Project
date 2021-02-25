@@ -2,7 +2,6 @@ package com.groupeleven.studentlife.ui.todolist;
 
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
-import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.text.InputType;
@@ -16,37 +15,37 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.TimePicker;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
 
 import com.groupeleven.studentlife.R;
-import com.groupeleven.studentlife.domainSpecificObjects.Task;
+import com.groupeleven.studentlife.logic.TodolistLogic;
 
 import java.util.Calendar;
 
 public class Toadd extends AppCompatActivity{
 
+    private EditText name;
+    private EditText timer;
+    private EditText dater;
+    private EditText priorityText;
+    private Spinner priority;
+    private Button buttonAdd;
+    private int Year,Month,Day;
+    private int Hour,Minute;
 
-    EditText name;
-    EditText timer;
-    EditText dater;
-    EditText priority;
-    Spinner spinner;
-    Button buttonAdd;
-    int Year,Month,Day;
-    int Hour,Minute;
+    private TodolistLogic logic = new TodolistLogic();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_toadd);
-        //Toolbar toolbar = findViewById(R.id.toolbar);
-        //setSupportActionBar(toolbar);
+
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-
-
+//--------------------------------------------------------------------------------------------------
+// variable initialization
         timer = findViewById(R.id.editTextTime);
         timer.setInputType(InputType.TYPE_NULL);
 
@@ -55,41 +54,19 @@ public class Toadd extends AppCompatActivity{
 
         buttonAdd = findViewById(R.id.button3);
 
-        priority = findViewById(R.id.editPriority);
-        spinner = findViewById((R.id.spinner1));
+        priorityText = findViewById(R.id.editPriority);
+        priority = findViewById((R.id.spinner1));
         name = findViewById(R.id.name);
 
-   /*    ArrayAdapter<String> adapter;
-        adapter = new ArrayAdapter<String>(getApplicationContext(), android.R.layout.simple_list_item_1,level);
-        spinner.setAdapter(adapter);
-        spinner.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-               switch (position){
-                    case 0:
-                        String text = parent.getItemAtPosition(position).toString();
-                        priority.setText(text);
-                        break;
-                    case 1:
-                        text = parent.getItemAtPosition(position).toString();
-                        priority.setText(text);
-                        break;
-                    case 2:
-                        text = parent.getItemAtPosition(position).toString();
-                        priority.setText(text);
-                        break;
-                }
-
-            }
-
-        });*/
+//--------------------------------------------------------------------------------------------------
+// priority spinner
 
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
                 android.R.layout.simple_list_item_1,getResources().getStringArray(R.array.priority));
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinner.setAdapter(adapter);
+        priority.setAdapter(adapter);
 
-        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+        priority.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
 
@@ -104,14 +81,20 @@ public class Toadd extends AppCompatActivity{
             }
     });
 
+//--------------------------------------------------------------------------------------------------
+// priority show up
 
-        priority.setOnClickListener(new View.OnClickListener(){
+        priorityText.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
-                priority.setHint("");
-                spinner.setVisibility(View.VISIBLE);
+                priorityText.setHint("");
+                priority.setVisibility(View.VISIBLE);
             }
         });
+
+
+//--------------------------------------------------------------------------------------------------
+//Pick date
 
         Calendar calendar = Calendar.getInstance();
         Year = calendar.get(Calendar.YEAR);
@@ -134,37 +117,36 @@ public class Toadd extends AppCompatActivity{
 
                                 calendar.set(0,0,0,Hour,Minute);
 
-                                timer.setText(DateFormat.format("hh:mm aa",calendar));
+                                timer.setText(DateFormat.format("HH:mm",calendar));
                             }
-                        },Hour,Minute,false
+                        },Hour,Minute,true
                 );
-                //timePickerDialog.updateTime(Hour,Minute);
                 timePickerDialog.show();
             }
         });
 
+//--------------------------------------------------------------------------------------------------
+//Pick time
+
         dater.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
-                //Calendar Cal = Calendar.getInstance();
-                //Date = Cal.get(Calendar.DATE);
-                //Month = Cal.get(Calendar.MONTH);
-                //Year = Cal.get(Calendar.YEAR);
+
                         DatePickerDialog datePickerDialog = new DatePickerDialog(
                         Toadd.this,new DatePickerDialog.OnDateSetListener(){
                             @Override
                             public void onDateSet(DatePicker view, int year, int month, int day) {
+                                String tempMon=""+month;
+                                String tempDay=""+day;
                                 month = month + 1;
-                                String date = month+"/"+day+"/"+year+"  M/D/Y";
+                                if(day<10){
+                                    tempDay = "0"+day;
+                                }
+                                if(month<10){
+                                    tempMon = "0"+month;
+                                }
+                                String date = year+"-"+tempMon+"-"+tempDay;
                                 dater.setText(date);
-                                //Year = year;
-                                //Month = month;
-                                //Date = day;
-                                //Calendar calendar = Calendar.getInstance();
-
-                                //calendar.set(0,0,0,0,0);
-
-                                //tvTimer2.setText(DateFormat.format("yy:mm:dd aa",calendar));
                             }
                         }, Year,Month,Day
                 );
@@ -173,24 +155,29 @@ public class Toadd extends AppCompatActivity{
             }
         });
 
+//--------------------------------------------------------------------------------------------------
+// add button
+
         buttonAdd.setOnClickListener(new View.OnClickListener(){
             public void onClick(View v){
+                Calendar calendar = Calendar.getInstance();
+                String taskName = name.getText().toString();
+                String taskPriority = priority.getSelectedItem().toString();
+                String taskDate = dater.getText().toString();
+                String taskTime = timer.getText().toString();
+                String fixedTaskTime = timer.getText().toString()+":00";
 
-                String a = name.getText().toString();
-                //timer.get
-                String p = priority.getText().toString();
+                int intPriority = logic.toInt(taskPriority);
+                    if (logic.addTask(taskName, intPriority, taskDate+" "+fixedTaskTime)) {
 
-
-                TodolistFragment.database.insertTask(new Task("Task" + 1, 0, "2020-01-01 12:12:12", "2020-01-01 12:12:12", 0, "test Type"));
-                finish();
+                        finish();
+                        Toast.makeText(Toadd.this,"Task added successfully",Toast.LENGTH_SHORT).show();
+                    }
+                    else {
+                        String whereFault = logic.whichDataNotfill(taskName,taskPriority,taskDate,taskTime);
+                        Toast.makeText(Toadd.this,whereFault,Toast.LENGTH_SHORT).show();
+                    }
             }
         });
-/*
-        private int toInt(String s){
-            int result = 0;
-            if (s.quals("Low")) {
-
-            }
-        }*/
     }
 }
