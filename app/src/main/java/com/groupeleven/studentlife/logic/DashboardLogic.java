@@ -4,15 +4,15 @@
 
 package com.groupeleven.studentlife.logic;
 
-import com.groupeleven.studentlife.data.DB;
+import com.groupeleven.studentlife.data.FakeDB;
 import com.groupeleven.studentlife.domainSpecificObjects.Task;
 
 public class DashboardLogic {
 
-    private DB database;
+    private FakeDB database;
 
     public DashboardLogic(){
-        this.database = new DB();
+        this.database = new FakeDB();
     }
 
     public Task[] getData() throws RuntimeException{
