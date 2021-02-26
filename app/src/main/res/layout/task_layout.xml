@@ -22,8 +22,9 @@
             android:layout_width="200dp"
             android:layout_height="101dp"
             android:paddingStart="8dp"
+            android:paddingEnd="8dp"
             tool:text="Task"
-            android:textSize="15dp"
+            android:textSize="15sp"
             >
         </CheckBox>
 
@@ -34,7 +35,9 @@
             android:layout_marginHorizontal="@dimen/cardview_default_elevation"
             android:layout_marginTop="20dp"
             android:clickable="true"
-            app:srcCompat="@android:drawable/ic_menu_edit" />
+            app:srcCompat="@android:drawable/ic_menu_edit"
+            android:focusable="true"
+            android:contentDescription="@string/todo" />
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/deleteTask"
@@ -43,7 +46,9 @@
             android:layout_marginHorizontal="@dimen/cardview_default_elevation"
             android:layout_marginTop="20dp"
             android:clickable="true"
-            app:srcCompat="@android:drawable/ic_menu_delete" />
+            app:srcCompat="@android:drawable/ic_menu_delete"
+            android:contentDescription="@string/todo"
+            android:focusable="true" />
 
     </LinearLayout>
 
