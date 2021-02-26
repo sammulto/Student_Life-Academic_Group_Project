@@ -54,6 +54,9 @@ The master branch will be merged to the backup branch from time to time.
 * After the works are pushed to the current working branch, developer can create a merge request.  
 * Upon a merge request is created, group members will review the codes and approve the merge request.
 * After merging, the current working branch can be kept for further commitments or can be deleted.  
+
+## Example Of Adding Feature
+![Adding Feature](Adding_feature.jpg)
      
 
 # SOLID  
