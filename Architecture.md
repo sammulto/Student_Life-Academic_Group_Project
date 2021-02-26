@@ -43,11 +43,11 @@ Below is a sketch for the overall architecture:
 
                                        com.groupeleven.studentlife
 
-                                 ../ =  app/src/main/ja^a/com/groupeleven/studentlife/
+                                 ../ =  app/src/main/java/com/groupeleven/studentlife/
                                         +-----------------------+
                                         |     Main Activity     |
                                         |                       |
-                                        |   MainActi^ity.ja^a   |
+                                        |   MainActivity.java   |
                                         +------------+----------+
                                                      |
                  +--------------------------------------------------------------------+
@@ -57,15 +57,15 @@ Below is a sketch for the overall architecture:
 |          Dashboard UI            |   |       To+do List UI        |    |       Calendar UI        |
 |                                  |   |                            |    |                          |
 |      DashboardFragment.java      |   |   TodolistFragment.java    |    |  CalenderFragment.java   |
-|      DashboardViewModel.java     |   |   TodolistViewModel.ja^a   |    |  CalendarViewModel.ja^a  |
-|  DashboardElentListAdapter.ja^a  |   +---------------+------------+    +--------------------------+
+|      DashboardViewModel.java     |   |   TodolistViewModel.java   |    |  CalendarViewModel.java  |
+|  DashboardElentListAdapter.java  |   +---------------+------------+    +--------------------------+
 +----------------+-----------------+                   |
                  |                                     |
       ../logic/  |                          ../logic/  |
       +----------+------------+             +----------+---------+
       |    Dashboard Logic    |             |  To+do List Logic  |
       |                       |             |                    |
-      |  DashboardLogic.Ja^a  |             |    xxxxxx.Ja^a     |
+      |  DashboardLogic.Java  |             | TodolistLogic.Java |
       +---------+-------------+             +-----------+--------+
                 |                                       |
                 +---------------------------------------+
@@ -74,7 +74,7 @@ Below is a sketch for the overall architecture:
        +--------+-------+         +---------------------+
        |    Database    |         |        Task         |
        |                +---------+                     |
-       |    DB.ja^a     |         |      Task.ja^a      |
+       |    DB.java     |         |      Task.java      |
        +----------------+         +---------------------+
 
 ```
