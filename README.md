@@ -28,7 +28,7 @@ Links:
 
 
 # Exceptional code
-[Exception Code Test File](LINKS TO BE INSERT)   
+[Exception Code Test File](app/src/test/java/com/groupeleven/studentlife/databaseTests/FakeDBUnitTests.java)   
 
 FakeDBUnitTests.java : public void exceptionTest();  
 
