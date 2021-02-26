@@ -27,6 +27,20 @@ public class FakeDB implements DatabaseInterface{
         return list;
     }
 
+//--------------------------------------------------------------------------------------------------
+// replace updateTask(Task t)
+    @Override
+    public boolean updateTask(Task t, int position) {
+        boolean result = false;
+        if(position != -1) {
+            database.set(position, t);
+            result = true;
+        }
+        return result;
+    }
+//--------------------------------------------------------------------------------------------------
+
+/*
     @Override
     public boolean updateTask(Task t) {
         boolean result = false;
@@ -37,7 +51,7 @@ public class FakeDB implements DatabaseInterface{
         }
         return result;
     }
-
+*/
 
     @Override
     public boolean deleteTask(Task t) {
