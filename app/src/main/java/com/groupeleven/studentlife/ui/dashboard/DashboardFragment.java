@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -14,15 +15,20 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.groupeleven.studentlife.MainActivity;
 import com.groupeleven.studentlife.R;
 import com.groupeleven.studentlife.domainSpecificObjects.Task;
+import com.groupeleven.studentlife.logic.DashboardLogic;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 public class DashboardFragment extends Fragment {
 
-    private Task[] sampleData;
-
+    private Task[] listData; //events to show in the Dashboard
+    private DashboardLogic logicUnit;
+    private DashboardEventListAdapter adapter;
+    private RecyclerView recyclerView;
     private DashboardViewModel dashboardViewModel;
 
     @Nullable
@@ -38,17 +44,31 @@ public class DashboardFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState){
         super.onViewCreated(view, savedInstanceState);
 
-        //find the RecyclerView
-        RecyclerView recyclerView = view.findViewById(R.id.dashboard_recyclerView);
         //init the event list
-        sampleData = DashboardTempData.createTempData(15);
-        //pass list to adapter
-        DashboardEventListAdapter adapter = new DashboardEventListAdapter(sampleData);
-        //populate the RecyclerView
+        logicUnit = new DashboardLogic();
+        listData = logicUnit.getData();
+
+        //populate the RecyclerView fire up the adapter
+        recyclerView = view.findViewById(R.id.dashboard_recyclerView);
+        adapter = new DashboardEventListAdapter(listData);
         recyclerView.setAdapter(adapter);
-        //position the items
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+
+        if(listData.length == 0) {
+            //display empty list message
+            TextView textView = requireView().findViewById(R.id.text_dashboard);
+            textView.setText(R.string.noEvent);
+        }
+
     }
+
+    //on resume update the list data
+//    @Override
+//    public void onResume() {
+//        super.onResume();
+//        listData = null;
+//        adapter.notifyDataSetChanged();
+//    }
 
 
 

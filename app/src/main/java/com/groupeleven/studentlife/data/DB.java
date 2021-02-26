@@ -1,3 +1,7 @@
+/*
+ * THIS DATABASE IS FOR ITERATION 2
+ */
+
 package com.groupeleven.studentlife.data;
 
 import java.sql.Connection;
