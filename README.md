@@ -26,6 +26,16 @@ Links:
 - [Merge Requests](https://code.cs.umanitoba.ca/3350-winter-2021-a01/your-internet-neighbours-group-11/-/merge_requests/5)
 - [Tests](https://code.cs.umanitoba.ca/3350-winter-2021-a01/your-internet-neighbours-group-11/-/blob/master/app/src/test/java/com/groupeleven/studentlife/logicTests/TimeEstimatorUnitTests.java)
 
+
+# Exceptional code
+[Exception Code Test File](LINKS TO BE INSERT)   
+
+FakeDBUnitTests.java : public void exceptionTest();  
+
+If the database is empty, it will throw an exception when the getData() is called. This will ensure the callers be awared of the empty database and deal with the empty database explicitly. The callers for the FakeDatabse.getData() will be the logic units, we want to ensure the logic units handle the empty database situation safely.   
+
+
+
 # Branching Strategy
 
 This repository deploys Github Flow branching strategy.
@@ -40,5 +50,19 @@ The master branch will be merged to the backup branch from time to time.
 * Before committing, developer should pull from the master branch to make sure their local repository is up to date.* Developer needs to commit to a new branch (or his/her current working branch if a new branch is created before).
 
 ## Push and Merge
-* Developer can only push to his/her current working branch.* After the works are pushed to the current working branch, developer can create a merge request.* Upon a merge request is created, group members will review the codes and approve the merge request.
-* After merging, the current working branch can be kept for further commitments or can be deleted.
+* Developer can only push to his/her current working branch.  
+* After the works are pushed to the current working branch, developer can create a merge request.  
+* Upon a merge request is created, group members will review the codes and approve the merge request.
+* After merging, the current working branch can be kept for further commitments or can be deleted.  
+     
+
+# SOLID  
+[link to group12's issue](https://code.cs.umanitoba.ca/3350-winter-2021-a01/fitnics-group-12/-/issues/23)   
+
+#  Agile Planning  
+
+
+#  ARCHITECTURE
+
+[Application Architecture](Architecture.md)   
+

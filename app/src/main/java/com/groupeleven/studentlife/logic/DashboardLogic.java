@@ -15,13 +15,15 @@ public class DashboardLogic {
         this.database = new FakeDB();
     }
 
-    public Task[] getData() throws RuntimeException{
+    public Task[] getData(){
 
         //fetch data from the database
-        Task[] list = database.getTasks();
+        Task[] list = null;
 
-        if (list == null){
-            throw new RuntimeException("Database Returns null");
+        try {
+            list = database.getTasks();
+        }catch(Exception exception){
+            list = new Task[0];
         }
 
         return list;

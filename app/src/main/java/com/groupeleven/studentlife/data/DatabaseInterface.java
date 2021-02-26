@@ -7,6 +7,8 @@ public interface DatabaseInterface {
 
     public Task[] getTasks();
 
+    public int getSize();
+
     public boolean updateTask(Task t);
 
     public boolean deleteTask(Task t);

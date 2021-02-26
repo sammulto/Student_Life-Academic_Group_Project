@@ -2,7 +2,6 @@ package com.groupeleven.studentlife.logic;
 
 import com.groupeleven.studentlife.data.FakeDB;
 import com.groupeleven.studentlife.domainSpecificObjects.Task;
-
 public class TodolistLogic {
 
     private FakeDB database;
@@ -14,11 +13,14 @@ public class TodolistLogic {
 
     public Task[] getData() throws RuntimeException{
         //fetch data from the database
-        Task[] list = database.getTasks();
+        Task[] list = null;
 
-        if (list == null){
-            throw new RuntimeException("Database Returns null");
+        try {
+            list = database.getTasks();
+        }catch(Exception exception){
+            list = new Task[0];
         }
+
         return list;
     }
 
