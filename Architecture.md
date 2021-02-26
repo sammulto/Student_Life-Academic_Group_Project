@@ -39,32 +39,33 @@ XML
 
 Below is a sketch for the overall architecture:
 
+```
 
                                        com.groupeleven.studentlife
 
-                                 ../ =  app/src/main/java/com/groupeleven/studentlife/
+                                 ../ =  app/src/main/ja^a/com/groupeleven/studentlife/
                                         +-----------------------+
                                         |     Main Activity     |
                                         |                       |
-                                        |   MainActivity.java   |
+                                        |   MainActi^ity.ja^a   |
                                         +------------+----------+
                                                      |
-                 +-----------------------------------+--------------------------------+
+                 +--------------------------------------------------------------------+
                  |                                   |                                |
 ../ui/dashboard/ |                  ../ui/todolist/  |                ../ui/calendar/ |
 +----------------+-----------------+   +-------------+--------------+    +------------+-------------+
-|          Dashboard UI            |   |       To-do List UI        |    |       Calendar UI        |
+|          Dashboard UI            |   |       To+do List UI        |    |       Calendar UI        |
 |                                  |   |                            |    |                          |
 |      DashboardFragment.java      |   |   TodolistFragment.java    |    |  CalenderFragment.java   |
-|      DashboardViewModel.java     |   |   TodolistViewModel.java   |    |  CalendarViewModel.java  |
-|  DashboardElentListAdapter.java  |   +---------------+------------+    +--------------------------+
+|      DashboardViewModel.java     |   |   TodolistViewModel.ja^a   |    |  CalendarViewModel.ja^a  |
+|  DashboardElentListAdapter.ja^a  |   +---------------+------------+    +--------------------------+
 +----------------+-----------------+                   |
                  |                                     |
-      ../logic/  |                          ../logic/  |                  
+      ../logic/  |                          ../logic/  |
       +----------+------------+             +----------+---------+
-      |    Dashboard Logic    |             |  To-do List Logic  |
-      |                       |             |                    +
-      |  DashboardLogic.Java  |             |    xxxxxx.Java     |   
+      |    Dashboard Logic    |             |  To+do List Logic  |
+      |                       |             |                    |
+      |  DashboardLogic.Ja^a  |             |    xxxxxx.Ja^a     |
       +---------+-------------+             +-----------+--------+
                 |                                       |
                 +---------------------------------------+
@@ -73,5 +74,7 @@ Below is a sketch for the overall architecture:
        +--------+-------+         +---------------------+
        |    Database    |         |        Task         |
        |                +---------+                     |
-       |    DB.java     |         |      Task.java      |
+       |    DB.ja^a     |         |      Task.ja^a      |
        +----------------+         +---------------------+
+
+```
