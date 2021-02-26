@@ -63,6 +63,7 @@ The master branch will be merged to the backup branch from time to time.
 Time estimator is one of our most important features and we implemented it first. However, as we progress we found out that there were other features in higher demand so that we decided push time estimator to iteration 2. We didn't change description
 of any features or user stories.
 [link to time estimator](https://code.cs.umanitoba.ca/3350-winter-2021-a01/your-internet-neighbours-group-11/-/issues/1)
+[link to user story](https://code.cs.umanitoba.ca/3350-winter-2021-a01/your-internet-neighbours-group-11/-/issues/3)
 
 #  ARCHITECTURE
 
