@@ -105,7 +105,7 @@ public class TodoLogicLayerUnitTests {
         FakeDB db = new FakeDB();
         TodolistLogic noName = new TodolistLogic();
         assertTrue(noName.addTask("it-1", 1, "2020-01-01 12:12:12"));
-        assertTrue(noName.editTask("it-1", 2, "2020-01-01 10:12:12"));
+        assertTrue(noName.editTask(0,"it-1", 2, "2020-01-01 10:12:12"));
         db.clearDatabase();
     }
 
@@ -116,7 +116,7 @@ public class TodoLogicLayerUnitTests {
         FakeDB db = new FakeDB();
         TodolistLogic noName = new TodolistLogic();
         assertTrue(noName.addTask("it-1", 1, "2020-01-01 12:12:12"));
-        assertFalse(noName.editTask("it-1", 0, "2020-01-01 10:12:12"));
+        assertFalse(noName.editTask(0,"it-1", 0, "2020-01-01 10:12:12"));
         db.clearDatabase();
     }
     //Task edit should return false with no priority
@@ -173,7 +173,7 @@ public class TodoLogicLayerUnitTests {
         TodolistLogic priorityConversion = new TodolistLogic();
         assertEquals("High",TodolistLogic.toPriority(1));
 
-        db.clearDatabase();;
+        db.clearDatabase();
     }
 
     //taking text priority level from UI and sending  numerical Priority Level to DB
@@ -185,6 +185,6 @@ public class TodoLogicLayerUnitTests {
         TodolistLogic priorityConversion = new TodolistLogic();
         assertEquals(2,TodolistLogic.toInt("Medium"));
 
-        db.clearDatabase();;
+        db.clearDatabase();
     }
 }

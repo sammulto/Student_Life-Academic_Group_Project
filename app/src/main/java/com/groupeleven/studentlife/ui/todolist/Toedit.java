@@ -19,7 +19,6 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
-
 import com.groupeleven.studentlife.R;
 import com.groupeleven.studentlife.logic.TodolistLogic;
 
@@ -63,7 +62,7 @@ public class Toedit extends AppCompatActivity {
         int positon = in.getExtras().getInt("id",-1);
 //--------------------------------------------------------------------------------------------------
 // priority spinner
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
+        ArrayAdapter<String> adapter = new ArrayAdapter< >(this,
                 android.R.layout.simple_list_item_1,getResources().getStringArray(R.array.priority));
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         priority.setAdapter(adapter);

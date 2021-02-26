@@ -80,8 +80,8 @@ public class FakeDBUnitTests {
         db.insertTask(t);
         t.setType("Homework");
         tasks[0] = t;
-        db.updateTask(t);
-        assertTrue("Update should return true", db.updateTask(t));
+        db.updateTask(t,0);
+        assertTrue("Update should return true", db.updateTask(t,0));
         assertArrayEquals("The database should contain the updated task", db.getTasks(), tasks);
         db.clearDatabase();
     }
@@ -95,7 +95,7 @@ public class FakeDBUnitTests {
             db.insertTask(taskList[i]);
         }
 
-        assertTrue("Database should contain 10 Tasks", db.getTasks().length == 10);
+        assertEquals("Database should contain 10 Tasks", db.getTasks().length == 10);
         assertArrayEquals("The database should contain the updated task", db.getTasks(), taskList);
         db.clearDatabase();
     }

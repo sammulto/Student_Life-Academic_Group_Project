@@ -7,14 +7,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
 import android.widget.Toast;
-
 import androidx.recyclerview.widget.RecyclerView;
-
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.groupeleven.studentlife.R;
 import com.groupeleven.studentlife.domainSpecificObjects.Task;
 import com.groupeleven.studentlife.logic.TodolistLogic;
-
 import org.jetbrains.annotations.NotNull;
 
 public class TodolistAdapter extends RecyclerView.Adapter<TodolistAdapter.ViewHolder>{
