@@ -82,10 +82,6 @@ public class DashboardEventListAdapter extends RecyclerView.Adapter<DashboardEve
         return taskList.length;
     }
 
-    public void refreshView(){
-        this.notifyDataSetChanged();
-    }
-
     // ViewHolder class provides refs to views (rows in RecyclerView)
     public class ViewHolder extends RecyclerView.ViewHolder{
 
