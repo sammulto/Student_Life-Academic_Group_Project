@@ -54,13 +54,19 @@ The master branch will be merged to the backup branch from time to time.
 * After the works are pushed to the current working branch, developer can create a merge request.  
 * Upon a merge request is created, group members will review the codes and approve the merge request.
 * After merging, the current working branch can be kept for further commitments or can be deleted.  
+
+## Example Of Adding Feature
+![Adding Feature](Adding_feature.jpg)
      
 
 # SOLID  
 [link to group12's issue](https://code.cs.umanitoba.ca/3350-winter-2021-a01/fitnics-group-12/-/issues/23)   
 
 #  Agile Planning  
-
+Time estimator is one of our most important features and we implemented it first. However, as we progress we found out that there were other features in higher demand so that we decided push time estimator to iteration 2. We didn't change description
+of any features or user stories.
+[link to time estimator](https://code.cs.umanitoba.ca/3350-winter-2021-a01/your-internet-neighbours-group-11/-/issues/1)
+[link to user story](https://code.cs.umanitoba.ca/3350-winter-2021-a01/your-internet-neighbours-group-11/-/issues/3)
 
 #  ARCHITECTURE
 
