@@ -41,7 +41,7 @@ public class TodolistLogic {
 
 //--------------------------------------------------------------------------------------------------
 // edit a task
-    public boolean editTask(String name, int priority,String endTime ){
+    public boolean editTask(int id, String name, int priority,String endTime ){
         Task newTask = new Task(name, priority, "2020-01-01 12:12:12",endTime, 0, "test Type");
         boolean notEmptyName = !name.equals("");
         boolean notEmptyPriority = (priority!=0);
@@ -49,7 +49,7 @@ public class TodolistLogic {
         boolean result = false;
 
         if(notEmptyName&&notEmptyPriority&&not0priority) {
-            result = database.updateTask(newTask);
+            result = database.updateTask(newTask,id);
         }
         return result;
     }

@@ -28,16 +28,14 @@ public class FakeDB implements DatabaseInterface{
     }
 
     @Override
-    public boolean updateTask(Task t) {
+    public boolean updateTask(Task t, int position) {
         boolean result = false;
-        int index = find(t.getTid());
-        if(index != -1) {
-            database.set(index, t);
+        if(position != -1) {
+            database.set(position, t);
             result = true;
         }
         return result;
     }
-
 
     @Override
     public boolean deleteTask(Task t) {

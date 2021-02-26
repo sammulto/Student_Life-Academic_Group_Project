@@ -9,7 +9,7 @@ public interface DatabaseInterface {
 
     public int getSize();
 
-    public boolean updateTask(Task t);
+    public boolean updateTask(Task t,int position);
 
     public boolean deleteTask(Task t);
 }

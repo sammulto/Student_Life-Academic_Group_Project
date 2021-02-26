@@ -73,7 +73,6 @@ public class DashboardEventListAdapter extends RecyclerView.Adapter<DashboardEve
             e.printStackTrace();
         }
 
-        System.out.println(endTime);
         taskEndTimeView.setText(endTime);
     }
 
