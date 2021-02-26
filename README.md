@@ -64,5 +64,5 @@ The master branch will be merged to the backup branch from time to time.
 
 #  ARCHITECTURE
 
-[Application Architecture](link to be inserted)   
+[Application Architecture](Architecture.md)   
 
