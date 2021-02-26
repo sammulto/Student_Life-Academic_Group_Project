@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.text.InputType;
@@ -58,6 +59,8 @@ public class Toedit extends AppCompatActivity {
         priority = findViewById((R.id.spinner1));
         name = findViewById(R.id.name);
 
+        Intent in = getIntent();
+        int positon = in.getExtras().getInt("id",-1);
 //--------------------------------------------------------------------------------------------------
 // priority spinner
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
@@ -167,7 +170,7 @@ public class Toedit extends AppCompatActivity {
                 String fixedTaskTime = timer.getText().toString()+":00";
 
                 int intPriority = logic.toInt(taskPriority);
-                if (logic.editTask(taskName, intPriority, taskDate+" "+fixedTaskTime)) {
+                if (logic.editTask(positon,taskName, intPriority, taskDate+" "+fixedTaskTime)) {
                     finish();
                     Toast.makeText(Toedit.this,"Task updated successfully",Toast.LENGTH_SHORT).show();
 
