@@ -95,7 +95,7 @@ public class FakeDBUnitTests {
             db.insertTask(taskList[i]);
         }
 
-        assertEquals("Database should contain 10 Tasks", db.getTasks().length == 10);
+        assertTrue("Database should contain 10 Tasks", db.getTasks().length == 10);
         assertArrayEquals("The database should contain the updated task", db.getTasks(), taskList);
         db.clearDatabase();
     }

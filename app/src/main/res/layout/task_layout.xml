@@ -36,7 +36,6 @@
             android:layout_marginTop="20dp"
             android:clickable="true"
             app:srcCompat="@android:drawable/ic_menu_edit"
-            android:focusable="true"
             android:contentDescription="@string/todo" />
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -47,8 +46,7 @@
             android:layout_marginTop="20dp"
             android:clickable="true"
             app:srcCompat="@android:drawable/ic_menu_delete"
-            android:contentDescription="@string/todo"
-            android:focusable="true" />
+            android:contentDescription="@string/todo" />
 
     </LinearLayout>
 
