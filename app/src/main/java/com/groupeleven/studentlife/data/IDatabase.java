@@ -2,7 +2,7 @@ package com.groupeleven.studentlife.data;
 
 import com.groupeleven.studentlife.domainSpecificObjects.Task;
 
-public interface DatabaseInterface {
+public interface IDatabase {
     public boolean insertTask(Task t);
 
     public Task[] getTasks();

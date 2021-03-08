@@ -5,11 +5,12 @@
 package com.groupeleven.studentlife.logic;
 
 import com.groupeleven.studentlife.data.FakeDB;
+import com.groupeleven.studentlife.data.IDatabase;
 import com.groupeleven.studentlife.domainSpecificObjects.Task;
 
 public class DashboardLogic {
 
-    private FakeDB database;
+    private IDatabase database;
 
     public DashboardLogic(){
         this.database = new FakeDB();

@@ -9,7 +9,7 @@ import com.groupeleven.studentlife.domainSpecificObjects.Task;
 
 import java.util.ArrayList;
 
-public class FakeDB implements DatabaseInterface{
+public class FakeDB implements IDatabase {
 
     static ArrayList<Task> database = new ArrayList<>();
 
