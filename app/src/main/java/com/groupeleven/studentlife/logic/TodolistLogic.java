@@ -1,10 +1,11 @@
 package com.groupeleven.studentlife.logic;
 
 import com.groupeleven.studentlife.data.FakeDB;
+import com.groupeleven.studentlife.data.IDatabase;
 import com.groupeleven.studentlife.domainSpecificObjects.Task;
 public class TodolistLogic {
 
-    private FakeDB database;
+    private IDatabase database;
 
     public TodolistLogic(){this.database = new FakeDB(); }
 
