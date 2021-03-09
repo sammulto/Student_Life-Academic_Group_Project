@@ -2,7 +2,7 @@ package com.groupeleven.studentlife.logic;
 
 import com.groupeleven.studentlife.domainSpecificObjects.Task;
 
-public class TimeEstimator {
+public class TimeEstimator implements ITimeEstimator{
     private final int TIME_PER_PAGE = 5;
     private final int WORDS_PER_MINUTE = 75;
     private final int LECTURES_PER_WEEK = 150;
@@ -32,7 +32,7 @@ public class TimeEstimator {
         return result;
     }
 
-    public int readingEstimate(Task t){
+    private int readingEstimate(Task t){
         int result = -1;
         switch(t.getQuantityUnit().toLowerCase()){
             case "pages":
@@ -45,7 +45,7 @@ public class TimeEstimator {
         return result;
     }
 
-    public int homeworkEstimate(Task t){
+    private int homeworkEstimate(Task t){
         int result = -1;
         switch(t.getQuantityUnit().toLowerCase()){
             case "days":
@@ -58,7 +58,7 @@ public class TimeEstimator {
         return result;
     }
 
-    public int lectureEstimate(Task t){
+    private int lectureEstimate(Task t){
         int result = -1;
         switch(t.getQuantityUnit().toLowerCase()){
             case "minutes":

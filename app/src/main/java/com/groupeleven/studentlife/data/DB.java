@@ -16,13 +16,19 @@ public class DB {
     private Connection connection;
 
     public DB(){
-        this("db");
+        this("db", "file");
     }
 
     public DB(String name){
+        this(name, "mem");
+    }
+
+
+
+    public DB(String name, String type){
         try{
             Class.forName("org.hsqldb.jdbcDriver");
-            connection = DriverManager.getConnection("jdbc:hsqldb:mem:"+name, "SA", "");
+            connection = DriverManager.getConnection("jdbc:hsqldb:"+type+":"+name, "SA", "");
         }
         catch(ClassNotFoundException e){
             e.printStackTrace(System.out);
