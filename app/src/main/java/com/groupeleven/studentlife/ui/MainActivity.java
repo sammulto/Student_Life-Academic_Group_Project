@@ -1,7 +1,9 @@
-package com.groupeleven.studentlife;
+package com.groupeleven.studentlife.ui;
 
 import android.os.Bundle;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.groupeleven.studentlife.R;
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;

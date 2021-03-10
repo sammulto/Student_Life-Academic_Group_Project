@@ -151,7 +151,6 @@ public class Toadd extends AppCompatActivity{
                             }
                         }, Year,Month,Day
                 );
-                //datePickerDialog.getDatePicker().setMinDate(System.currentTimeMillis() -1000);
                 datePickerDialog.show();
             }
         });
