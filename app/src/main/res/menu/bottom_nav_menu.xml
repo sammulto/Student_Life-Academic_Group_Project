@@ -13,5 +13,9 @@
         android:id="@+id/navigation_todolist"
         android:icon="@drawable/ic_list_alt_24px"
         android:title="@string/title_todolist" />
+    <item
+        android:id="@+id/navigation_usefullinks"
+        android:icon="@drawable/ic_info_24px"
+        android:title="@string/title_usefullinks" />
 
 </menu>
