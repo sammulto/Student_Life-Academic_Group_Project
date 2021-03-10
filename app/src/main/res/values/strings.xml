@@ -3,6 +3,7 @@
     <string name="title_calendar">Calendar</string>
     <string name="title_dashboard">Dashboard</string>
     <string name="title_todolist">To-do List</string>
+    <string name="title_usefullinks">Useful Links</string>
     <string name="noEvent">No Upcoming Event</string>
     <string name="please_insert_your_first_task">Please insert your first task</string>
     <string name="todo">TODO</string>

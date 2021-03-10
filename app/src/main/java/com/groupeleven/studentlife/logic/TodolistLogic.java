@@ -3,7 +3,7 @@ package com.groupeleven.studentlife.logic;
 import com.groupeleven.studentlife.data.FakeDB;
 import com.groupeleven.studentlife.data.IDatabase;
 import com.groupeleven.studentlife.domainSpecificObjects.Task;
-public class TodolistLogic {
+public class TodolistLogic implements ITodolistLogic {
 
     private IDatabase database;
 
@@ -12,6 +12,7 @@ public class TodolistLogic {
 //--------------------------------------------------------------------------------------------------
 // get task list form database
 
+    @Override
     public Task[] getData() throws RuntimeException{
         //fetch data from the database
         Task[] list = null;
@@ -27,7 +28,8 @@ public class TodolistLogic {
 
 //--------------------------------------------------------------------------------------------------
 // add a task
-    public boolean addTask(String name, int priority,String endTime ){
+    @Override
+    public boolean addTask(String name, int priority, String endTime){
         Task newTask = new Task(name, priority, "2020-01-01 12:12:12",endTime, 0, "test Type");
         boolean notEmptyName = !name.equals("");
         boolean notEmptyPriority = (priority!=0);
@@ -42,7 +44,8 @@ public class TodolistLogic {
 
 //--------------------------------------------------------------------------------------------------
 // edit a task
-    public boolean editTask(int id, String name, int priority,String endTime ){
+    @Override
+    public boolean editTask(int id, String name, int priority, String endTime){
         Task newTask = new Task(name, priority, "2020-01-01 12:12:12",endTime, 0, "test Type");
         boolean notEmptyName = !name.equals("");
         boolean notEmptyPriority = (priority!=0);
@@ -57,6 +60,7 @@ public class TodolistLogic {
 
 //--------------------------------------------------------------------------------------------------
 // delete a task
+    @Override
     public boolean deleteTask(int id){
         Task whichTask = database.getTasks()[id];
 
@@ -66,9 +70,10 @@ public class TodolistLogic {
 //--------------------------------------------------------------------------------------------------
 // find which data user no input in adding
 
-    public String whichDataNotfill(String taskName, String taskPriority, String taskDate,String taskTime) {
+    @Override
+    public String whichDataNotfill(String taskName, String taskPriority, String taskDate, String taskTime) {
         String result = "";
-        int intPriority = toInt(taskPriority);
+        int intPriority = ITodolistLogic.toInt(taskPriority);
 
         if(intPriority==0&&!taskName.equals("")&&!taskDate.equals("")&&!taskTime.equals("")){
             result = "Please choose a priority";
@@ -88,38 +93,4 @@ public class TodolistLogic {
         return result;
     }
 
-//--------------------------------------------------------------------------------------------------
-// string type priority to int type priority
-
-    public static int toInt(String priority){
-        int result = 0;
-        if (priority.equals("High")) {
-            result = 1;
-        }
-        else if(priority.equals("Medium")){
-            result = 2;
-        }
-        else if(priority.equals("Low")){
-            result = 3;
-        }
-        return result;
-    }
-
-//--------------------------------------------------------------------------------------------------
-// int type priority to string type priority
-
-    public static String toPriority(int priority){
-        String result ="";
-        if (priority==1) {
-            result = "High";
-        }
-        else if(priority==2){
-            result = "Medium";
-        }
-        else if(priority==3){
-            result = "Low";
-        }
-        return result;
-    }
-//--------------------------------------------------------------------------------------------------
 }

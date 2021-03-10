@@ -22,4 +22,10 @@
         android:name="com.groupeleven.studentlife.ui.todolist.TodolistFragment"
         android:label="@string/title_todolist"
         tools:layout="@layout/fragment_todolist" />
+
+    <fragment
+        android:id="@+id/navigation_usefullinks"
+        android:name="com.groupeleven.studentlife.ui.usefullinks.UsefullinksFragment"
+        android:label="@string/title_usefullinks"
+        tools:layout="@layout/fragment_usefullinks" />
 </navigation>

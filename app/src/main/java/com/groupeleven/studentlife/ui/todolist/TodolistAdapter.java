@@ -11,12 +11,13 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.groupeleven.studentlife.R;
 import com.groupeleven.studentlife.domainSpecificObjects.Task;
+import com.groupeleven.studentlife.logic.ITodolistLogic;
 import com.groupeleven.studentlife.logic.TodolistLogic;
 import org.jetbrains.annotations.NotNull;
 
 public class TodolistAdapter extends RecyclerView.Adapter<TodolistAdapter.ViewHolder>{
     private Task[] taskList;
-    private TodolistLogic logic;
+    private ITodolistLogic logic;
 
     public TodolistAdapter(Task[] taskList){
         this.taskList = taskList;
@@ -41,7 +42,7 @@ public class TodolistAdapter extends RecyclerView.Adapter<TodolistAdapter.ViewHo
         Task task = taskList[position];
         String output = task.getTaskName()+"\n"+
                         task.getEndTime()+"\n"+
-                        logic.toPriority(task.getPriority());
+                        ITodolistLogic.toPriority(task.getPriority());
 
 //--------------------------------------------------------------------------------------------------
 // show task detail to checkboxs

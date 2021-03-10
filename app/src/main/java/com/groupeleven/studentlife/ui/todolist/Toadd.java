@@ -20,6 +20,7 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.groupeleven.studentlife.R;
+import com.groupeleven.studentlife.logic.ITodolistLogic;
 import com.groupeleven.studentlife.logic.TodolistLogic;
 
 import java.util.Calendar;
@@ -35,7 +36,7 @@ public class Toadd extends AppCompatActivity{
     private int Year,Month,Day;
     private int Hour,Minute;
 
-    private TodolistLogic logic = new TodolistLogic();
+    private ITodolistLogic logic = new TodolistLogic();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -167,7 +168,7 @@ public class Toadd extends AppCompatActivity{
                 String taskTime = timer.getText().toString();
                 String fixedTaskTime = timer.getText().toString()+":00";
 
-                int intPriority = logic.toInt(taskPriority);
+                int intPriority = ITodolistLogic.toInt(taskPriority);
                     if (logic.addTask(taskName, intPriority, taskDate+" "+fixedTaskTime)) {
 
                         finish();
