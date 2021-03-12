@@ -3,6 +3,7 @@ package com.groupeleven.studentlife.logicTests;
 
 import com.groupeleven.studentlife.data.FakeDB;
 import com.groupeleven.studentlife.domainSpecificObjects.Task;
+import com.groupeleven.studentlife.logic.ITodolistLogic;
 import com.groupeleven.studentlife.logic.TodolistLogic;
 
 import org.junit.Test;
@@ -171,7 +172,7 @@ public class TodoLogicLayerUnitTests {
 
         FakeDB db = new FakeDB();
         TodolistLogic priorityConversion = new TodolistLogic();
-        assertEquals("High",TodolistLogic.toPriority(1));
+        assertEquals("High",ITodolistLogic.toPriority(1));
 
         db.clearDatabase();
     }
@@ -183,7 +184,7 @@ public class TodoLogicLayerUnitTests {
 
         FakeDB db = new FakeDB();
         TodolistLogic priorityConversion = new TodolistLogic();
-        assertEquals(2,TodolistLogic.toInt("Medium"));
+        assertEquals(2, ITodolistLogic.toInt("Medium"));
 
         db.clearDatabase();
     }

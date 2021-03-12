@@ -42,7 +42,7 @@ public class TodolistAdapter extends RecyclerView.Adapter<TodolistAdapter.ViewHo
         Task task = taskList[position];
         String output = task.getTaskName()+"\n"+
                         task.getEndTime()+"\n"+
-                        ITodolistLogic.toPriority(task.getPriority());
+                        ITodolistLogic.toPriority(task.getPriorityInt());
 
 //--------------------------------------------------------------------------------------------------
 // show task detail to checkboxs
