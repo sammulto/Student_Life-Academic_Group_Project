@@ -49,17 +49,9 @@ public class TodolistAdapter extends RecyclerView.Adapter<TodolistAdapter.ViewHo
 //--------------------------------------------------------------------------------------------------
 // show task detail to checkboxs
         holder.taskBox.setText(output);
-
-        holder.taskBox.setChecked(intToBoolean(task.getStatus()));
+        holder.taskBox.setChecked(task.getStatus() != 0);
 //--------------------------------------------------------------------------------------------------
     }
-
-//--------------------------------------------------------------------------------------------------
-// 0 is false, 1 is true
-    private boolean intToBoolean(int status){
-        return status!=0;
-   }
-//--------------------------------------------------------------------------------------------------
 
     @Override
     public int getItemCount() {
