@@ -4,8 +4,10 @@
 
 package com.groupeleven.studentlife.logic;
 
+import com.groupeleven.studentlife.data.DB;
 import com.groupeleven.studentlife.data.FakeDB;
 import com.groupeleven.studentlife.data.IDatabase;
+import com.groupeleven.studentlife.domainSpecificObjects.ITaskObject;
 import com.groupeleven.studentlife.domainSpecificObjects.Task;
 
 public class DashboardLogic {
@@ -13,7 +15,7 @@ public class DashboardLogic {
     private IDatabase database;
 
     public DashboardLogic(){
-        this.database = new FakeDB();
+        this.database = new DB();
     }
 
     public Task[] getData(){
@@ -28,6 +30,13 @@ public class DashboardLogic {
         }
 
         return list;
+    }
+
+    public String getPriorityText (Task task){
+
+        String rawText = task.getPriority().name();
+        String priorityText = rawText.substring(0,1) + rawText.substring(1).toLowerCase();
+        return priorityText;
     }
 
 }
