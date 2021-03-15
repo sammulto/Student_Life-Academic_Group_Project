@@ -151,7 +151,6 @@ public class Toadd extends AppCompatActivity{
                             }
                         }, Year,Month,Day
                 );
-                //datePickerDialog.getDatePicker().setMinDate(System.currentTimeMillis() -1000);
                 datePickerDialog.show();
             }
         });
@@ -167,17 +166,22 @@ public class Toadd extends AppCompatActivity{
                 String taskDate = dater.getText().toString();
                 String taskTime = timer.getText().toString();
                 String fixedTaskTime = timer.getText().toString()+":00";
+                int nameLength = name.length();
+                int dateLength = dater.length();
+                int timeLength = timer.length();
 
-                int intPriority = ITodolistLogic.toInt(taskPriority);
-                    if (logic.addTask(taskName, intPriority, taskDate+" "+fixedTaskTime)) {
+                if (logic.addTask(taskName, taskPriority, taskDate+" "+fixedTaskTime)) {
+                    finish();
+                    Toast.makeText(Toadd.this,"Task added successfully",Toast.LENGTH_SHORT).show();
+                }
 
-                        finish();
-                        Toast.makeText(Toadd.this,"Task added successfully",Toast.LENGTH_SHORT).show();
+                else {
+                    try {
+                        logic.checkUserInput(nameLength, taskPriority, dateLength, timeLength);
+                    }catch (Exception e) {
+                        Toast.makeText(Toadd.this, e.getMessage(), Toast.LENGTH_SHORT).show();
                     }
-                    else {
-                        String whereFault = logic.whichDataNotfill(taskName,taskPriority,taskDate,taskTime);
-                        Toast.makeText(Toadd.this,whereFault,Toast.LENGTH_SHORT).show();
-                    }
+                }
             }
         });
     }

@@ -20,7 +20,9 @@ public class TodolistAdapter extends RecyclerView.Adapter<TodolistAdapter.ViewHo
     private ITodolistLogic logic;
 
     public TodolistAdapter(Task[] taskList){
+
         this.taskList = taskList;
+        this.logic = new TodolistLogic();
     }
 
     @NotNull
@@ -42,22 +44,14 @@ public class TodolistAdapter extends RecyclerView.Adapter<TodolistAdapter.ViewHo
         Task task = taskList[position];
         String output = task.getTaskName()+"\n"+
                         task.getEndTime()+"\n"+
-                        ITodolistLogic.toPriority(task.getPriorityInt());
+                        logic.getTaskPriorityText(task);
 
 //--------------------------------------------------------------------------------------------------
 // show task detail to checkboxs
         holder.taskBox.setText(output);
-
-        holder.taskBox.setChecked(intToBoolean(task.getStatus()));
+        holder.taskBox.setChecked(task.getStatus() != 0);
 //--------------------------------------------------------------------------------------------------
     }
-
-//--------------------------------------------------------------------------------------------------
-// 0 is false, 1 is true
-    private boolean intToBoolean(int status){
-        return status!=0;
-   }
-//--------------------------------------------------------------------------------------------------
 
     @Override
     public int getItemCount() {
@@ -107,7 +101,7 @@ public class TodolistAdapter extends RecyclerView.Adapter<TodolistAdapter.ViewHo
                 @Override
                 public void onClick(View v) {
                     if(!logic.deleteTask(getAdapterPosition())){
-                        Toast.makeText(itemView.getContext(),"Delete task fail",Toast.LENGTH_SHORT).show();
+                        throw new RuntimeException("Delete task fail");
                     }
                     else{
                         Toast.makeText(itemView.getContext(),"Task deleted task successfully",Toast.LENGTH_SHORT).show();

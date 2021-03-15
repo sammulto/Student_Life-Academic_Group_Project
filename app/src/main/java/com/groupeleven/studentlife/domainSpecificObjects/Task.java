@@ -9,9 +9,11 @@ package com.groupeleven.studentlife.domainSpecificObjects;
 import java.util.Objects;
 
 public class Task {
+
     private int tid;
     private String taskName;
-    private String priority;
+    //private String priority; ////////////////////////////////////////////////////////////////////////////////////
+    private ITaskObject.Priority priority;
 
     //Must be in the format 'year-month-day hour:minute:second'
     //Note must use the following number of symbols YYYY-MM-DD HH:MI:SS
@@ -40,8 +42,8 @@ public class Task {
         this.taskName = taskName;
     }
 
-    //Should only be used by DB class
-    public Task(int tid, String taskName, String priority, String startTime, String endTime, int status, String type, int quantity, String quantityUnit, boolean completed){
+    //Should only be used by DB class       ///////////////////////String priority
+    public Task(int tid, String taskName, ITaskObject.Priority priority, String startTime, String endTime, int status, String type, int quantity, String quantityUnit, boolean completed){
         this.tid = tid;
         this.taskName = taskName;
         this.priority = priority;
@@ -54,7 +56,8 @@ public class Task {
         this.completed = completed;
     }
 
-    public Task(String taskName, String priority, String startTime, String endTime, int status, String type, int quantity, String quantityUnit, boolean completed){
+    //////////////////////////////String priority
+    public Task(String taskName, ITaskObject.Priority priority, String startTime, String endTime, int status, String type, int quantity, String quantityUnit, boolean completed){
         this.taskName = taskName;
         this.priority = priority;
         this.startTime = startTime;
@@ -66,7 +69,8 @@ public class Task {
         this.completed = completed;
     }
 
-    public Task(String taskName, String priority, String startTime, String endTime, int status, String type, boolean completed){
+    //////////////////////////////String priority
+    public Task(String taskName, ITaskObject.Priority priority, String startTime, String endTime, int status, String type, boolean completed){
         this.taskName = taskName;
         this.priority = priority;
         this.startTime = startTime;
@@ -76,69 +80,71 @@ public class Task {
         this.completed = completed;
     }
 
-    public Task(String taskName, String priority, String startTime, String endTime, int status, String type, int quantity, String quantityUnit){
+    //////////////////////////////String priority
+    public Task(String taskName, ITaskObject.Priority priority, String startTime, String endTime, int status, String type, int quantity, String quantityUnit){
         this(taskName, priority, startTime, endTime, status, type, quantity, quantityUnit, false);
     }
 
-    public Task(String taskName, String priority, String startTime, String endTime, int status, String type){
+    //////////////////////////////String priority
+    public Task(String taskName, ITaskObject.Priority priority, String startTime, String endTime, int status, String type){
         this(taskName, priority, startTime, endTime, status, type, false);
     }
 
-    //For legacy use only
-    public Task(String taskName, int priority, String startTime, String endTime, int status, String type, int quantity, String quantityUnit){
-        this(taskName, convertPriority(priority), startTime, endTime, status, type, quantity, quantityUnit);
-    }
+//    //For legacy use only
+//    public Task(String taskName, int priority, String startTime, String endTime, int status, String type, int quantity, String quantityUnit){
+//        this(taskName, convertPriority(priority), startTime, endTime, status, type, quantity, quantityUnit);
+//    }
+//
+//    //For legacy use only
+//    public Task(String taskName, int priority, String startTime, String endTime, int status, String type){
+//        this(taskName, convertPriority(priority), startTime, endTime, status, type);
+//    }
 
-    //For legacy use only
-    public Task(String taskName, int priority, String startTime, String endTime, int status, String type){
-        this(taskName, convertPriority(priority), startTime, endTime, status, type);
-    }
-
-    //For legacy use only
-    public Task(int tid, String taskName, int priority, String startTime, String endTime, int status, String type, int quantity, String quantityUnit, boolean completed){
-        this(tid, taskName, convertPriority(priority), startTime, endTime, status, type, quantity, quantityUnit, completed);
-    }
-
-    public Task(String taskName, int priority, String startTime, String endTime, int status, String type, int quantity, String quantityUnit, boolean completed){
-        this(taskName, convertPriority(priority), startTime, endTime, status, type, quantity, quantityUnit, completed);
-    }
-
-    public Task(String taskName, int priority, String startTime, String endTime, int status, String type, boolean completed){
-        this(taskName, convertPriority(priority), startTime, endTime, status, type, completed);
-    }
+//    //For legacy use only
+//    public Task(int tid, String taskName, int priority, String startTime, String endTime, int status, String type, int quantity, String quantityUnit, boolean completed){
+//        this(tid, taskName, convertPriority(priority), startTime, endTime, status, type, quantity, quantityUnit, completed);
+//    }
+//
+//    public Task(String taskName, int priority, String startTime, String endTime, int status, String type, int quantity, String quantityUnit, boolean completed){
+//        this(taskName, convertPriority(priority), startTime, endTime, status, type, quantity, quantityUnit, completed);
+//    }
+//
+//    public Task(String taskName, int priority, String startTime, String endTime, int status, String type, boolean completed){
+//        this(taskName, convertPriority(priority), startTime, endTime, status, type, completed);
+//    }
 
 
 
-    private static String convertPriority(int priority){
-        String priorityS = null;
-        if (priority==1) {
-            priorityS = "H";
-        }
-        else if(priority==2){
-            priorityS = "M";
-        }
-        else if(priority==3){
-            priorityS = "L";
-        }
-
-        return priorityS;
-
-    }
-
-    private static int convertPriorityToInt(String priority){
-        int result = 0;
-        if (priority.equals("H")) {
-            result = 1;
-        }
-        else if(priority.equals("M")){
-            result = 2;
-        }
-        else if(priority.equals("L")){
-            result = 3;
-        }
-
-        return result;
-    }
+//    private static String convertPriority(int priority){
+//        String priorityS = null;
+//        if (priority==1) {
+//            priorityS = "H";
+//        }
+//        else if(priority==2){
+//            priorityS = "M";
+//        }
+//        else if(priority==3){
+//            priorityS = "L";
+//        }
+//
+//        return priorityS;
+//
+//    }
+//
+//    private static int convertPriorityToInt(String priority){
+//        int result = 0;
+//        if (priority.equals("H")) {
+//            result = 1;
+//        }
+//        else if(priority.equals("M")){
+//            result = 2;
+//        }
+//        else if(priority.equals("L")){
+//            result = 3;
+//        }
+//
+//        return result;
+//    }
 
     @Override
     public boolean equals(Object o) {
@@ -170,23 +176,21 @@ public class Task {
         this.taskName = taskName;
     }
 
-    public String getPriority() {
-        return priority;
-    }
+    //public String getPriority() { return priority; }/////////////////////////////////////////////////////////////////////////////
+    public ITaskObject.Priority getPriority() { return priority; }
 
-    public void setPriority(String priority) {
-        this.priority = priority;
-    }
+    //public void setPriority(String priority) { this.priority = priority; }/////////////////////////////////////////////////////////////
+    public void setPriority(ITaskObject.Priority priority) { this.priority = priority; }
 
-    //For legacy use only
-    public int getPriorityInt() {
-        return convertPriorityToInt(priority);
-    }
-
-    //For legacy use only
-    public void setPriorityInt(int priority) {
-        this.priority = convertPriority(priority);
-    }
+//    //For legacy use only
+//    public int getPriorityInt() {
+//        return convertPriorityToInt(priority);
+//    }
+//
+//    //For legacy use only
+//    public void setPriorityInt(int priority) {
+//        this.priority = convertPriority(priority);
+//    }
 
     public String getStartTime() {
         return startTime;

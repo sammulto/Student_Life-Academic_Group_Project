@@ -169,15 +169,20 @@ public class Toedit extends AppCompatActivity {
                 String taskTime = timer.getText().toString();
                 String fixedTaskTime = timer.getText().toString()+":00";
 
-                int intPriority = ITodolistLogic.toInt(taskPriority);
-                if (logic.editTask(positon,taskName, intPriority, taskDate+" "+fixedTaskTime)) {
+                int nameLength = name.length();
+                int dateLength = dater.length();
+                int timeLength = timer.length();
+
+                if (logic.editTask(positon,taskName, taskPriority, taskDate+" "+fixedTaskTime)) {
                     finish();
                     Toast.makeText(Toedit.this,"Task updated successfully",Toast.LENGTH_SHORT).show();
-
                 }
                 else {
-                    String whereFault = logic.whichDataNotfill(taskName,taskPriority,taskDate,taskTime);
-                    Toast.makeText(Toedit.this,whereFault,Toast.LENGTH_SHORT).show();
+                    try {
+                        logic.checkUserInput(nameLength, taskPriority, dateLength, timeLength);
+                    }catch (Exception e) {
+                        Toast.makeText(Toedit.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+                    }
                 }
             }
         });

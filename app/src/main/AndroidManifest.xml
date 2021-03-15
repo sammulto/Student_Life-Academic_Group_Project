@@ -17,7 +17,7 @@
             android:name=".ui.todolist.Toadd"
             android:parentActivityName=".ui.todolist.Toadd"></activity>
         <activity
-            android:name=".MainActivity"
+            android:name=".ui.MainActivity"
             android:label="@string/app_name"
             android:screenOrientation="portrait">
             <intent-filter>

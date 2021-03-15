@@ -1,7 +1,9 @@
 package com.groupeleven.studentlife.logic;
 
+import com.groupeleven.studentlife.data.DB;
 import com.groupeleven.studentlife.data.FakeDB;
 import com.groupeleven.studentlife.data.IDatabase;
+import com.groupeleven.studentlife.domainSpecificObjects.ITaskObject;
 import com.groupeleven.studentlife.domainSpecificObjects.Task;
 public class TodolistLogic implements ITodolistLogic {
 
@@ -29,14 +31,12 @@ public class TodolistLogic implements ITodolistLogic {
 //--------------------------------------------------------------------------------------------------
 // add a task
     @Override
-    public boolean addTask(String name, int priority, String endTime){
-        Task newTask = new Task(name, priority, "2020-01-01 12:12:12",endTime, 0, "test Type");
-        boolean notEmptyName = !name.equals("");
-        boolean notEmptyPriority = (priority!=0);
-        boolean not0priority = priority!=0;
-        boolean result = false;
+    public boolean addTask(String name, String priorityText, String endTime){
 
-        if(notEmptyName&&notEmptyPriority&&not0priority) {
+        Boolean result = false;
+        if(validTaskInput(name, priorityText, endTime)) {
+            ITaskObject.Priority priority = ITaskObject.Priority.valueOf(priorityText.toUpperCase());
+            Task newTask = new Task(name, priority, "2020-01-01 12:12:12",endTime, 0, "test Type");
             result = database.insertTask(newTask);
         }
         return result;
@@ -45,15 +45,27 @@ public class TodolistLogic implements ITodolistLogic {
 //--------------------------------------------------------------------------------------------------
 // edit a task
     @Override
-    public boolean editTask(int id, String name, int priority, String endTime){
-        Task newTask = new Task(name, priority, "2020-01-01 12:12:12",endTime, 0, "test Type");
-        boolean notEmptyName = !name.equals("");
-        boolean notEmptyPriority = (priority!=0);
-        boolean not0priority = priority!=0;
-        boolean result = false;
+    public boolean editTask(int id, String name, String priorityText, String endTime){
 
-        if(notEmptyName&&notEmptyPriority&&not0priority) {
+        boolean result = false;
+        if(validTaskInput(name, priorityText, endTime)) {
+            ITaskObject.Priority priority = ITaskObject.Priority.valueOf(priorityText.toUpperCase());
+            Task newTask = new Task(name, priority, "2020-01-01 12:12:12",endTime, 0, "test Type");
             result = database.updateTask(newTask,id);
+        }
+        return result;
+    }
+
+//--------------------------------------------------------------------------------------------------
+// validate the user input
+
+    private boolean validTaskInput(String name, String priorityText, String endTime){
+
+        boolean notEmptyName = !name.equals("");
+        boolean validPriority = !priorityText.equals("Choose priority");
+        boolean result = false;
+        if(notEmptyName&&validPriority) {
+            result = true;
         }
         return result;
     }
@@ -63,7 +75,6 @@ public class TodolistLogic implements ITodolistLogic {
     @Override
     public boolean deleteTask(int id){
         Task whichTask = database.getTasks()[id];
-
         return database.deleteTask(whichTask);
     }
 
@@ -71,26 +82,36 @@ public class TodolistLogic implements ITodolistLogic {
 // find which data user no input in adding
 
     @Override
-    public String whichDataNotfill(String taskName, String taskPriority, String taskDate, String taskTime) {
-        String result = "";
-        int intPriority = ITodolistLogic.toInt(taskPriority);
+    public String checkUserInput(int taskNameLength, String taskPriority, int taskDateLength, int taskTimeLength) throws Exception {
 
-        if(intPriority==0&&!taskName.equals("")&&!taskDate.equals("")&&!taskTime.equals("")){
-            result = "Please choose a priority";
+        Boolean validPriority = !taskPriority.equals("Choose priority");
+
+        if (taskNameLength == 0){
+            throw new Exception("Please input a task name");
         }
-        else if (intPriority!=0&&taskName.equals("")&&!taskDate.equals("")&&!taskTime.equals("")){
-            result = "Please input a task name";
+        else if(taskTimeLength == 0){
+            throw new Exception("Please choose a time");
         }
-        else if(intPriority!=0&&!taskName.equals("")&&taskDate.equals("")&&!taskTime.equals("")){
-            result = "Please choose a date";
+        else if(taskDateLength == 0){
+            throw new Exception("Please choose a date");
         }
-        else if(intPriority!=0&&!taskName.equals("")&&!taskDate.equals("")&&taskTime.equals("")){
-            result = "Please choose a time";
+        else if(!validPriority ){
+            throw new Exception("Please choose a priority");
         }
         else{
-           result = "Please fill all information";
+            throw new Exception("Please fill all information");
         }
-        return result;
+    }
+
+
+//--------------------------------------------------------------------------------------------------
+// find which data user no input in adding
+    @Override
+    public String getTaskPriorityText (Task task){
+
+        String rawText = task.getPriority().name();
+        String priorityText = rawText.substring(0,1) + rawText.substring(1).toLowerCase();
+        return priorityText;
     }
 
 }

@@ -1,7 +1,9 @@
 package com.groupeleven.studentlife.domainSpecificObjects;
 
 public interface ITaskObject {
-
+    public enum Priority{
+        HIGH, MEDIUM, LOW;
+    }
 
     //Take an object and match with the existing task and return results
     // true if same task; false if don't
@@ -16,10 +18,10 @@ public interface ITaskObject {
     public void setTaskName(String taskName);
 
     //accessor method to get level of priority
-    public int getPriority();
+    public Priority getPriority();
 
     //mutator method to set priority
-    public void setPriority(int priority);
+    public void setPriority(Priority priority);
 
     //accessor method to get Task start time
     public String getStartTime();
