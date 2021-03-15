@@ -167,16 +167,14 @@ public class Toadd extends AppCompatActivity{
                 String taskTime = timer.getText().toString();
                 String fixedTaskTime = timer.getText().toString()+":00";
 
-                int intPriority = ITodolistLogic.toInt(taskPriority);
-                    if (logic.addTask(taskName, intPriority, taskDate+" "+fixedTaskTime)) {
-
-                        finish();
-                        Toast.makeText(Toadd.this,"Task added successfully",Toast.LENGTH_SHORT).show();
-                    }
-                    else {
-                        String whereFault = logic.whichDataNotfill(taskName,taskPriority,taskDate,taskTime);
-                        Toast.makeText(Toadd.this,whereFault,Toast.LENGTH_SHORT).show();
-                    }
+                if (logic.addTask(taskName, taskPriority, taskDate+" "+fixedTaskTime)) {
+                    finish();
+                    Toast.makeText(Toadd.this,"Task added successfully",Toast.LENGTH_SHORT).show();
+                }
+                else {
+                    String whereFault = logic.whichDataNotfill(taskName,taskPriority,taskDate,taskTime);
+                    Toast.makeText(Toadd.this,whereFault,Toast.LENGTH_SHORT).show();
+                }
             }
         });
     }

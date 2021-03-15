@@ -14,9 +14,9 @@
     <string name="task_name">Task name</string>
     <string name="add">Add</string>
     <string-array name="priority">
-        <item>Choose priority</item>item
-        <item>Low</item>item>
-        <item>Medium</item>item>
-        <item>High</item>item>
+        <item>Choose priority</item>
+        <item>Low</item>
+        <item>Medium</item>
+        <item>High</item>
     </string-array>
 </resources>

@@ -169,8 +169,7 @@ public class Toedit extends AppCompatActivity {
                 String taskTime = timer.getText().toString();
                 String fixedTaskTime = timer.getText().toString()+":00";
 
-                int intPriority = ITodolistLogic.toInt(taskPriority);
-                if (logic.editTask(positon,taskName, intPriority, taskDate+" "+fixedTaskTime)) {
+                if (logic.editTask(positon,taskName, taskPriority, taskDate+" "+fixedTaskTime)) {
                     finish();
                     Toast.makeText(Toedit.this,"Task updated successfully",Toast.LENGTH_SHORT).show();
 
