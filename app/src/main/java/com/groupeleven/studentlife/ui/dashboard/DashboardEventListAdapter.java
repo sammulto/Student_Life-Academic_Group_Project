@@ -47,7 +47,7 @@ public class DashboardEventListAdapter extends RecyclerView.Adapter<DashboardEve
         TextView taskStatusView = holder.taskStatusTextView;
         TextView taskEndTimeView = holder.taskEndTimeTextView;
         Task task = taskList[position];
-        int priority = task.getPriority(); // task's status code
+        int priority = task.getPriorityInt(); // task's status code
         String priorityText = " ";
 
         //for date formatting

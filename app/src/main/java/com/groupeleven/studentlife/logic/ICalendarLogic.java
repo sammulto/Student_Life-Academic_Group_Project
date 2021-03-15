@@ -1,8 +1,8 @@
-package com.groupeleven.studentlife.data;
+package com.groupeleven.studentlife.logic;
 
 import com.groupeleven.studentlife.domainSpecificObjects.Task;
 
-public interface InteractiveCalendarInterface {
+public interface ICalendarLogic {
     
     public void viewTask(); //Tap on date to view Task
 

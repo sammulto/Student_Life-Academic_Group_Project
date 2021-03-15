@@ -15,14 +15,14 @@ public class DBUnitTests {
 
     @Test
     public void DBconstructor(){
-        DB db = new DB("ConstructorTest");
+        DB db = new DB("ConstructorTest", "mem");
         assertNotNull("Newly created DB object should not be null", db);
         assertArrayEquals("Newly created DB object should be empty", db.getTasks(), new Task[0]);
     }
 
     @Test
     public void insertBaseCase(){
-        DB db = new DB("InsertTest");
+        DB db = new DB("InsertTest", "mem");
         Task t = new Task("idk");
         assertTrue("Insert should return true", db.insertTask(t));
         Task[] tasks = new Task[1];
