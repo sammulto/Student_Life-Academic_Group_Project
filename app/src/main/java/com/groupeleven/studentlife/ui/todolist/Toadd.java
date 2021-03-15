@@ -171,9 +171,13 @@ public class Toadd extends AppCompatActivity{
                     finish();
                     Toast.makeText(Toadd.this,"Task added successfully",Toast.LENGTH_SHORT).show();
                 }
+
                 else {
-                    String whereFault = logic.whichDataNotfill(taskName,taskPriority,taskDate,taskTime);
-                    Toast.makeText(Toadd.this,whereFault,Toast.LENGTH_SHORT).show();
+                    try {
+                        logic.checkUserInput(taskName, taskPriority, taskDate, taskTime);
+                    }catch (Exception e) {
+                        Toast.makeText(Toadd.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+                    }
                 }
             }
         });

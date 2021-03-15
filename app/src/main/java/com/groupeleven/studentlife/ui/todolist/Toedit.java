@@ -175,8 +175,11 @@ public class Toedit extends AppCompatActivity {
 
                 }
                 else {
-                    String whereFault = logic.whichDataNotfill(taskName,taskPriority,taskDate,taskTime);
-                    Toast.makeText(Toedit.this,whereFault,Toast.LENGTH_SHORT).show();
+                    try {
+                        logic.checkUserInput(taskName, taskPriority, taskDate, taskTime);
+                    }catch (Exception e) {
+                        Toast.makeText(Toedit.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+                    }
                 }
             }
         });
