@@ -115,6 +115,13 @@ public class DB implements IDatabase{
             cmd.setBoolean(9, t.isCompleted());
 
             cmd.executeUpdate();
+
+            cmd = connection.prepareStatement("SELECT tid FROM tasks ORDER BY tid DESC");
+
+            ResultSet resultSet = cmd.executeQuery();
+            if(resultSet.next()) {
+                t.setTid(resultSet.getInt("tid"));
+            }
         }
         catch(SQLException e){
             out = false;

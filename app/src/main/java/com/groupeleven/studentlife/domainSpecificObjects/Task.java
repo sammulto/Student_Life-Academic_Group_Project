@@ -247,4 +247,8 @@ public class Task {
     public void setCompleted(boolean completed) {
         this.completed = completed;
     }
+
+    public void setTid(int tid) {
+        this.tid = tid;
+    }
 }
