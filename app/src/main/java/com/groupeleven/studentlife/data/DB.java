@@ -10,6 +10,8 @@ import java.sql.ResultSet;
 import java.sql.Statement;
 import java.sql.SQLException;
 import java.sql.PreparedStatement;
+
+import com.groupeleven.studentlife.domainSpecificObjects.ITaskObject;
 import com.groupeleven.studentlife.domainSpecificObjects.Task;
 
 public class DB implements IDatabase{
@@ -38,7 +40,7 @@ public class DB implements IDatabase{
         String tasks = "CREATE TABLE IF NOT EXISTS tasks( "+
                             " tid INTEGER IDENTITY PRIMARY KEY,"+
                             " taskName VARCHAR(20) NOT NULL,"+
-                            " priority VARCHAR(1), "+
+                            " priority VARCHAR(6), "+
                             " startTime DATETIME, "+
                             " endTime DATETIME, "+
                             " status TINYINT NOT NULL,"+
@@ -82,7 +84,7 @@ public class DB implements IDatabase{
                             endTime = endTime.substring(0,19);
                         out[i++]= new Task( resultSet.getInt("tid"),
                                             resultSet.getString("taskName"),
-                                            resultSet.getString("priority"),
+                                            ITaskObject.Priority.valueOf(resultSet.getString("priority")),
                                             startTime,
                                             endTime,
                                             resultSet.getInt("status"),
@@ -105,7 +107,7 @@ public class DB implements IDatabase{
             PreparedStatement cmd = connection.prepareStatement("INSERT INTO tasks(taskName, priority, startTime, endTime, status, type, quantity, quantityUnit, completed)"+
                                                                         " values(?, ?, ?, ?, ?, ?, ?, ?, ?)");
             cmd.setString(1, t.getTaskName());
-            cmd.setString(2, t.getPriority());
+            cmd.setString(2, t.getPriority().name());
             cmd.setString(3, t.getStartTime());
             cmd.setString(4, t.getEndTime());
             cmd.setInt(5, t.getStatus());
@@ -134,7 +136,7 @@ public class DB implements IDatabase{
             PreparedStatement cmd = connection.prepareStatement("UPDATE tasks SET taskName=?, priority=?, startTime=?, endTime=?, status=?, type=?"+
                                                                 ", quantity=?, quantityUnit=?, completed=? WHERE tid = ?");
             cmd.setString(1, t.getTaskName());
-            cmd.setString(2, t.getPriority());
+            cmd.setString(2, t.getPriority().name());
             cmd.setString(3, t.getStartTime());
             cmd.setString(4, t.getEndTime());
             cmd.setInt(5, t.getStatus());
