@@ -15,7 +15,7 @@ public class DashboardLogic {
     private IDatabase database;
 
     public DashboardLogic(){
-        this.database = new DB();
+        this.database = new FakeDB();
     }
 
     public Task[] getData(){
