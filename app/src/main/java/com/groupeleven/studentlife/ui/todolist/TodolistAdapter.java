@@ -101,7 +101,7 @@ public class TodolistAdapter extends RecyclerView.Adapter<TodolistAdapter.ViewHo
                 @Override
                 public void onClick(View v) {
                     if(!logic.deleteTask(getAdapterPosition())){
-                        Toast.makeText(itemView.getContext(),"Delete task fail",Toast.LENGTH_SHORT).show();
+                        throw new RuntimeException("Delete task fail");
                     }
                     else{
                         Toast.makeText(itemView.getContext(),"Task deleted task successfully",Toast.LENGTH_SHORT).show();
