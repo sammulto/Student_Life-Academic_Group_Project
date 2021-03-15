@@ -9,7 +9,7 @@ public class TodolistLogic implements ITodolistLogic {
 
     private IDatabase database;
 
-    public TodolistLogic(){this.database = new DB(); }
+    public TodolistLogic(){this.database = new FakeDB(); }
 
 //--------------------------------------------------------------------------------------------------
 // get task list form database
@@ -75,7 +75,6 @@ public class TodolistLogic implements ITodolistLogic {
     @Override
     public boolean deleteTask(int id){
         Task whichTask = database.getTasks()[id];
-
         return database.deleteTask(whichTask);
     }
 
