@@ -82,21 +82,21 @@ public class TodolistLogic implements ITodolistLogic {
 // find which data user no input in adding
 
     @Override
-    public String checkUserInput(String taskName, String taskPriority, String taskDate, String taskTime) throws Exception {
+    public String checkUserInput(int taskNameLength, String taskPriority, int taskDateLength, int taskTimeLength) throws Exception {
 
         Boolean validPriority = !taskPriority.equals("Choose priority");
 
-        if(!validPriority&&!taskName.equals("")&&!taskDate.equals("")&&!taskTime.equals("")){
-            throw new Exception("Please choose a priority");
-        }
-        else if (validPriority&&taskName.equals("")&&!taskDate.equals("")&&!taskTime.equals("")){
+        if (taskNameLength == 0){
             throw new Exception("Please input a task name");
         }
-        else if(validPriority&&!taskName.equals("")&&taskDate.equals("")&&!taskTime.equals("")){
+        else if(taskTimeLength == 0){
+            throw new Exception("Please choose a time");
+        }
+        else if(taskDateLength == 0){
             throw new Exception("Please choose a date");
         }
-        else if(validPriority&&!taskName.equals("")&&!taskDate.equals("")&&taskTime.equals("")){
-            throw new Exception("Please choose a time");
+        else if(!validPriority ){
+            throw new Exception("Please choose a priority");
         }
         else{
             throw new Exception("Please fill all information");

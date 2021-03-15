@@ -166,6 +166,9 @@ public class Toadd extends AppCompatActivity{
                 String taskDate = dater.getText().toString();
                 String taskTime = timer.getText().toString();
                 String fixedTaskTime = timer.getText().toString()+":00";
+                int nameLength = name.length();
+                int dateLength = dater.length();
+                int timeLength = timer.length();
 
                 if (logic.addTask(taskName, taskPriority, taskDate+" "+fixedTaskTime)) {
                     finish();
@@ -174,7 +177,7 @@ public class Toadd extends AppCompatActivity{
 
                 else {
                     try {
-                        logic.checkUserInput(taskName, taskPriority, taskDate, taskTime);
+                        logic.checkUserInput(nameLength, taskPriority, dateLength, timeLength);
                     }catch (Exception e) {
                         Toast.makeText(Toadd.this, e.getMessage(), Toast.LENGTH_SHORT).show();
                     }
