@@ -64,6 +64,12 @@ public class FakeDB implements IDatabase {
     public void clearDatabase(){
         database.clear();
     }
+    
+    // this method is here to make the interface happy
+    // TO-DO
+    public Task [] getTasks( String startTime, String endTime){
+        retur null;
+    }
 
 
 }
