@@ -32,7 +32,7 @@ public class DBUnitTests {
 
     @Test
     public void insertWithDate(){
-        DB db = new DB("insertDateTest)");
+        DB db = new DB("insertDateTest", "mem");
         Task t = new Task("idk");
         t.setStartTime("2021-01-10 12:35:20");
         t.setEndTime("2021-01-10 12:25:20");
@@ -44,7 +44,7 @@ public class DBUnitTests {
 
     @Test
     public void deleteBaseCase(){
-        DB db = new DB("DeleteTest");
+        DB db = new DB("DeleteTest", "mem");
         Task t = new Task("idk");
         db.insertTask(t);
         assertTrue("Delete should return true", db.deleteTask(t));
@@ -54,7 +54,7 @@ public class DBUnitTests {
 
     @Test
     public void updateBaseCase(){
-        DB db = new DB("UpdateTest");
+        DB db = new DB("UpdateTest", "mem");
         Task t = new Task("idk");
         Task[] tasks = new Task[1];
         db.insertTask(t);
