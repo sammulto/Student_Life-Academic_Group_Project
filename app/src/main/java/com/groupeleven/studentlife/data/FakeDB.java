@@ -13,14 +13,17 @@ public class FakeDB implements IDatabase {
 
     static ArrayList<Task> database = new ArrayList<>();
 
-    public FakeDB(){}
+    public FakeDB() {
+    }
 
-    public boolean insertTask(Task t){ return database.add(t); }
+    public boolean insertTask(Task t) {
+        return database.add(t);
+    }
 
     @Override
-    public Task[] getTasks() throws RuntimeException{
+    public Task[] getTasks() throws RuntimeException {
 
-        if(database.size() == 0)
+        if (database.size() == 0)
             throw new RuntimeException("Database is empty");
 
         Task[] list = database.toArray(new Task[database.size()]);
@@ -30,7 +33,7 @@ public class FakeDB implements IDatabase {
     @Override
     public boolean updateTask(Task t, int position) {
         boolean result = false;
-        if(position != -1) {
+        if (position != -1) {
             database.set(position, t);
             result = true;
         }
@@ -43,16 +46,16 @@ public class FakeDB implements IDatabase {
     }
 
     @Override
-    public int getSize(){
+    public int getSize() {
         return database.size();
     }
 
-    private int find(int tid){
+    private int find(int tid) {
         Task t;
         int index = -1;
-        for(int i = 0; i < database.size(); i++){
+        for (int i = 0; i < database.size(); i++) {
             t = database.get(i);
-            if(t.getTid() == tid){
+            if (t.getTid() == tid) {
                 index = i;
                 break;
             }
@@ -61,14 +64,31 @@ public class FakeDB implements IDatabase {
     }
 
     // this method is for testing purpose only
-    public void clearDatabase(){
+    public void clearDatabase() {
         database.clear();
     }
-    
+
     // this method is here to make the interface happy
     // TO-DO
-    public Task [] getTasks( String startTime, String endTime){
-        return null;
+    public Task[] getTasks(String startTime, String endTime) {
+
+        Task[] result = null;
+        int count = 0;
+        ArrayList<Task> temp = new ArrayList<>();
+
+        for (int i = 0; i < database.size(); i++) {
+
+            if (database.get(i).getStartTime().startsWith(startTime)) {
+
+                temp.add(database.get(i));
+            }
+
+        }
+        if (temp.size() > 0) {
+
+            result = temp.toArray(new Task[temp.size()]);
+        }
+        return result;
     }
 
 
