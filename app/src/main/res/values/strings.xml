@@ -15,7 +15,7 @@
     <string name="add">Add</string>
     <string name="link1"><a href="www.khanacademy.org">Khan Academy</a></string>
     <string name="link2"><a href="www.chegg.com">Chegg</a></string>
-    <string name="link3"><a href="www.youtube.com">Youtube</a></string>
+    <string name="link3"><a href="www.docs.google.com">Google Doc</a></string>
 
     <string-array name="priority">
         <item>Choose priority</item>
