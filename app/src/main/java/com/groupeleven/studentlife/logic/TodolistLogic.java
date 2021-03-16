@@ -114,6 +114,4 @@ public class TodolistLogic implements ITodolistLogic {
         return priorityText;
     }
 
-
-
 }
