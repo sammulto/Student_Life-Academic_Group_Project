@@ -59,19 +59,6 @@ public class TodoLogicLayerUnitTests {
     //Task can't be added without the task name
 
 
-    //Task can't be added without the priority
-    //Priority can be set between (1-3)
-    @Test
-    public void addTaskNoPriorityFailed() {
-        FakeDB db = new FakeDB();
-        TodolistLogic noPriority = new TodolistLogic();
-        assertFalse(noPriority.addTask("reading a book", "High", "2020-01-01 12:12:12"));
-        db.clearDatabase();
-
-    }
-    //Task can't be added without the priority
-
-
     //after first task addition database shouldn't be empty, and data can be pulled out to logic layer
     @Test
     public void retrievedDataListIsNotEmpty() {
@@ -154,38 +141,30 @@ public class TodoLogicLayerUnitTests {
     }
     //Task edit should return false with no priority
 
-  //Sending missing field information to UI
-    @Test
-    public void informMissingFields()
-    {
-        FakeDB db = new FakeDB();
+
+  //Input Validation Exceptional tests
+    @Test(expected = Exception.class)
+    public void validateAllEmptyInputTest() throws Exception {
         TodolistLogic missingFields = new TodolistLogic();
-        //assertEquals("Please choose a priority",missingFields.whichDataNotfill("toDO","","2020-01-01", "12:12:12"));
-        //assertEquals("Please fill all information",missingFields.whichDataNotfill("","","", ""));
-        db.clearDatabase();
+        missingFields.checkUserInput(0," ",0, 0);
     }
 
+    @Test(expected = Exception.class)
+    public void validateEmptyNameInputTest() throws Exception {
+        TodolistLogic missingFields = new TodolistLogic();
+        missingFields.checkUserInput(0," ",0, 0);
+    }
 
-//    //taking numerical Priority Level From DB and sending text priority level UI
-//    @Test
-//    public void priorityIntToString(){
-//
-//        FakeDB db = new FakeDB();
-//        TodolistLogic priorityConversion = new TodolistLogic();
-//        assertEquals("High",ITodolistLogic.toPriority(1));
-//
-//        db.clearDatabase();
-//    }
-//
-//    //taking text priority level from UI and sending  numerical Priority Level to DB
-//
-//    @Test
-//    public void priorityStringTInt(){
-//
-//        FakeDB db = new FakeDB();
-//        TodolistLogic priorityConversion = new TodolistLogic();
-//        assertEquals(2, ITodolistLogic.toInt("Medium"));
-//
-//        db.clearDatabase();
-//    }
+    @Test(expected = Exception.class)
+    public void validateEmptyTimeInputTest() throws Exception {
+        TodolistLogic missingFields = new TodolistLogic();
+        missingFields.checkUserInput(0," ",0, 0);
+    }
+
+    @Test(expected = Exception.class)
+    public void validateEmptyDateInputTest() throws Exception {
+        TodolistLogic missingFields = new TodolistLogic();
+        missingFields.checkUserInput(0," ",0, 0);
+    }
+
 }

@@ -138,21 +138,11 @@ public class Toedit extends AppCompatActivity {
                         Toedit.this,new DatePickerDialog.OnDateSetListener(){
                     @Override
                     public void onDateSet(DatePicker view, int year, int month, int day) {
-                        String tempMon=""+month;
-                        String tempDay=""+day;
-                        month = month + 1;
-                        if(day<10){
-                            tempDay = "0"+day;
-                        }
-                        if(month<10){
-                            tempMon = "0"+month;
-                        }
-                        String date = year+"-"+tempMon+"-"+tempDay;
+                        String date = logic.covertDateToString(year, month, day);
                         dater.setText(date);
                     }
                 }, Year,Month,Day
                 );
-                //datePickerDialog.getDatePicker().setMinDate(System.currentTimeMillis() -1000);
                 datePickerDialog.show();
             }
         });
