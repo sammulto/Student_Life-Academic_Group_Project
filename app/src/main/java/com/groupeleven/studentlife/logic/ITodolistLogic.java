@@ -21,6 +21,4 @@ public interface ITodolistLogic {
     public String getTaskPriorityText(Task task);
 
     public String checkUserInput(int taskNameLength, String taskPriority, int taskDateLength, int taskTimeLength) throws Exception;
-
-
 }
