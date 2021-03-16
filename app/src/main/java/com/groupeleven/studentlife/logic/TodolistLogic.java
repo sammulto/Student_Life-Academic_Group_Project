@@ -9,7 +9,7 @@ public class TodolistLogic implements ITodolistLogic {
 
     private IDatabase database;
 
-    public TodolistLogic(){this.database = new FakeDB(); }
+    public TodolistLogic(){this.database = new DB(); }
 
 //--------------------------------------------------------------------------------------------------
 // get task list form database
