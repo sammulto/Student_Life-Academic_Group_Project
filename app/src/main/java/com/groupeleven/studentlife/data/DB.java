@@ -4,6 +4,10 @@
 
 package com.groupeleven.studentlife.data;
 
+import android.app.Activity;
+import android.content.Context;
+
+import java.io.File;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
@@ -12,13 +16,16 @@ import java.sql.SQLException;
 import java.sql.PreparedStatement;
 
 import com.groupeleven.studentlife.domainSpecificObjects.ITaskObject;
+import com.groupeleven.studentlife.domainSpecificObjects.Link;
 import com.groupeleven.studentlife.domainSpecificObjects.Task;
 
 public class DB implements IDatabase {
     private Connection connection;
+    private Activity context;
+    private final String path = "/data/data/com.groupeleven.studentlife/";
 
     public DB() {
-        this("db", "file");
+        this("storage", "file");
     }
 
     public DB(String name) {
@@ -26,9 +33,10 @@ public class DB implements IDatabase {
     }
 
     public DB(String name, String type) {
-        try {
+        try {;
             Class.forName("org.hsqldb.jdbcDriver");
-            connection = DriverManager.getConnection("jdbc:hsqldb:" + type + ":" + name, "SA", "");
+            context = new Activity();
+            connection = DriverManager.getConnection("jdbc:hsqldb:" + type + ":"+path+ name, "SA", "");
         } catch (ClassNotFoundException e) {
             e.printStackTrace(System.out);
         } catch (SQLException e) {
@@ -38,7 +46,7 @@ public class DB implements IDatabase {
         String tasks = "CREATE TABLE IF NOT EXISTS tasks( " +
                 " tid INTEGER IDENTITY PRIMARY KEY," +
                 " taskName VARCHAR(20) NOT NULL," +
-                " priority VARCHAR(6), " +
+                " priority VARCHAR(10), " +
                 " startTime DATETIME, " +
                 " endTime DATETIME, " +
                 " status TINYINT NOT NULL," +
@@ -60,17 +68,23 @@ public class DB implements IDatabase {
 
     }
 
-    public Task[] getTasks() {
+    private Task[] getTasksWhere(String where, String[] args) {
         Task[] out = null;
         int i = 0;
         String startTime, endTime;
         try {
-            PreparedStatement cmd = connection.prepareStatement("SELECT COUNT(*) as count FROM tasks;");
+            PreparedStatement cmd = connection.prepareStatement("SELECT COUNT(*) as count FROM tasks WHERE "+where+";");
+            for(int j = 0; j<args.length; j++) {
+                cmd.setString(j+1, args[j]);
+            }
             ResultSet resultSet = cmd.executeQuery();
             if (resultSet.next()) {
                 out = new Task[resultSet.getInt("count")];
 
-                cmd = connection.prepareStatement("SELECT * FROM tasks ORDER BY tid;");
+                cmd = connection.prepareStatement("SELECT * FROM tasks WHERE "+where+" ORDER BY tid;");
+                for(int j = 0; j<args.length; j++) {
+                    cmd.setString(j+1, args[j]);
+                }
                 resultSet = cmd.executeQuery();
                 while (resultSet.next()) {
                     startTime = resultSet.getString("startTime");
@@ -81,7 +95,7 @@ public class DB implements IDatabase {
                         endTime = endTime.substring(0, 19);
                     out[i++] = new Task(resultSet.getInt("tid"),
                             resultSet.getString("taskName"),
-                            ITaskObject.Priority.valueOf(resultSet.getString("priority")),
+                            resultSet.getString("priority")!= null ? ITaskObject.Priority.valueOf(resultSet.getString("priority")):null,
                             startTime,
                             endTime,
                             resultSet.getInt("status"),
@@ -103,7 +117,7 @@ public class DB implements IDatabase {
             PreparedStatement cmd = connection.prepareStatement("INSERT INTO tasks(taskName, priority, startTime, endTime, status, type, quantity, quantityUnit, completed)" +
                     " values(?, ?, ?, ?, ?, ?, ?, ?, ?)");
             cmd.setString(1, t.getTaskName());
-            cmd.setString(2, t.getPriority().name());
+            cmd.setString(2, t.getPriority()!=null ? t.getPriority().name():null);
             cmd.setString(3, t.getStartTime());
             cmd.setString(4, t.getEndTime());
             cmd.setInt(5, t.getStatus());
@@ -131,7 +145,7 @@ public class DB implements IDatabase {
             PreparedStatement cmd = connection.prepareStatement("UPDATE tasks SET taskName=?, priority=?, startTime=?, endTime=?, status=?, type=?" +
                     ", quantity=?, quantityUnit=?, completed=? WHERE tid = ?");
             cmd.setString(1, t.getTaskName());
-            cmd.setString(2, t.getPriority().name());
+            cmd.setString(2, t.getPriority() != null ? t.getPriority().name():null);
             cmd.setString(3, t.getStartTime());
             cmd.setString(4, t.getEndTime());
             cmd.setInt(5, t.getStatus());
@@ -179,9 +193,49 @@ public class DB implements IDatabase {
     }
 
 
+    public Task[] getTasks(){
+        return getTasksWhere("completed = FALSE", new String[0]);
+    }
+
     public Task[] getTasks(String startTime, String endTime) {
+        String[] args = {startTime, endTime};
 
+        return getTasksWhere("startTime>=(? AS DATETIME) AND startTime<=(? AS DATETIME)", args);
+    }
 
-        return null;
+    public Task[] getTasksCompleted(){
+        return getTasksWhere("completed = TRUE", new String[0]);
+    }
+
+    public Task[] getTask(int tid){
+        return getTasksWhere("tid = "+tid, new String[0]);
+    }
+
+    public Link[] getLinks(){
+        Link[] out = null;
+        int i = 0;
+        String startTime, endTime;
+        try {
+            PreparedStatement cmd = connection.prepareStatement("SELECT COUNT(*) as count FROM links;");
+            ResultSet resultSet = cmd.executeQuery();
+            if (resultSet.next()) {
+                out = new Link[resultSet.getInt("count")];
+
+                cmd = connection.prepareStatement("SELECT * FROM tasks ORDER BY tid;");
+                resultSet = cmd.executeQuery();
+                while (resultSet.next()) {
+                    startTime = resultSet.getString("startTime");
+                    if (startTime != null)
+                        startTime = startTime.substring(0, 19);
+                    endTime = resultSet.getString("endTime");
+                    if (endTime != null)
+                        endTime = endTime.substring(0, 19);
+                    out[i++] = new Link(resultSet.getString("linkName"), resultSet.getString("linkAddress"));
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace(System.out);
+        }
+        return out;
     }
 }
