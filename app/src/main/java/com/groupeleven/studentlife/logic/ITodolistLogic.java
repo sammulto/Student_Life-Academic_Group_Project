@@ -6,7 +6,6 @@ public interface ITodolistLogic {
 
     public Task[] getData() throws RuntimeException;
 
-    public Task[] viewTask (String date) throws RuntimeException;
     //--------------------------------------------------------------------------------------------------
     // add a task
     public boolean addTask(String name, String priorityText, String endTime);

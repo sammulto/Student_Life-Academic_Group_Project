@@ -114,26 +114,6 @@ public class TodolistLogic implements ITodolistLogic {
         return priorityText;
     }
 
-//--------------------------------------------------------------------------------------------------
-//
-
-    public Task[] viewTask(String date) throws RuntimeException{
-
-        String startTime = date + " 00:00:00";
-        String endTime = "11:59:59";
-
-
-
-        Task[] list = null;
-
-        try {
-            list = database.getTasks(startTime,endTime);
-        }catch(Exception exception){
-            list = new Task[0];
-        }
-
-        return list;
-    }
 
 
 }
