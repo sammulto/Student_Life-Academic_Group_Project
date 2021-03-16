@@ -10,7 +10,7 @@ import com.groupeleven.studentlife.data.IDatabase;
 import com.groupeleven.studentlife.domainSpecificObjects.ITaskObject;
 import com.groupeleven.studentlife.domainSpecificObjects.Task;
 
-public class DashboardLogic {
+public class DashboardLogic implements IDashboardLogic {
 
     private IDatabase database;
 

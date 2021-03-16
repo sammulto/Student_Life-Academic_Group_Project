@@ -68,7 +68,7 @@ public class FakeDB implements IDatabase {
     // this method is here to make the interface happy
     // TO-DO
     public Task [] getTasks( String startTime, String endTime){
-        retur null;
+        return null;
     }
 
 

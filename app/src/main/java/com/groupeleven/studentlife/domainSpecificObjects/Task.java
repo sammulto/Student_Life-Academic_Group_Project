@@ -12,23 +12,19 @@ public class Task {
 
     private int tid;
     private String taskName;
-    //private String priority; ////////////////////////////////////////////////////////////////////////////////////
-    private ITaskObject.Priority priority;
+
+    //default to LOW Priority
+    private ITaskObject.Priority priority = ITaskObject.Priority.LOW;
 
     //Must be in the format 'year-month-day hour:minute:second'
     //Note must use the following number of symbols YYYY-MM-DD HH:MI:SS
     private String startTime;
     private String endTime;
-
     private int status;
     private String type;
-
-
     private int quantity;
     private String quantityUnit;
-
     private boolean completed;
-
 
 
     public Task(String taskName){
@@ -42,7 +38,7 @@ public class Task {
         this.taskName = taskName;
     }
 
-    //Should only be used by DB class       ///////////////////////String priority
+    //Should only be used by DB class
     public Task(int tid, String taskName, ITaskObject.Priority priority, String startTime, String endTime, int status, String type, int quantity, String quantityUnit, boolean completed){
         this.tid = tid;
         this.taskName = taskName;
@@ -56,7 +52,7 @@ public class Task {
         this.completed = completed;
     }
 
-    //////////////////////////////String priority
+
     public Task(String taskName, ITaskObject.Priority priority, String startTime, String endTime, int status, String type, int quantity, String quantityUnit, boolean completed){
         this.taskName = taskName;
         this.priority = priority;
@@ -69,7 +65,7 @@ public class Task {
         this.completed = completed;
     }
 
-    //////////////////////////////String priority
+
     public Task(String taskName, ITaskObject.Priority priority, String startTime, String endTime, int status, String type, boolean completed){
         this.taskName = taskName;
         this.priority = priority;
@@ -80,12 +76,12 @@ public class Task {
         this.completed = completed;
     }
 
-    //////////////////////////////String priority
+
     public Task(String taskName, ITaskObject.Priority priority, String startTime, String endTime, int status, String type, int quantity, String quantityUnit){
         this(taskName, priority, startTime, endTime, status, type, quantity, quantityUnit, false);
     }
 
-    //////////////////////////////String priority
+
     public Task(String taskName, ITaskObject.Priority priority, String startTime, String endTime, int status, String type){
         this(taskName, priority, startTime, endTime, status, type, false);
     }
@@ -176,10 +172,10 @@ public class Task {
         this.taskName = taskName;
     }
 
-    //public String getPriority() { return priority; }/////////////////////////////////////////////////////////////////////////////
+
     public ITaskObject.Priority getPriority() { return priority; }
 
-    //public void setPriority(String priority) { this.priority = priority; }/////////////////////////////////////////////////////////////
+
     public void setPriority(ITaskObject.Priority priority) { this.priority = priority; }
 
 //    //For legacy use only
