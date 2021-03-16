@@ -9,6 +9,8 @@ public class TodolistLogic implements ITodolistLogic {
 
     private IDatabase database;
 
+    public TodolistLogic(IDatabase database){ this.database = database; }
+
     public TodolistLogic(){this.database = new DB(); }
 
 //--------------------------------------------------------------------------------------------------

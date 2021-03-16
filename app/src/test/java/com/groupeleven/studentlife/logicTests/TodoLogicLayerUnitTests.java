@@ -18,14 +18,13 @@ public class TodoLogicLayerUnitTests {
 
         FakeDB db = new FakeDB();
         db.clearDatabase();
-        TodolistLogic retrievedDataSafety = new TodolistLogic();
+        TodolistLogic retrievedDataSafety = new TodolistLogic(db);
 
         assertTrue(retrievedDataSafety.addTask("Task1", "High", "2220-05-01 01:02:12"));
         assertTrue(retrievedDataSafety.addTask("Task 2", "Low", "2020-07-01 11:22:12"));
         assertTrue(retrievedDataSafety.addTask("Task-3", "Medium", "2020-11-01 07:20:12"));
         assertTrue(retrievedDataSafety.addTask("Meeting", "High", "2020-03-01 07:10:12"));
         assertTrue(retrievedDataSafety.addTask("project", "Medium", "2020-03-12 04:20:12"));
-
 
         assertEquals(5, retrievedDataSafety.getData().length);
         db.clearDatabase();
@@ -40,7 +39,7 @@ public class TodoLogicLayerUnitTests {
 
         FakeDB db = new FakeDB();
 
-        TodolistLogic addingNewTask = new TodolistLogic();
+        TodolistLogic addingNewTask = new TodolistLogic(db);
         assertTrue(addingNewTask.addTask("Task1", "High", "2020-01-01 12:12:12"));
         db.clearDatabase();
     }
@@ -51,7 +50,7 @@ public class TodoLogicLayerUnitTests {
     public void addTaskNoNameFailed() {
         FakeDB db = new FakeDB();
 
-        TodolistLogic noName = new TodolistLogic();
+        TodolistLogic noName = new TodolistLogic(db);
 
         assertFalse(noName.addTask("", "High", "2020-01-01 12:12:12"));
         db.clearDatabase();
@@ -78,7 +77,7 @@ public class TodoLogicLayerUnitTests {
     @Test
     public void noTaskAdded() {
         FakeDB db = new FakeDB();
-        TodolistLogic listIsNotEmpty = new TodolistLogic();
+        TodolistLogic listIsNotEmpty = new TodolistLogic(db);
 
         assertEquals(0, listIsNotEmpty.getData().length);
         db.clearDatabase();
@@ -91,7 +90,7 @@ public class TodoLogicLayerUnitTests {
     @Test
     public void editTask() {
         FakeDB db = new FakeDB();
-        TodolistLogic noName = new TodolistLogic();
+        TodolistLogic noName = new TodolistLogic(db);
         assertTrue(noName.addTask("it-1", "High", "2020-01-01 12:12:12"));
         assertTrue(noName.editTask(0,"it-1", "Medium", "2020-01-01 10:12:12"));
         db.clearDatabase();
@@ -102,7 +101,7 @@ public class TodoLogicLayerUnitTests {
     @Test
     public void editTaskFailed() {
         FakeDB db = new FakeDB();
-        TodolistLogic noName = new TodolistLogic();
+        TodolistLogic noName = new TodolistLogic(db);
         assertTrue(noName.addTask("it-1", "High", "2020-01-01 12:12:12"));
         assertFalse(noName.editTask(0,"it-1", "Choose priority", "2020-01-01 10:12:12"));
         db.clearDatabase();
@@ -115,7 +114,7 @@ public class TodoLogicLayerUnitTests {
     @Test
     public void deleteTask() {
         FakeDB db = new FakeDB();
-        TodolistLogic deleteTaskSuccess = new TodolistLogic();
+        TodolistLogic deleteTaskSuccess = new TodolistLogic(db);
         assertTrue(deleteTaskSuccess.addTask("it-1", "High", "2020-01-01 12:12:12"));
         assertTrue(deleteTaskSuccess.deleteTask(0));
         db.clearDatabase();
@@ -127,7 +126,7 @@ public class TodoLogicLayerUnitTests {
     @Test
     public void deleteTaskSafety() {
         FakeDB db = new FakeDB();
-        TodolistLogic deleteDataSafety = new TodolistLogic();
+        TodolistLogic deleteDataSafety = new TodolistLogic(db);
         assertTrue(deleteDataSafety.addTask("it-1", "High", "2020-01-01 12:12:12"));
         assertTrue(deleteDataSafety.addTask("Task-3", "Medium", "2020-11-01 07:20:12"));
         assertTrue(deleteDataSafety.addTask("Meeting", "High", "2020-03-01 07:10:12"));

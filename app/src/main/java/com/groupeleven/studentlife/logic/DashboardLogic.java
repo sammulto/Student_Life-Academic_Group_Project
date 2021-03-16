@@ -14,6 +14,10 @@ public class DashboardLogic implements IDashboardLogic {
 
     private IDatabase database;
 
+    public DashboardLogic(IDatabase database){
+        this.database = database;
+    }
+
     public DashboardLogic(){
         this.database = new DB();
     }
