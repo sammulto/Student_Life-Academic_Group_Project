@@ -15,17 +15,22 @@ Not only would it benefit new students, it would also benefit those who are alre
 This application will be considered a success if students can rely on this system to keep their schedule organized. This will be determined by examining the accuracy of the time estimations and the amount of friction this application causes on their current workflow.
 
 
-#  ARCHITECTURE
+#  Architecture
 
 [Application Architecture](Architecture.md)   
+
+
 
 # Iteration 1 Worksheet
 
 [Iteration 1 Worksheet](iteration_1_worksheet.md)
 
+
+
 # Iteration 2 Worksheet
 
 [Iteration 2 Worksheet](iteration_2_worksheet.md)
+
 
 
 # Acknowledgement
