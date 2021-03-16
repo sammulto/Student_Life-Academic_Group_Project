@@ -82,11 +82,14 @@ public class TodolistLogic implements ITodolistLogic {
 // find which data user no input in adding
 
     @Override
-    public String checkUserInput(int taskNameLength, String taskPriority, int taskDateLength, int taskTimeLength) throws Exception {
+    public void checkUserInput(int taskNameLength, String taskPriority, int taskDateLength, int taskTimeLength) throws Exception {
 
         Boolean validPriority = !taskPriority.equals("Choose priority");
 
-        if (taskNameLength == 0){
+        if ( taskNameLength == 0 && taskTimeLength == 0 && taskDateLength == 0 && !validPriority){
+            throw new Exception("Please fill all information");
+        }
+        else if (taskNameLength == 0){
             throw new Exception("Please input a task name");
         }
         else if(taskTimeLength == 0){
@@ -95,11 +98,8 @@ public class TodolistLogic implements ITodolistLogic {
         else if(taskDateLength == 0){
             throw new Exception("Please choose a date");
         }
-        else if(!validPriority ){
+        else {
             throw new Exception("Please choose a priority");
-        }
-        else{
-            throw new Exception("Please fill all information");
         }
     }
 
@@ -112,6 +112,24 @@ public class TodolistLogic implements ITodolistLogic {
         String rawText = task.getPriority().name();
         String priorityText = rawText.substring(0,1) + rawText.substring(1).toLowerCase();
         return priorityText;
+    }
+
+//--------------------------------------------------------------------------------------------------
+// Cover int date to String in the a DB accepted format
+    @Override
+    public String covertDateToString(int year, int month, int day){
+
+        String tempMon=""+month;
+        String tempDay=""+day;
+        month = month + 1;
+        if(day<10){
+            tempDay = "0"+day;
+        }
+        if(month<10){
+            tempMon = "0"+month;
+        }
+        String date = year+"-"+tempMon+"-"+tempDay;
+        return date;
     }
 
 }
