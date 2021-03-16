@@ -8,4 +8,12 @@ public class Link {
         this.linkName = name;
         this.linkAddress = address;
     }
+
+    public void setLinkName(String name){
+        this.linkName = name;
+    }
+
+    public void setLinkAddress(String address){
+        this.linkAddress = address;
+    }
 }
