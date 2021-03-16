@@ -12,4 +12,6 @@ public interface IDatabase {
     public boolean updateTask(Task t,int position);
 
     public boolean deleteTask(Task t);
+
+    public Task [] getTasks( String startTime, String endTime);
 }
