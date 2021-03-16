@@ -9,7 +9,8 @@ import com.groupeleven.studentlife.domainSpecificObjects.Task;
 
 import java.util.ArrayList;
 
-public class FakeDB implements DatabaseInterface{
+public class FakeDB implements IDatabase {
+
     static ArrayList<Task> database = new ArrayList<>();
 
     public FakeDB(){}
@@ -17,17 +18,20 @@ public class FakeDB implements DatabaseInterface{
     public boolean insertTask(Task t){ return database.add(t); }
 
     @Override
-    public Task[] getTasks() {
+    public Task[] getTasks() throws RuntimeException{
+
+        if(database.size() == 0)
+            throw new RuntimeException("Database is empty");
+
         Task[] list = database.toArray(new Task[database.size()]);
         return list;
     }
 
     @Override
-    public boolean updateTask(Task t) {
+    public boolean updateTask(Task t, int position) {
         boolean result = false;
-        int index = find(t.getTid());
-        if(index != -1) {
-            database.set(index, t);
+        if(position != -1) {
+            database.set(position, t);
             result = true;
         }
         return result;
@@ -36,6 +40,11 @@ public class FakeDB implements DatabaseInterface{
     @Override
     public boolean deleteTask(Task t) {
         return database.remove(t);
+    }
+
+    @Override
+    public int getSize(){
+        return database.size();
     }
 
     private int find(int tid){
@@ -49,6 +58,17 @@ public class FakeDB implements DatabaseInterface{
             }
         }
         return index;
+    }
+
+    // this method is for testing purpose only
+    public void clearDatabase(){
+        database.clear();
+    }
+    
+    // this method is here to make the interface happy
+    // TO-DO
+    public Task [] getTasks( String startTime, String endTime){
+        retur null;
     }
 
 

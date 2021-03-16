@@ -3,11 +3,20 @@
     <string name="title_calendar">Calendar</string>
     <string name="title_dashboard">Dashboard</string>
     <string name="title_todolist">To-do List</string>
+    <string name="title_usefullinks">Useful Links</string>
     <string name="noEvent">No Upcoming Event</string>
+    <string name="please_insert_your_first_task">Please insert your first task</string>
+    <string name="todo">TODO</string>
+    <string name="date">Date</string>
+    <string name="priority">Priority</string>
+    <string name="update">Update</string>
+    <string name="time">Time</string>
+    <string name="task_name">Task name</string>
+    <string name="add">Add</string>
     <string-array name="priority">
-        <item>Choose priority</item>item
-        <item>Low</item>item>
-        <item>Medium</item>item>
-        <item>High</item>item>
+        <item>Choose priority</item>
+        <item>Low</item>
+        <item>Medium</item>
+        <item>High</item>
     </string-array>
 </resources>

@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.text.InputType;
@@ -18,8 +19,8 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
-
 import com.groupeleven.studentlife.R;
+import com.groupeleven.studentlife.logic.ITodolistLogic;
 import com.groupeleven.studentlife.logic.TodolistLogic;
 
 import java.util.Calendar;
@@ -35,7 +36,7 @@ public class Toedit extends AppCompatActivity {
     private int Year,Month,Day;
     private int Hour,Minute;
 
-    private TodolistLogic logic = new TodolistLogic();
+    private ITodolistLogic logic = new TodolistLogic();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,9 +59,11 @@ public class Toedit extends AppCompatActivity {
         priority = findViewById((R.id.spinner1));
         name = findViewById(R.id.name);
 
+        Intent in = getIntent();
+        int positon = in.getExtras().getInt("id",-1);
 //--------------------------------------------------------------------------------------------------
 // priority spinner
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
+        ArrayAdapter<String> adapter = new ArrayAdapter< >(this,
                 android.R.layout.simple_list_item_1,getResources().getStringArray(R.array.priority));
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         priority.setAdapter(adapter);
@@ -166,15 +169,20 @@ public class Toedit extends AppCompatActivity {
                 String taskTime = timer.getText().toString();
                 String fixedTaskTime = timer.getText().toString()+":00";
 
-                int intPriority = logic.toInt(taskPriority);
-                if (logic.editTask(taskName, intPriority, taskDate+" "+fixedTaskTime)) {
+                int nameLength = name.length();
+                int dateLength = dater.length();
+                int timeLength = timer.length();
+
+                if (logic.editTask(positon,taskName, taskPriority, taskDate+" "+fixedTaskTime)) {
                     finish();
                     Toast.makeText(Toedit.this,"Task updated successfully",Toast.LENGTH_SHORT).show();
-
                 }
                 else {
-                    String whereFault = logic.whichDataNotfill(taskName,taskPriority,taskDate,taskTime);
-                    Toast.makeText(Toedit.this,whereFault,Toast.LENGTH_SHORT).show();
+                    try {
+                        logic.checkUserInput(nameLength, taskPriority, dateLength, timeLength);
+                    }catch (Exception e) {
+                        Toast.makeText(Toedit.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+                    }
                 }
             }
         });

@@ -15,7 +15,7 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
-        android:text="Please insert your first task"
+        android:text="@string/please_insert_your_first_task"
         android:textAlignment="center"
         android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -37,7 +37,8 @@
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/task_recyclerView"
             android:layout_width="match_parent"
-            android:layout_height="395dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="22"
             android:nestedScrollingEnabled="true"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
 
@@ -46,8 +47,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom|center_horizontal"
-            android:clickable="true"
+            android:layout_weight="1"
 
+            android:clickable="true"
+            android:contentDescription="@string/todo"
             android:src="@android:drawable/ic_input_add" />
 
 

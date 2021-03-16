@@ -12,7 +12,10 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 import androidx.recyclerview.widget.RecyclerView;
 import com.groupeleven.studentlife.R;
+import com.groupeleven.studentlife.domainSpecificObjects.ITaskObject;
 import com.groupeleven.studentlife.domainSpecificObjects.Task;
+import com.groupeleven.studentlife.logic.DashboardLogic;
+
 import org.jetbrains.annotations.NotNull;
 
 import java.text.ParseException;
@@ -22,9 +25,12 @@ import java.util.Locale;
 public class DashboardEventListAdapter extends RecyclerView.Adapter<DashboardEventListAdapter.ViewHolder>{
 
     private Task[] taskList;   // list to hold data from DSO
+    private DashboardLogic logic;
 
     public DashboardEventListAdapter(Task[] taskList){
+
         this.taskList = taskList;
+        this.logic = new DashboardLogic();
     }
 
     @NotNull
@@ -47,8 +53,8 @@ public class DashboardEventListAdapter extends RecyclerView.Adapter<DashboardEve
         TextView taskStatusView = holder.taskStatusTextView;
         TextView taskEndTimeView = holder.taskEndTimeTextView;
         Task task = taskList[position];
-        int priority = task.getPriority(); // task's status code
-        String priorityText = " ";
+        ITaskObject.Priority priority = task.getPriority();
+        String priorityText = logic.getPriorityText(task);
 
         //for date formatting
         SimpleDateFormat orgFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.CANADA);
@@ -57,14 +63,6 @@ public class DashboardEventListAdapter extends RecyclerView.Adapter<DashboardEve
 
         //populate information for the views
         taskNameView.setText(task.getTaskName());
-
-        if(priority == 1){
-            priorityText = "HIGH";
-        }else if (priority == 2){
-            priorityText = "MEDIUM";
-        }else if (priority == 3){
-            priorityText = "LOW";
-        }
         taskStatusView.setText(priorityText);
 
         try {
@@ -73,17 +71,12 @@ public class DashboardEventListAdapter extends RecyclerView.Adapter<DashboardEve
             e.printStackTrace();
         }
 
-        System.out.println(endTime);
         taskEndTimeView.setText(endTime);
     }
 
     @Override
     public int getItemCount() {
         return taskList.length;
-    }
-
-    public void refreshView(){
-        this.notifyDataSetChanged();
     }
 
     // ViewHolder class provides refs to views (rows in RecyclerView)

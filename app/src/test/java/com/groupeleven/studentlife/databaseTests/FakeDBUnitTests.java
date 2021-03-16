@@ -1,12 +1,12 @@
 package com.groupeleven.studentlife.databaseTests;
 
-import com.groupeleven.studentlife.data.DB;
 import com.groupeleven.studentlife.data.FakeDB;
 import com.groupeleven.studentlife.domainSpecificObjects.Task;
 
 import org.junit.Test;
 
 import static org.junit.Assert.assertArrayEquals;
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
@@ -17,11 +17,25 @@ import static org.junit.Assert.assertTrue;
  */
 public class FakeDBUnitTests {
 
+    @Test(expected = RuntimeException.class)
+    public void exceptionTest(){
+        FakeDB db = new FakeDB();
+        //getting data from empty database should raise an exception
+        db.getTasks();
+    }
+
+    @Test
+    public void emptyDatabaseTest(){
+        FakeDB db = new FakeDB();
+        assertEquals("The database should be empty", db.getSize(), 0);
+    }
+
     @Test
     public void DBconstructor(){
         FakeDB db = new FakeDB();
         assertNotNull("Newly created DB object should not be null", db);
-        assertArrayEquals("Newly created DB object should be empty", db.getTasks(), new Task[0]);
+        assertEquals("The database should be empty", db.getSize(), 0);
+        db.clearDatabase();
     }
 
     @Test
@@ -32,6 +46,7 @@ public class FakeDBUnitTests {
         Task[] tasks = new Task[1];
         tasks[0] = t;
         assertArrayEquals("The DB should only contain the task t", db.getTasks(), tasks);
+        db.clearDatabase();
     }
 
     @Test
@@ -44,6 +59,7 @@ public class FakeDBUnitTests {
         Task[] tasks = new Task[1];
         tasks[0] = t;
         assertArrayEquals("The DB should only contain the task t", db.getTasks(), tasks);
+        db.clearDatabase();
     }
 
     @Test
@@ -52,8 +68,8 @@ public class FakeDBUnitTests {
         Task t = new Task("idk");
         db.insertTask(t);
         assertTrue("Delete should return true", db.deleteTask(t));
-        assertArrayEquals("The database should be empty", db.getTasks(), new Task[0]);
-
+        assertEquals("The database should be empty", db.getSize(), 0);
+        db.clearDatabase();
     }
 
     @Test
@@ -64,9 +80,10 @@ public class FakeDBUnitTests {
         db.insertTask(t);
         t.setType("Homework");
         tasks[0] = t;
-        db.updateTask(t);
-        assertTrue("Update should return true", db.updateTask(t));
+        db.updateTask(t,0);
+        assertTrue("Update should return true", db.updateTask(t,0));
         assertArrayEquals("The database should contain the updated task", db.getTasks(), tasks);
+        db.clearDatabase();
     }
 
     @Test
@@ -78,14 +95,9 @@ public class FakeDBUnitTests {
             db.insertTask(taskList[i]);
         }
 
-        Task[] fromDB = db.getTasks();
-
-        for (int i = 0; i<10 ; i++){
-            System.out.println(fromDB[i].getTaskName());
-        }
-
         assertTrue("Database should contain 10 Tasks", db.getTasks().length == 10);
         assertArrayEquals("The database should contain the updated task", db.getTasks(), taskList);
+        db.clearDatabase();
     }
 
 }

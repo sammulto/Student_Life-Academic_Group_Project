@@ -11,12 +11,13 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="84dp"
         android:ems="10"
-        android:hint="Task name"
+        android:hint="@string/task_name"
         android:inputType="textPersonName"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.502"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        android:autofillHints="" />
 
     <EditText
         android:id="@+id/editTextTime"
@@ -24,20 +25,21 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
         android:ems="10"
-        android:focusableInTouchMode="false"
-        android:hint="Time"
+        android:focusable="false"
+        android:hint="@string/time"
         android:inputType="time"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.502"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/name" />
+        app:layout_constraintTop_toBottomOf="@+id/name"
+        android:autofillHints="" />
 
     <Button
         android:id="@+id/button3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="30dp"
-        android:text="Update"
+        android:text="@string/update"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
@@ -47,15 +49,16 @@
         android:id="@+id/editPriority"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:hint="Priority"
+        android:hint="@string/priority"
         android:layout_marginTop="24dp"
         android:ems="10"
-        android:focusableInTouchMode="false"
+        android:focusable="false"
         android:inputType="none"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.502"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editTextDate" />
+        app:layout_constraintTop_toBottomOf="@+id/editTextDate"
+        android:autofillHints="" />
 
     <Spinner
         android:id="@+id/spinner1"
@@ -74,11 +77,12 @@
         android:layout_marginTop="24dp"
         android:clickable="false"
         android:ems="10"
-        android:focusableInTouchMode="false"
-        android:hint="Date"
+        android:focusable="false"
+        android:hint="@string/date"
         android:inputType="date"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.502"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editTextTime" />
+        app:layout_constraintTop_toBottomOf="@+id/editTextTime"
+        android:autofillHints="" />
 </androidx.constraintlayout.widget.ConstraintLayout>
