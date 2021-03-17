@@ -10,7 +10,7 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.groupeleven.studentlife.R;
-import com.groupeleven.studentlife.domainSpecificObjects.Task;
+import com.groupeleven.studentlife.domainSpecificObjects.ITaskObject;
 import com.groupeleven.studentlife.logic.CalendarLogic;
 import com.groupeleven.studentlife.logic.ICalendarLogic;
 import com.prolificinteractive.materialcalendarview.CalendarDay;
@@ -21,7 +21,7 @@ public class CalendarFragment extends Fragment {
 
     private CalendarViewModel calendarViewModel;
     ICalendarLogic calendarLogic = new CalendarLogic();
-    Task[] taskList;
+    ITaskObject[] taskList;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {

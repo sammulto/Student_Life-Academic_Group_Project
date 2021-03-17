@@ -5,13 +5,10 @@
 package com.groupeleven.studentlife.data;
 
 import android.app.Activity;
-import android.content.Context;
 
-import java.io.File;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
-import java.sql.Statement;
 import java.sql.SQLException;
 import java.sql.PreparedStatement;
 
@@ -68,8 +65,8 @@ public class DB implements IDatabase {
 
     }
 
-    private Task[] getTasksWhere(String where, String[] args) {
-        Task[] out = null;
+    private ITaskObject[] getTasksWhere(String where, String[] args) {
+        ITaskObject[] out = null;
         int i = 0;
         String startTime, endTime;
         try {
@@ -79,7 +76,7 @@ public class DB implements IDatabase {
             }
             ResultSet resultSet = cmd.executeQuery();
             if (resultSet.next()) {
-                out = new Task[resultSet.getInt("count")];
+                out = new ITaskObject[resultSet.getInt("count")];
 
                 cmd = connection.prepareStatement("SELECT * FROM tasks WHERE "+where+" ORDER BY tid;");
                 for(int j = 0; j<args.length; j++) {
@@ -111,7 +108,7 @@ public class DB implements IDatabase {
         return out;
     }
 
-    public boolean insertTask(Task t) {
+    public boolean insertTask(ITaskObject t) {
         boolean out = true;
         try {
             PreparedStatement cmd = connection.prepareStatement("INSERT INTO tasks(taskName, priority, startTime, endTime, status, type, quantity, quantityUnit, completed)" +
@@ -135,11 +132,11 @@ public class DB implements IDatabase {
         return out;
     }
 
-    public boolean updateTask(Task t) {
+    public boolean updateTask(ITaskObject t) {
         return updateTask(t, -1);
     }
 
-    public boolean updateTask(Task t, int tid) {
+    public boolean updateTask(ITaskObject t, int tid) {
         boolean out = true;
         try {
             PreparedStatement cmd = connection.prepareStatement("UPDATE tasks SET taskName=?, priority=?, startTime=?, endTime=?, status=?, type=?" +
@@ -164,7 +161,7 @@ public class DB implements IDatabase {
         return out;
     }
 
-    public boolean deleteTask(Task t) {
+    public boolean deleteTask(ITaskObject t) {
         boolean out = true;
         try {
             PreparedStatement cmd = connection.prepareStatement("DELETE FROM tasks WHERE tid = ?");
@@ -193,21 +190,25 @@ public class DB implements IDatabase {
     }
 
 
-    public Task[] getTasks(){
-        return getTasksWhere("completed = FALSE", new String[0]);
+    public ITaskObject[] getTasks(){
+        return getTasksWhere("completed = FALSE OR completed = TRUE", new String[0]);
     }
 
-    public Task[] getTasks(String startTime, String endTime) {
+    public ITaskObject[] getTasks(String startTime, String endTime) {
         String[] args = {startTime, endTime};
 
         return getTasksWhere("startTime>=(? AS DATETIME) AND startTime<=(? AS DATETIME)", args);
     }
 
-    public Task[] getTasksCompleted(){
+    public ITaskObject[] getTasksUncompleted(){
         return getTasksWhere("completed = TRUE", new String[0]);
     }
 
-    public Task[] getTask(int tid){
+    public ITaskObject[] getTasksCompleted(){
+        return getTasksWhere("completed = TRUE", new String[0]);
+    }
+
+    public ITaskObject[] getTask(int tid){
         return getTasksWhere("tid = "+tid, new String[0]);
     }
 

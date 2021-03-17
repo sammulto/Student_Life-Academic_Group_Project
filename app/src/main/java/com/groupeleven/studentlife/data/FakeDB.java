@@ -5,33 +5,34 @@
 package com.groupeleven.studentlife.data;
 
 
+import com.groupeleven.studentlife.domainSpecificObjects.ITaskObject;
 import com.groupeleven.studentlife.domainSpecificObjects.Task;
 
 import java.util.ArrayList;
 
 public class FakeDB implements IDatabase {
 
-    static ArrayList<Task> database = new ArrayList<>();
+    static ArrayList<ITaskObject> database = new ArrayList<>();
 
     public FakeDB() {
     }
 
-    public boolean insertTask(Task t) {
+    public boolean insertTask(ITaskObject t) {
         return database.add(t);
     }
 
     @Override
-    public Task[] getTasks() throws RuntimeException {
+    public ITaskObject[] getTasks() throws RuntimeException {
 
         if (database.size() == 0)
             throw new RuntimeException("Database is empty");
 
-        Task[] list = database.toArray(new Task[database.size()]);
+        ITaskObject[] list = database.toArray(new ITaskObject[database.size()]);
         return list;
     }
 
     @Override
-    public boolean updateTask(Task t, int position) {
+    public boolean updateTask(ITaskObject t, int position) {
         boolean result = false;
         if (position != -1) {
             database.set(position, t);
@@ -41,7 +42,7 @@ public class FakeDB implements IDatabase {
     }
 
     @Override
-    public boolean deleteTask(Task t) {
+    public boolean deleteTask(ITaskObject t) {
         return database.remove(t);
     }
 
@@ -51,7 +52,7 @@ public class FakeDB implements IDatabase {
     }
 
     private int find(int tid) {
-        Task t;
+        ITaskObject t;
         int index = -1;
         for (int i = 0; i < database.size(); i++) {
             t = database.get(i);
@@ -70,11 +71,11 @@ public class FakeDB implements IDatabase {
 
     // this method is here to make the interface happy
     // TO-DO
-    public Task[] getTasks(String startTime, String endTime) {
+    public ITaskObject[] getTasks(String startTime, String endTime) {
 
-        Task[] result = null;
+        ITaskObject[] result = null;
         int count = 0;
-        ArrayList<Task> temp = new ArrayList<>();
+        ArrayList<ITaskObject> temp = new ArrayList<>();
 
         for (int i = 0; i < database.size(); i++) {
 
@@ -86,7 +87,7 @@ public class FakeDB implements IDatabase {
         }
         if (temp.size() > 0) {
 
-            result = temp.toArray(new Task[temp.size()]);
+            result = temp.toArray(new ITaskObject[temp.size()]);
         }
         return result;
     }

@@ -18,7 +18,12 @@ public class TodolistLogic implements ITodolistLogic {
     private boolean startFirst;
 
     public TodolistLogic(){
-        this.database = new FakeDB();
+        this.database = new DB();
+        startFirst = false;
+    }
+
+    public TodolistLogic(IDatabase database){
+        this.database = database;
         startFirst = false;
     }
 
@@ -108,15 +113,15 @@ public class TodolistLogic implements ITodolistLogic {
 // delete a task
     @Override
     public boolean deleteTask(int id){
-        Task whichTask = database.getTasks()[id];
-        return database.deleteTask(whichTask);
+        ITaskObject whichITaskObject = database.getTasks()[id];
+        return database.deleteTask(whichITaskObject);
     }
 
 
 //--------------------------------------------------------------------------------------------------
 // set the task completed or uncompleted
     public boolean setCompleted(int id, boolean status){
-        Task whichTask = database.getTasks()[id];
+        ITaskObject whichTask = database.getTasks()[id];
         whichTask.setCompleted(status);
         return database.updateTask(whichTask,id);
     }
@@ -124,9 +129,9 @@ public class TodolistLogic implements ITodolistLogic {
 //--------------------------------------------------------------------------------------------------
 // get time estimate result
     public int getTimeEstimate(int id){
-        Task whichTask = database.getTasks()[id];
+        ITaskObject whichITaskObject = database.getTasks()[id];
         timeEstimator = new TimeEstimator(4,40);
-        return timeEstimator.getTimeEstimate(whichTask);
+        return timeEstimator.getTimeEstimate(whichITaskObject);
     }
 
 //--------------------------------------------------------------------------------------------------
