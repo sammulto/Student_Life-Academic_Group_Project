@@ -14,7 +14,7 @@
         android:layout_marginTop="46dp"
         android:autofillHints=""
         android:ems="10"
-        android:hint="Name"
+        android:hint="Task name"
         android:inputType="textPersonName"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.502"
