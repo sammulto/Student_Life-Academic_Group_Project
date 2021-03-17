@@ -25,6 +25,7 @@ import com.groupeleven.studentlife.R;
 import com.groupeleven.studentlife.logic.ITodolistLogic;
 import com.groupeleven.studentlife.logic.TodolistLogic;
 
+import java.text.ParseException;
 import java.util.Calendar;
 
 public class Toedit extends AppCompatActivity implements
@@ -170,20 +171,23 @@ public class Toedit extends AppCompatActivity implements
                 String taskEnd = endTime.getText().toString();
                 String type = taskTypeSpinner.getSelectedItem().toString();
                 String workUnit = "";
-                String num = quantity.getText().toString();
+                int num = 0;
                 String fixedStart = taskStart + ":00";
                 String fixedEnd = taskEnd + ":00";
                 int nameLength = name.length();
                 int startLength = taskStart.length();
                 int endLength = taskEnd.length();
-                int workNum = num.length();
+
 
                 if(unitSpinner.getSelectedItem()!=null){
                     workUnit = unitSpinner.getSelectedItem().toString();
                 }
+                if(!quantity.getText().toString().equals("")){
+                    num = Integer.parseInt(quantity.getText().toString());
+                }
 
                 // pass to logic to check is add complete
-                if (logic.editTask(positon,taskName, taskPriority, fixedStart, fixedEnd,type,Integer.parseInt(num),workUnit)) {
+                if (logic.editTask(positon,taskName, taskPriority, fixedStart, fixedEnd,type,num,workUnit)) {
                     finish();
                     Toast toast = Toast.makeText(Toedit.this,"Task added successfully",Toast.LENGTH_SHORT);
                     toast.setGravity(Gravity.CENTER_HORIZONTAL | Gravity.BOTTOM, 0, 400);
@@ -193,7 +197,7 @@ public class Toedit extends AppCompatActivity implements
                 // if not complete show the error
                 else {
                     try {
-                        logic.checkUserInput(nameLength, taskPriority, startLength, endLength, type, workNum, workUnit);
+                        logic.checkUserInput(nameLength, taskPriority, startLength, endLength, type, num, workUnit);
                     }catch (Exception e) {
                         Toast.makeText(Toedit.this, e.getMessage(), Toast.LENGTH_SHORT).show();
                     }
