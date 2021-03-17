@@ -13,14 +13,28 @@
     <string name="time">Time</string>
     <string name="task_name">Task name</string>
     <string name="add">Add</string>
-    <string name="link1"><a href="www.khanacademy.org">Khan Academy</a></string>
-    <string name="link2"><a href="www.chegg.com">Chegg</a></string>
-    <string name="link3"><a href="www.docs.google.com">Google Doc</a></string>
-
     <string-array name="priority">
         <item>Choose priority</item>
         <item>Low</item>
         <item>Medium</item>
         <item>High</item>
+    </string-array>
+    <string-array name="type">
+        <item>Choose task type</item>
+        <item>Reading</item>
+        <item>Homework</item>
+        <item>Lecture</item>
+    </string-array>
+    <string-array name="read">
+        <item>pages</item>
+        <item>words</item>
+    </string-array>
+    <string-array name="homework">
+        <item>days</item>
+        <item>weeks</item>
+    </string-array>
+    <string-array name="lecture">
+        <item>minutes</item>
+        <item>hours</item>
     </string-array>
 </resources>
