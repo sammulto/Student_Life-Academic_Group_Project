@@ -5,14 +5,22 @@ import com.groupeleven.studentlife.data.FakeDB;
 import com.groupeleven.studentlife.data.IDatabase;
 import com.groupeleven.studentlife.domainSpecificObjects.ITaskObject;
 import com.groupeleven.studentlife.domainSpecificObjects.Task;
+
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 public class TodolistLogic implements ITodolistLogic {
 
     private IDatabase database;
     private ITimeEstimator timeEstimator;
+    private boolean startFirst;
 
-    public TodolistLogic(IDatabase database){ this.database = database; }
-
-    public TodolistLogic(){this.database = new DB(); }
+    public TodolistLogic(){
+        this.database = new FakeDB();
+        startFirst = false;
+    }
 
 //--------------------------------------------------------------------------------------------------
 // get task list form database
@@ -81,10 +89,17 @@ public class TodolistLogic implements ITodolistLogic {
         boolean validType = !type.equals("Choose task type");
         boolean notEmptyQ = quantity >0;
         boolean notEmptyUnit = !unit.equals("");
+        //boolean startFirst = false;
 
         boolean result = false;
 
-        if(notEmptyName && validPriority && notEmptyStart && notEmptyEnd && validType && notEmptyQ && notEmptyUnit) {
+        try {
+            startFirst = dateCheck(startTime, endTime);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+        if(notEmptyName && validPriority && notEmptyStart && notEmptyEnd && validType && notEmptyQ && notEmptyUnit && startFirst) {
             result = true;
         }
         return result;
@@ -125,6 +140,7 @@ public class TodolistLogic implements ITodolistLogic {
         boolean validType = !type.equals("Choose task type");
         boolean notEmptyUnit = !workUnit.equals("");
 
+
         // check error one by one text box
         if ( taskNameLength != 0 && endLength != 0 && startLength != 0 && !validPriority && validType && workNum != 0 && notEmptyUnit){
             throw new Exception("Please choose a priority");
@@ -147,6 +163,9 @@ public class TodolistLogic implements ITodolistLogic {
         else if(taskNameLength != 0 && endLength != 0 && startLength != 0 && validPriority && validType && workNum != 0 && !notEmptyUnit){
             throw new Exception("Please choose a unit");
         }
+        else if(taskNameLength != 0 && endLength != 0 && startLength != 0 && validPriority && validType && workNum != 0 && notEmptyUnit && !startFirst){
+            throw new Exception("End time must after start time");
+        }
         else {
             throw new Exception("Please fill all information");
         }
@@ -165,7 +184,7 @@ public class TodolistLogic implements ITodolistLogic {
 
 
 //--------------------------------------------------------------------------------------------------
-// Cover int date to String in the a DB accepted format
+// Covert int date to String in the a DB accepted format
     @Override
     public String covertDateToString(int year, int month, int day){
 
@@ -180,6 +199,23 @@ public class TodolistLogic implements ITodolistLogic {
         }
         String date = year+"-"+tempMon+"-"+tempDay;
         return date;
+    }
+
+//--------------------------------------------------------------------------------------------------
+// Given two date in String
+// Compare them, if the start time is after end end time return false
+    public boolean dateCheck(String start, String end) throws ParseException {
+        boolean result = false;
+        DateFormat format = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+        Date sDate = format.parse(start);
+        Date eDate = format.parse(end);
+        if(sDate.after(eDate)){
+            result = false;
+        }
+        else{
+            result = true;
+        }
+        return result;
     }
 
 }
