@@ -2,6 +2,7 @@ package com.groupeleven.studentlife.logicTests;
 
 import com.groupeleven.studentlife.data.FakeDB;
 import com.groupeleven.studentlife.data.IDatabase;
+import com.groupeleven.studentlife.domainSpecificObjects.ITaskObject;
 import com.groupeleven.studentlife.domainSpecificObjects.Task;
 import com.groupeleven.studentlife.logic.DashboardLogic;
 
@@ -15,7 +16,7 @@ public class DashboardLogicUnitTest {
         //test the get data method while the database is empty
         FakeDB testDB = new FakeDB();
         DashboardLogic logic = new DashboardLogic(testDB);
-        Task[] list = logic.getData();
+        ITaskObject[] list = logic.getData();
         assertEquals("Returned list should be empty", list.length, 0);
     }
 
@@ -27,7 +28,7 @@ public class DashboardLogicUnitTest {
         for(int i = 0; i<10; i++){
             testDB.insertTask(new Task("task"+i));
         }
-        Task[] list = logic.getData();
+        ITaskObject[] list = logic.getData();
         assertEquals("Returned list should be empty", list.length,10);
         testDB.clearDatabase();
     }
