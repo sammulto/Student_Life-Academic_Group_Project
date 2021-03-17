@@ -3,6 +3,8 @@ package com.groupeleven.studentlife.logic;
 import com.groupeleven.studentlife.domainSpecificObjects.ITaskObject;
 import com.groupeleven.studentlife.domainSpecificObjects.Task;
 
+import java.text.ParseException;
+
 public interface ITodolistLogic {
 
     public ITaskObject[] getData() throws RuntimeException;
@@ -45,4 +47,8 @@ public interface ITodolistLogic {
     //--------------------------------------------------------------------------------------------------
     // get the time estimate result of a task
     public int getTimeEstimate(int id);
+
+    //--------------------------------------------------------------------------------------------------
+    // Compare them, if the start time is after end end time return false
+    public boolean dateCheck(String start, String end) throws ParseException;
 }
