@@ -56,7 +56,7 @@ public class TodolistLogic implements ITodolistLogic {
 
             ITaskObject.Priority priority = ITaskObject.Priority.valueOf(priorityText.toUpperCase());
 
-            Task newTask = new Task(name, priority, startTime, endTime, 0, type,quantity,unit);
+            ITaskObject newTask = new Task(name, priority, startTime, endTime, 0, type,quantity,unit);
 
             result = database.insertTask(newTask);
         }
@@ -75,7 +75,7 @@ public class TodolistLogic implements ITodolistLogic {
 
             ITaskObject.Priority priority = ITaskObject.Priority.valueOf(priorityText.toUpperCase());
 
-            Task newTask = new Task(name, priority, startTime, endTime, 0, type,quantity,unit);
+            ITaskObject newTask = new Task(name, priority, startTime, endTime, 0, type,quantity,unit);
 
             result = database.updateTask(newTask,id);
         }
