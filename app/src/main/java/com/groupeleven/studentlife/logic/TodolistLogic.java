@@ -74,10 +74,15 @@ public class TodolistLogic implements ITodolistLogic {
         if(validTaskInput(name, priorityText, startTime, endTime, type, quantity, unit)) {
 
             ITaskObject.Priority priority = ITaskObject.Priority.valueOf(priorityText.toUpperCase());
-
-            ITaskObject newTask = new Task(name, priority, startTime, endTime, 0, type,quantity,unit);
-
-            result = database.updateTask(newTask,id);
+            ITaskObject taskToEdit = this.getData()[id];
+            taskToEdit.setTaskName(name);
+            taskToEdit.setPriority(priority);
+            taskToEdit.setStartTime(startTime);
+            taskToEdit.setEndTime(endTime);
+            taskToEdit.setType(type);
+            taskToEdit.setQuantityUnit(unit);
+            taskToEdit.setQuantity(quantity);
+            result = database.updateTask(taskToEdit,id);
         }
         return result;
     }
