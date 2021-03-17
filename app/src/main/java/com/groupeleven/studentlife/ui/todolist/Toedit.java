@@ -189,7 +189,7 @@ public class Toedit extends AppCompatActivity implements
                 // pass to logic to check is add complete
                 if (logic.editTask(positon,taskName, taskPriority, fixedStart, fixedEnd,type,num,workUnit)) {
                     finish();
-                    Toast toast = Toast.makeText(Toedit.this,"Task added successfully",Toast.LENGTH_SHORT);
+                    Toast toast = Toast.makeText(Toedit.this,"Task edited successfully",Toast.LENGTH_SHORT);
                     toast.setGravity(Gravity.CENTER_HORIZONTAL | Gravity.BOTTOM, 0, 400);
                     toast.show();
                 }
