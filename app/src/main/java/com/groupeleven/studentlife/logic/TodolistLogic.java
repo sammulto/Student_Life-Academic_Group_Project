@@ -10,9 +10,9 @@ public class TodolistLogic implements ITodolistLogic {
     private IDatabase database;
     private ITimeEstimator timeEstimator;
 
-    public TodolistLogic(){
-        this.database = new FakeDB();
-    }
+    public TodolistLogic(IDatabase database){ this.database = database; }
+
+    public TodolistLogic(){this.database = new DB(); }
 
 //--------------------------------------------------------------------------------------------------
 // get task list form database
@@ -181,4 +181,5 @@ public class TodolistLogic implements ITodolistLogic {
         String date = year+"-"+tempMon+"-"+tempDay;
         return date;
     }
+
 }
