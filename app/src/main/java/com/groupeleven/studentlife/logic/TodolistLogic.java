@@ -89,7 +89,6 @@ public class TodolistLogic implements ITodolistLogic {
         boolean validType = !type.equals("Choose task type");
         boolean notEmptyQ = quantity >0;
         boolean notEmptyUnit = !unit.equals("");
-        //boolean startFirst = false;
 
         boolean result = false;
 
