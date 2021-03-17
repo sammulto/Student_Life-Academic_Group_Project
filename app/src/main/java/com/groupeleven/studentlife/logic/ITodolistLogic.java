@@ -1,10 +1,11 @@
 package com.groupeleven.studentlife.logic;
 
+import com.groupeleven.studentlife.domainSpecificObjects.ITaskObject;
 import com.groupeleven.studentlife.domainSpecificObjects.Task;
 
 public interface ITodolistLogic {
 
-    public Task[] getData() throws RuntimeException;
+    public ITaskObject[] getData() throws RuntimeException;
 
     //--------------------------------------------------------------------------------------------------
     // add a task
@@ -23,7 +24,7 @@ public interface ITodolistLogic {
 
     //--------------------------------------------------------------------------------------------------
     // get the priority of a task
-    public String getTaskPriorityText(Task task);
+    public String getTaskPriorityText(ITaskObject task);
 
 
     //--------------------------------------------------------------------------------------------------

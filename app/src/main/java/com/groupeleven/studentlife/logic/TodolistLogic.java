@@ -18,14 +18,14 @@ public class TodolistLogic implements ITodolistLogic {
 // get task list form database
 
     @Override
-    public Task[] getData() throws RuntimeException{
+    public ITaskObject[] getData() throws RuntimeException{
         //fetch data from the database
-        Task[] list = null;
+        ITaskObject[] list = null;
 
         try {
-            list = database.getTasks();
+            list = (ITaskObject[]) database.getTasks();
         }catch(Exception exception){
-            list = new Task[0];
+            list = new ITaskObject[0];
         }
 
         return list;
@@ -156,7 +156,7 @@ public class TodolistLogic implements ITodolistLogic {
 //--------------------------------------------------------------------------------------------------
 // find which data user no input in adding
     @Override
-    public String getTaskPriorityText (Task task){
+    public String getTaskPriorityText (ITaskObject task){
 
         String rawText = task.getPriority().name();
         String priorityText = rawText.substring(0,1) + rawText.substring(1).toLowerCase();
