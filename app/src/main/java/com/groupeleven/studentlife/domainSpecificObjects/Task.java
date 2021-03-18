@@ -8,7 +8,7 @@ package com.groupeleven.studentlife.domainSpecificObjects;
 
 import java.util.Objects;
 
-public class Task {
+public class Task implements ITaskObject {
 
     private int tid;
     private String taskName;

@@ -1,7 +1,7 @@
 package com.groupeleven.studentlife.logic;
 
-import com.groupeleven.studentlife.domainSpecificObjects.Task;
+import com.groupeleven.studentlife.domainSpecificObjects.ITaskObject;
 
 public interface ITimeEstimator {
-    public int getTimeEstimate(Task t);
+    public int getTimeEstimate(ITaskObject t);
 }

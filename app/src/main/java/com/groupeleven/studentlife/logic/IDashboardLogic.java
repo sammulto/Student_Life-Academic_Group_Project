@@ -1,11 +1,11 @@
 package com.groupeleven.studentlife.logic;
 
-import com.groupeleven.studentlife.domainSpecificObjects.Task;
+import com.groupeleven.studentlife.domainSpecificObjects.ITaskObject;
 
 public interface IDashboardLogic {
 
-    public Task[] getData();
+    public ITaskObject[] getData();
 
-    public String getPriorityText (Task task);
+    public String getPriorityText (ITaskObject task);
 
 }

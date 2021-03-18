@@ -1,10 +1,10 @@
 package com.groupeleven.studentlife.logic;
 
-import com.groupeleven.studentlife.domainSpecificObjects.Task;
+import com.groupeleven.studentlife.domainSpecificObjects.ITaskObject;
 
 public interface ICalendarLogic {
 
-    public Task[] viewTask(String date) throws RuntimeException;
+    public ITaskObject[] viewTask(String date) throws RuntimeException;
 
     //Tap on date to view Task
 

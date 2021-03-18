@@ -5,24 +5,40 @@ import com.groupeleven.studentlife.data.FakeDB;
 import com.groupeleven.studentlife.data.IDatabase;
 import com.groupeleven.studentlife.domainSpecificObjects.ITaskObject;
 import com.groupeleven.studentlife.domainSpecificObjects.Task;
+
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 public class TodolistLogic implements ITodolistLogic {
 
     private IDatabase database;
+    private ITimeEstimator timeEstimator;
+    private boolean startFirst;
 
-    public TodolistLogic(){this.database = new DB(); }
+    public TodolistLogic(){
+        this.database = new DB();
+        startFirst = false;
+    }
+
+    public TodolistLogic(IDatabase database){
+        this.database = database;
+        startFirst = false;
+    }
 
 //--------------------------------------------------------------------------------------------------
 // get task list form database
 
     @Override
-    public Task[] getData() throws RuntimeException{
+    public ITaskObject[] getData() throws RuntimeException{
         //fetch data from the database
-        Task[] list = null;
+        ITaskObject[] list = null;
 
         try {
-            list = database.getTasks();
+            list = (ITaskObject[]) database.getTasks();
         }catch(Exception exception){
-            list = new Task[0];
+            list = new ITaskObject[0];
         }
 
         return list;
@@ -31,12 +47,17 @@ public class TodolistLogic implements ITodolistLogic {
 //--------------------------------------------------------------------------------------------------
 // add a task
     @Override
-    public boolean addTask(String name, String priorityText, String endTime){
+    public boolean addTask(String name, String priorityText, String startTime, String endTime, String type, int quantity, String unit){
 
-        Boolean result = false;
-        if(validTaskInput(name, priorityText, endTime)) {
+        boolean result = false;
+
+        // check the input
+        if(validTaskInput(name, priorityText, startTime, endTime, type, quantity, unit)) {
+
             ITaskObject.Priority priority = ITaskObject.Priority.valueOf(priorityText.toUpperCase());
-            Task newTask = new Task(name, priority, "2020-01-01 12:12:12",endTime, 0, "test Type");
+
+            ITaskObject newTask = new Task(name, priority, startTime, endTime, 0, type,quantity,unit);
+
             result = database.insertTask(newTask);
         }
         return result;
@@ -45,13 +66,23 @@ public class TodolistLogic implements ITodolistLogic {
 //--------------------------------------------------------------------------------------------------
 // edit a task
     @Override
-    public boolean editTask(int id, String name, String priorityText, String endTime){
+    public boolean editTask(int id, String name, String priorityText, String startTime, String endTime,String type, int quantity, String unit){
 
         boolean result = false;
-        if(validTaskInput(name, priorityText, endTime)) {
+
+        // check the input
+        if(validTaskInput(name, priorityText, startTime, endTime, type, quantity, unit)) {
+
             ITaskObject.Priority priority = ITaskObject.Priority.valueOf(priorityText.toUpperCase());
-            Task newTask = new Task(name, priority, "2020-01-01 12:12:12",endTime, 0, "test Type");
-            result = database.updateTask(newTask,id);
+            ITaskObject taskToEdit = this.getData()[id];
+            taskToEdit.setTaskName(name);
+            taskToEdit.setPriority(priority);
+            taskToEdit.setStartTime(startTime);
+            taskToEdit.setEndTime(endTime);
+            taskToEdit.setType(type);
+            taskToEdit.setQuantityUnit(unit);
+            taskToEdit.setQuantity(quantity);
+            result = database.updateTask(taskToEdit,id);
         }
         return result;
     }
@@ -59,12 +90,25 @@ public class TodolistLogic implements ITodolistLogic {
 //--------------------------------------------------------------------------------------------------
 // validate the user input
 
-    private boolean validTaskInput(String name, String priorityText, String endTime){
+    private boolean validTaskInput(String name, String priorityText, String startTime, String endTime,String type, int quantity, String unit){
 
         boolean notEmptyName = !name.equals("");
         boolean validPriority = !priorityText.equals("Choose priority");
+        boolean notEmptyStart = !startTime.equals(":00");
+        boolean notEmptyEnd = !endTime.equals(":00");
+        boolean validType = !type.equals("Choose task type");
+        boolean notEmptyQ = quantity >0;
+        boolean notEmptyUnit = !unit.equals("");
+
         boolean result = false;
-        if(notEmptyName&&validPriority) {
+
+        try {
+            startFirst = dateCheck(startTime, endTime);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+        if(notEmptyName && validPriority && notEmptyStart && notEmptyEnd && validType && notEmptyQ && notEmptyUnit && startFirst) {
             result = true;
         }
         return result;
@@ -74,32 +118,65 @@ public class TodolistLogic implements ITodolistLogic {
 // delete a task
     @Override
     public boolean deleteTask(int id){
-        Task whichTask = database.getTasks()[id];
-        return database.deleteTask(whichTask);
+        ITaskObject whichITaskObject = database.getTasks()[id];
+        return database.deleteTask(whichITaskObject);
+    }
+
+
+//--------------------------------------------------------------------------------------------------
+// set the task completed or uncompleted
+    public boolean setCompleted(int id, boolean status){
+        ITaskObject whichTask = database.getTasks()[id];
+        whichTask.setCompleted(status);
+        return database.updateTask(whichTask,id);
+    }
+
+//--------------------------------------------------------------------------------------------------
+// get time estimate result
+    public int getTimeEstimate(int id){
+        ITaskObject whichITaskObject = database.getTasks()[id];
+        timeEstimator = new TimeEstimator(4,40);
+        return timeEstimator.getTimeEstimate(whichITaskObject);
     }
 
 //--------------------------------------------------------------------------------------------------
 // find which data user no input in adding
 
     @Override
-    public void checkUserInput(int taskNameLength, String taskPriority, int taskDateLength, int taskTimeLength) throws Exception {
+    public void checkUserInput(int taskNameLength, String taskPriority, int startLength, int endLength, String type, int workNum, String workUnit) throws Exception {
 
         Boolean validPriority = !taskPriority.equals("Choose priority");
+        boolean validType = !type.equals("Choose task type");
+        boolean notEmptyUnit = !workUnit.equals("");
 
-        if ( taskNameLength == 0 && taskTimeLength == 0 && taskDateLength == 0 && !validPriority){
-            throw new Exception("Please fill all information");
+
+        // check error one by one text box
+        if ( taskNameLength != 0 && endLength != 0 && startLength != 0 && !validPriority && validType && workNum != 0 && notEmptyUnit){
+            throw new Exception("Please choose a priority");
         }
-        else if (taskNameLength == 0){
+        else if (taskNameLength == 0 && endLength != 0 && startLength != 0 && validPriority && validType && workNum != 0 && notEmptyUnit){
             throw new Exception("Please input a task name");
         }
-        else if(taskTimeLength == 0){
-            throw new Exception("Please choose a time");
+        else if(taskNameLength != 0 && endLength != 0 && startLength == 0 && validPriority && validType && workNum != 0 && notEmptyUnit){
+            throw new Exception("Please choose a start time");
         }
-        else if(taskDateLength == 0){
-            throw new Exception("Please choose a date");
+        else if(taskNameLength != 0 && endLength == 0 && startLength != 0 && validPriority && validType && workNum != 0 && notEmptyUnit){
+            throw new Exception("Please choose a end time");
+        }
+        else if(taskNameLength != 0 && endLength != 0 && startLength != 0 && validPriority && !validType && workNum != 0 && notEmptyUnit){
+            throw new Exception("Please choose a task type");
+        }
+        else if(taskNameLength != 0 && endLength != 0 && startLength != 0 && validPriority && validType && workNum == 0 && notEmptyUnit){
+            throw new Exception("Please choose a quantity");
+        }
+        else if(taskNameLength != 0 && endLength != 0 && startLength != 0 && validPriority && validType && workNum != 0 && !notEmptyUnit){
+            throw new Exception("Please choose a unit");
+        }
+        else if(taskNameLength != 0 && endLength != 0 && startLength != 0 && validPriority && validType && workNum != 0 && notEmptyUnit && !startFirst){
+            throw new Exception("End time must after start time");
         }
         else {
-            throw new Exception("Please choose a priority");
+            throw new Exception("Please fill all information");
         }
     }
 
@@ -107,15 +184,16 @@ public class TodolistLogic implements ITodolistLogic {
 //--------------------------------------------------------------------------------------------------
 // find which data user no input in adding
     @Override
-    public String getTaskPriorityText (Task task){
+    public String getTaskPriorityText (ITaskObject task){
 
         String rawText = task.getPriority().name();
         String priorityText = rawText.substring(0,1) + rawText.substring(1).toLowerCase();
         return priorityText;
     }
 
+
 //--------------------------------------------------------------------------------------------------
-// Cover int date to String in the a DB accepted format
+// Covert int date to String in the a DB accepted format
     @Override
     public String covertDateToString(int year, int month, int day){
 
@@ -130,6 +208,23 @@ public class TodolistLogic implements ITodolistLogic {
         }
         String date = year+"-"+tempMon+"-"+tempDay;
         return date;
+    }
+
+//--------------------------------------------------------------------------------------------------
+// Given two date in String
+// Compare them, if the start time is after end end time return false
+    public boolean dateCheck(String start, String end) throws ParseException {
+        boolean result = false;
+        DateFormat format = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+        Date sDate = format.parse(start);
+        Date eDate = format.parse(end);
+        if(sDate.after(eDate)){
+            result = false;
+        }
+        else{
+            result = true;
+        }
+        return result;
     }
 
 }
