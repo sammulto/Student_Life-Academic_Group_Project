@@ -5,6 +5,7 @@
 package com.groupeleven.studentlife.data;
 
 
+import com.groupeleven.studentlife.domainSpecificObjects.ILinkObject;
 import com.groupeleven.studentlife.domainSpecificObjects.ITaskObject;
 import com.groupeleven.studentlife.domainSpecificObjects.Task;
 
@@ -13,9 +14,9 @@ import java.util.ArrayList;
 public class FakeDB implements IDatabase {
 
     static ArrayList<ITaskObject> database = new ArrayList<>();
+    static ArrayList<ILinkObject> databaseLink = new ArrayList<>();
 
-    public FakeDB() {
-    }
+    public FakeDB() { }
 
     public boolean insertTask(ITaskObject t) {
         return database.add(t);
@@ -64,33 +65,80 @@ public class FakeDB implements IDatabase {
         return index;
     }
 
-    // this method is for testing purpose only
-    public void clearDatabase() {
-        database.clear();
-    }
 
     // this method is here to make the interface happy
-    // TO-DO
     public ITaskObject[] getTasks(String startTime, String endTime) {
 
         ITaskObject[] result = null;
-        int count = 0;
         ArrayList<ITaskObject> temp = new ArrayList<>();
 
         for (int i = 0; i < database.size(); i++) {
-
             if (database.get(i).getStartTime().startsWith(startTime)) {
-
                 temp.add(database.get(i));
             }
-
         }
         if (temp.size() > 0) {
-
             result = temp.toArray(new ITaskObject[temp.size()]);
         }
         return result;
     }
 
+    public ITaskObject[] getTasksUncompleted(){
+        ITaskObject[] result = null;
+        ArrayList<ITaskObject> temp = new ArrayList<>();
+        for (int i = 0; i < database.size(); i++) {
+            if (!database.get(i).isCompleted()) {
+                temp.add(database.get(i));
+            }
+        }
+        if (temp.size() > 0) {
+            result = temp.toArray(new ITaskObject[temp.size()]);
+        }
+        return result;
+    }
+
+    public ITaskObject[] getTasksCompleted(){
+        ITaskObject[] result = null;
+        ArrayList<ITaskObject> temp = new ArrayList<>();
+        for (int i = 0; i < database.size(); i++) {
+            if (database.get(i).isCompleted()) {
+                temp.add(database.get(i));
+            }
+        }
+        if (temp.size() > 0) {
+            result = temp.toArray(new ITaskObject[temp.size()]);
+        }
+        return result;
+    }
+
+    public ITaskObject[] getTask(int tid){
+        ITaskObject[] result = null;
+        ArrayList<ITaskObject> temp = new ArrayList<>();
+        for (int i = 0; i < database.size(); i++) {
+            if (database.get(i).getTid() == tid) {
+                temp.add(database.get(i));
+            }
+        }
+        if (temp.size() > 0) {
+            result = temp.toArray(new ITaskObject[temp.size()]);
+        }
+        return result;
+    }
+
+
+    public boolean deleteAllTask() {
+
+        boolean success = false;
+        database.clear();
+
+        if (database.size() == 0)
+            success = true;
+        return success;
+    }
+
+    public ILinkObject[] getLinks(){
+        ILinkObject[] list = databaseLink.toArray(new ILinkObject[databaseLink.size()]);
+        return list;
+    }
 
 }

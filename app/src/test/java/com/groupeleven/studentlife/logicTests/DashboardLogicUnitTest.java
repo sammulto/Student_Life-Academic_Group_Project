@@ -31,7 +31,7 @@ public class DashboardLogicUnitTest {
         }
         ITaskObject[] list = logic.getData();
         assertEquals("Returned list should be empty", list.length,10);
-        testDB.clearDatabase();
+        testDB.deleteAllTask();
     }
 
     @Test

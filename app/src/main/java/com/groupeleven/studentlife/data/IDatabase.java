@@ -1,5 +1,6 @@
 package com.groupeleven.studentlife.data;
 
+import com.groupeleven.studentlife.domainSpecificObjects.ILinkObject;
 import com.groupeleven.studentlife.domainSpecificObjects.ITaskObject;
 
 public interface IDatabase {
@@ -13,5 +14,15 @@ public interface IDatabase {
 
     public boolean deleteTask(ITaskObject t);
 
+    public boolean deleteAllTask();
+
     public ITaskObject[] getTasks(String startTime, String endTime);
+
+    public ITaskObject[] getTasksCompleted();
+
+    public ITaskObject[] getTasksUncompleted();
+
+    public ITaskObject[] getTask(int tid);
+
+    public ILinkObject[] getLinks();
 }
