@@ -22,6 +22,10 @@
     <string name="link6"><a href="http://www.gather.town">Gather</a></string>
     <string name="link7"><a href="http://www.umlearn.ca">Umlearn</a></string>
     <string name="link8"><a href="http://www.wikipedia.org">Wikipedia</a></string>
+    <string name="link9"><a href="http://www.quizlet.com">Quizlet</a></string>
+    <string name="link10"><a href="http://www.ocw.mit.edu/index.html">MIT OpenCourseWare</a></string>
+    <string name="link11"><a href="http://www.desmos.com">Desmos</a></string>
+
 
     <string-array name="priority">
         <item>Choose priority</item>
