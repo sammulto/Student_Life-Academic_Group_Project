@@ -75,16 +75,16 @@ Below is a sketch for the overall architecture:
       |   +----------------------------------+   +--------------------+    |      +---+                     |
       |   |           Calendar UI            |   |    Calendar Logic  |    |      |   |      Task.java      |
       |   |                                  +---+                    +----+      |   +---------------------+
-      +---+      CalenderFragment.java       |   | CalendarLogic.Java |    |      |
-      |   |      CalendarViewModel.java      |   +--------------------+    |      |  ../domainSpecificobjects/
-      |   +----------------------------------+                             |      |   +---------------------+
-      |                                                                    |      |   |        Link         |
-      |    ../ui/calendar/                       ../logic/                 |      +---+                     |
-      |   +----------------------------------+   +---------------------+   |          |      Link.java      |
-      |   |       Useful Links UI            |   | Useful Links Logic  |   |          +---------------------+
-      |   |                                  +---+                     +---+
-      +---+     UsefullinksFragment.java     |   |UsefulLinksLogic.Java|
-          |     UsefullinksViewModel.java    |   +---------------------+
+      +---+      CalenderFragment.java       |   | CalendarLogic.Java |           |
+      |   |      CalendarViewModel.java      |   +--------------------+           |  ../domainSpecificobjects/
+      |   +----------------------------------+                                    |   +---------------------+
+      |                                                                           |   |        Link         |
+      |    ../ui/usefullinks/                                                     +---+
+      |   +----------------------------------+                                        |      Link.java      |
+      |   |       Useful Links UI            |                                        +---------------------+
+      |   |                                  |
+      +---+     UsefullinksFragment.java     |
+          |     UsefullinksViewModel.java    |
           +----------------------------------+
 
 
