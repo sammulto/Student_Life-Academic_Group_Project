@@ -12,7 +12,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.groupeleven.studentlife.R;
 import com.groupeleven.studentlife.domainSpecificObjects.ITaskObject;
-import com.groupeleven.studentlife.domainSpecificObjects.Task;
 import com.groupeleven.studentlife.logic.ITodolistLogic;
 import com.groupeleven.studentlife.logic.TodolistLogic;
 import org.jetbrains.annotations.NotNull;
@@ -51,7 +50,7 @@ public class TodolistAdapter extends RecyclerView.Adapter<TodolistAdapter.ViewHo
 //--------------------------------------------------------------------------------------------------
 // show task detail in check box
         holder.taskBox.setText(output);
-        holder.taskBox.setChecked(task.getStatus() != 0);
+        holder.taskBox.setChecked(task.isCompleted());
 //--------------------------------------------------------------------------------------------------
     }
 
@@ -116,7 +115,7 @@ public class TodolistAdapter extends RecyclerView.Adapter<TodolistAdapter.ViewHo
             edit.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Intent in = new Intent(itemView.getContext(), Toedit.class);
+                    Intent in = new Intent(itemView.getContext(), Toupdate.class);
                     in.putExtra("id",getAdapterPosition());
                     itemView.getContext().startActivity(in);
                     refreshAdapterData();
