@@ -31,7 +31,7 @@ public class CalendarFragment extends Fragment {
 
     private ITodolistLogic logic;
     private RecyclerView taskRecycle;
-    private TodolistAdapter taskAdapter;
+    private CalendarAdapter taskAdapter;
 
     private String selectedDate;
 
@@ -93,9 +93,11 @@ public class CalendarFragment extends Fragment {
         taskList = calendarLogic.viewTask(date);
         taskRecycle = view.findViewById(R.id.task_recyclerView);
 
-        taskAdapter = new TodolistAdapter(taskList);
+        taskAdapter = new CalendarAdapter(taskList,date);
         taskRecycle.setAdapter(taskAdapter);
         taskRecycle.setLayoutManager(new LinearLayoutManager(getContext()));
 
     }
+
+
 }

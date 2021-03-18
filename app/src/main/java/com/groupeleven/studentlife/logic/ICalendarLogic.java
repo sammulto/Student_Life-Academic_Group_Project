@@ -12,7 +12,10 @@ public interface ICalendarLogic {
 
     public boolean deleteTask(int id); //delete a task in the calendar
 
-//    public void insertTask(); //insert a new task in the calendar (?)
+    public String getTaskPriorityText(ITaskObject task);
+
+    public int getTimeEstimate(int id);
+    public boolean setCompleted(int id, boolean status);
 
 
 }
