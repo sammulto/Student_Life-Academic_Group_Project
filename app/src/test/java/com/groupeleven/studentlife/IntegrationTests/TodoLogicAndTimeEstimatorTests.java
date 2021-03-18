@@ -38,7 +38,7 @@ public class TodoLogicAndTimeEstimatorTests {
         logic.addTask("Reading","High","2020-01-01 12:12:12","2220-05-02 01:02:12","Reading",10,"Pages");
         int readingTime = logic.getTimeEstimate(0);
 
-        assertEquals("Retun Est. Time should be 50", 50,readingTime);
+        assertEquals("Retun Est. Time should be 20", 20,readingTime);
     }
 
 

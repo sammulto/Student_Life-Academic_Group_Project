@@ -21,13 +21,13 @@ public class TimeEstimatorUnitTests {
     @Test
     public void readingWords(){
         TimeEstimator te = new TimeEstimator(4, 40);
-        assertEquals("Should take 26 minutes to read 2000 words", 26, te.getTimeEstimate(new Task("Read COMP 3010 What is a DNS Amplification Attack", ITaskObject.Priority.HIGH, null, null, 0, "Reading", 2000, "words")));
+        assertEquals("Should take 13 minutes to read 2000 words", 13, te.getTimeEstimate(new Task("Read COMP 3010 What is a DNS Amplification Attack", ITaskObject.Priority.HIGH, null, null, 0, "Reading", 2000, "words")));
     }
 
     @Test
     public void readingPages(){
         TimeEstimator te = new TimeEstimator(4, 40);
-        assertEquals("Should take 60 minutes to read 12 pages", 60, te.getTimeEstimate(new Task("Read COMP 3430 Multi-level feedback queues", ITaskObject.Priority.HIGH, null, null, 0, "Reading", 12, "pages")));
+        assertEquals("Should take 24 minutes to read 12 pages", 24, te.getTimeEstimate(new Task("Read COMP 3430 Multi-level feedback queues", ITaskObject.Priority.HIGH, null, null, 0, "Reading", 12, "pages")));
     }
 
     @Test
