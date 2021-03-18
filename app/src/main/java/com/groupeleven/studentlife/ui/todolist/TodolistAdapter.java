@@ -73,7 +73,6 @@ public class TodolistAdapter extends RecyclerView.Adapter<TodolistAdapter.ViewHo
         //update the adapter with new data
         public void refreshAdapterData(){
             TodolistAdapter.this.taskList = logic.getData();
-
             TodolistAdapter.this.notifyDataSetChanged();
         }
 
