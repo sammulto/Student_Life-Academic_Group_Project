@@ -33,7 +33,16 @@ Specific line numbers are not given since the change is almost everywhere. Any w
 
 #  Retrospective
 
+We changed by starting our iteration by having interfaces that need to be implemented earlier, and had set up deadlines to start making merge requests after implementing them. This allowed us to work in the same time frame.
 
+links for evidence:
+[link object interface](https://code.cs.umanitoba.ca/3350-winter-2021-a01/your-internet-neighbours-group-11/-/commit/b378ea4130969b66ca840bd0eb0c9b0cd28e1414)    
+[task object interface](https://code.cs.umanitoba.ca/3350-winter-2021-a01/your-internet-neighbours-group-11/-/commit/7f32f80659f1e34a07713d78759990a81c664660)     
+[calendar interfaec object](https://code.cs.umanitoba.ca/3350-winter-2021-a01/your-internet-neighbours-group-11/-/commit/0a4a8df196207161ffe2d45c9686aa38d3b5e3e4)     
+[dashboard logic interface](https://code.cs.umanitoba.ca/3350-winter-2021-a01/your-internet-neighbours-group-11/-/commit/db63b5c7663bd99a8837822012390162cc17d9a6)    
+[time estimator interface](https://code.cs.umanitoba.ca/3350-winter-2021-a01/your-internet-neighbours-group-11/-/commit/0e41f1d1a8e39e3e8938d6fff3cf1b1e128e8018)      
+[to do interface](https://code.cs.umanitoba.ca/3350-winter-2021-a01/your-internet-neighbours-group-11/-/commit/266be02b3fdf1a46a7f121f10d06679aa8e675cd)     
+[useful link](https://code.cs.umanitoba.ca/3350-winter-2021-a01/your-internet-neighbours-group-11/-/commit/b378ea4130969b66ca840bd0eb0c9b0cd28e1414)    
 
 
 # Design Patterns
@@ -50,13 +59,13 @@ We used the singleton design pattern for our database. This means that only one 
 
 # Iteration 1 Feedback fixes
 
-## [Issue #37 - Logic In the UI](https://code.cs.umanitoba.ca/3350-winter-2021-a01/your-internet-neighbours-group-11/-/issues/37)
+### [Issue #37 - Logic In the UI](https://code.cs.umanitoba.ca/3350-winter-2021-a01/your-internet-neighbours-group-11/-/issues/37)
 
-## Issue
+###Issue
 The UI source file (Toedit.java) had a section of code that checks the date and convers the date format. This violates the 3-tier architecture, the UI layer was doing logical tasks.
 
-## The Solution
+### The Solution
 The responsibility of checking and converting date format is transferred to the logic layer (TodolistLogic.java). A new method called `covertDateToString` is created to perform the task. The UI layer calls this method to do the date conversion so the UI layer is not doing the logical tasks anymore.
 
-## Link to the Commits
+### Link to the Commits
 [Solved Issue #37](https://code.cs.umanitoba.ca/3350-winter-2021-a01/your-internet-neighbours-group-11/-/commit/d89fd50c88f54d1410446a951f787a4f34aa76e0)
