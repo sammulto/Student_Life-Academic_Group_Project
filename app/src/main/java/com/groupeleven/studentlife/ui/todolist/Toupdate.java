@@ -25,10 +25,9 @@ import com.groupeleven.studentlife.R;
 import com.groupeleven.studentlife.logic.ITodolistLogic;
 import com.groupeleven.studentlife.logic.TodolistLogic;
 
-import java.text.ParseException;
 import java.util.Calendar;
 
-public class Toedit extends AppCompatActivity implements
+public class Toupdate extends AppCompatActivity implements
         DatePickerDialog.OnDateSetListener,TimePickerDialog.OnTimeSetListener{
 
     private EditText name;
@@ -41,7 +40,7 @@ public class Toedit extends AppCompatActivity implements
     private Spinner priority;
     private Spinner taskTypeSpinner;
     private Spinner unitSpinner;
-    private Button buttonAdd;
+    private Button button;
 
     private ITodolistLogic logic = new TodolistLogic();
 
@@ -60,7 +59,7 @@ public class Toedit extends AppCompatActivity implements
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_toedit);
+        setContentView(R.layout.activity_toupdate);
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
@@ -72,7 +71,7 @@ public class Toedit extends AppCompatActivity implements
         endTime = findViewById(R.id.editEndTime);
         endTime.setInputType(InputType.TYPE_NULL);
 
-        buttonAdd = findViewById(R.id.button3);
+        button = findViewById(R.id.button3);
 
         priorityText = findViewById(R.id.editPriority);
         priority = findViewById((R.id.spinner1));
@@ -84,8 +83,14 @@ public class Toedit extends AppCompatActivity implements
         taskTypeSpinner = findViewById(R.id.taskTypeSpinner);
         unitSpinner = findViewById(R.id.unitSpinner);
 
+//--------------------------------------------------------------------------------------------------
+// handle date passed by adapter
         Intent in = getIntent();
         int positon = in.getExtras().getInt("id",-1);
+
+        if(positon==-1){
+            button.setText("Add");
+        }
 
 //--------------------------------------------------------------------------------------------------
 // priority spinner
@@ -136,7 +141,7 @@ public class Toedit extends AppCompatActivity implements
                 sMonth = calendar.get(Calendar.MONTH);
                 sDay = calendar.get(Calendar.DAY_OF_MONTH);
 
-                DatePickerDialog datePickerDialog = new DatePickerDialog(Toedit.this,Toedit.this,sYear,sMonth,sDay);
+                DatePickerDialog datePickerDialog = new DatePickerDialog(Toupdate.this, Toupdate.this,sYear,sMonth,sDay);
                 datePickerDialog.show();
             }
         });
@@ -154,16 +159,16 @@ public class Toedit extends AppCompatActivity implements
                 eMonth = calendar.get(Calendar.MONTH);
                 eDay = calendar.get(Calendar.DAY_OF_MONTH);
 
-                DatePickerDialog datePickerDialog = new DatePickerDialog(Toedit.this,Toedit.this,eYear,eMonth,eDay);
+                DatePickerDialog datePickerDialog = new DatePickerDialog(Toupdate.this, Toupdate.this,eYear,eMonth,eDay);
                 datePickerDialog.show();
             }
         });
 
 //--------------------------------------------------------------------------------------------------
-// update button
+// add or update button
 // final process in this activity
 
-        buttonAdd.setOnClickListener(new View.OnClickListener(){
+        button.setOnClickListener(new View.OnClickListener(){
             public void onClick(View v){
                 String taskName = name.getText().toString();
                 String taskPriority = priority.getSelectedItem().toString();
@@ -186,10 +191,23 @@ public class Toedit extends AppCompatActivity implements
                     num = Integer.parseInt(quantity.getText().toString());
                 }
 
+                // to see we need add or update a task
+                boolean isComplete = false;
+                String message = "";
+
+                if(positon==-1){
+                    isComplete = logic.addTask(taskName, taskPriority, fixedStart, fixedEnd,type,num,workUnit);
+                    message = "Task added successfully";
+                }
+                else{
+                    isComplete = logic.editTask(positon,taskName, taskPriority, fixedStart, fixedEnd,type,num,workUnit);
+                    message = "Task edited successfully";
+                }
+
                 // pass to logic to check is add complete
-                if (logic.editTask(positon,taskName, taskPriority, fixedStart, fixedEnd,type,num,workUnit)) {
+                if (isComplete) {
                     finish();
-                    Toast toast = Toast.makeText(Toedit.this,"Task edited successfully",Toast.LENGTH_SHORT);
+                    Toast toast = Toast.makeText(Toupdate.this,message,Toast.LENGTH_SHORT);
                     toast.setGravity(Gravity.CENTER_HORIZONTAL | Gravity.BOTTOM, 0, 400);
                     toast.show();
                 }
@@ -199,7 +217,7 @@ public class Toedit extends AppCompatActivity implements
                     try {
                         logic.checkUserInput(nameLength, taskPriority, startLength, endLength, type, num, workUnit);
                     }catch (Exception e) {
-                        Toast.makeText(Toedit.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+                        Toast.makeText(Toupdate.this, e.getMessage(), Toast.LENGTH_SHORT).show();
                     }
                 }
             }
@@ -302,7 +320,7 @@ public class Toedit extends AppCompatActivity implements
             sHour = calendar.get(Calendar.HOUR_OF_DAY);
             sMinute = calendar.get(Calendar.MINUTE);
 
-            TimePickerDialog timePickerDialog = new TimePickerDialog(Toedit.this, Toedit.this, sHour, sMinute, DateFormat.is24HourFormat(this));
+            TimePickerDialog timePickerDialog = new TimePickerDialog(Toupdate.this, Toupdate.this, sHour, sMinute, DateFormat.is24HourFormat(this));
             timePickerDialog.show();
         }
 
@@ -314,7 +332,7 @@ public class Toedit extends AppCompatActivity implements
             eHour = calendar.get(Calendar.HOUR_OF_DAY);
             eMinute = calendar.get(Calendar.MINUTE);
 
-            TimePickerDialog timePickerDialog = new TimePickerDialog(Toedit.this, Toedit.this, eHour, eMinute, DateFormat.is24HourFormat(this));
+            TimePickerDialog timePickerDialog = new TimePickerDialog(Toupdate.this, Toupdate.this, eHour, eMinute, DateFormat.is24HourFormat(this));
             timePickerDialog.show();
         }
     }
@@ -327,16 +345,18 @@ public class Toedit extends AppCompatActivity implements
         if (flag == FLAG_START) {
             sHour = hourOfDay;
             sMinute = minute;
-            calendar.set(0, 0, 0, sHour, sMinute);
-            startTime.setText(logic.covertDateToString(sYear, sMonth, sDay) + " " + DateFormat.format("HH:mm", calendar));
+
+            calendar.set(sYear, sMonth, sDay, sHour, sMinute);
+            startTime.setText(DateFormat.format("yyyy-MM-dd HH:mm", calendar));
         }
 
         // we are in end time picker
         else if (flag == FLAG_END) {
             eHour = hourOfDay;
             eMinute = minute;
-            calendar.set(0, 0, 0, eHour, eMinute);
-            endTime.setText(logic.covertDateToString(eYear, eMonth, eDay) + " " + DateFormat.format("HH:mm", calendar));
+
+            calendar.set(eYear, eMonth, eDay, eHour, eMinute);
+            endTime.setText(DateFormat.format("yyyy-MM-dd HH:mm", calendar));
         }
     }
 
