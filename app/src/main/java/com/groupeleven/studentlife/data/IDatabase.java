@@ -25,4 +25,6 @@ public interface IDatabase {
     public ITaskObject[] getTask(int tid);
 
     public ILinkObject[] getLinks();
+
+    public ITaskObject[] getTasks(String date);
 }

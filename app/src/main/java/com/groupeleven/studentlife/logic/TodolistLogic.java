@@ -18,7 +18,7 @@ public class TodolistLogic implements ITodolistLogic {
     private boolean startFirst;
 
     public TodolistLogic(){
-        this.database = new DB();
+        this.database = DB.getDB();
         startFirst = false;
     }
 

@@ -141,4 +141,8 @@ public class FakeDB implements IDatabase {
         return list;
     }
 
+    public ITaskObject[] getTasks(String date){
+        return getTasks(date+"00:00:00", date+"11:59:00");
+    }
+
 }
