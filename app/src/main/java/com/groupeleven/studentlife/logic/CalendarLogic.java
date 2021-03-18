@@ -5,15 +5,23 @@ import com.groupeleven.studentlife.data.FakeDB;
 import com.groupeleven.studentlife.data.IDatabase;
 import com.groupeleven.studentlife.domainSpecificObjects.ITaskObject;
 import com.groupeleven.studentlife.domainSpecificObjects.Task;
+import com.groupeleven.studentlife.ui.todolist.TodolistAdapter;
+
+import java.sql.Time;
 
 public class CalendarLogic implements ICalendarLogic {
 
     private IDatabase database;
+    private ITimeEstimator timeEstimator;
 
 
-    public CalendarLogic() {
-        database = new DB();
+    public CalendarLogic(){
+        this.database = DB.getDB();
 
+    }
+
+    public CalendarLogic(IDatabase database){
+        this.database = database;
     }
 
     @Override
@@ -57,6 +65,17 @@ public class CalendarLogic implements ICalendarLogic {
 
     }
 
+    public int getTimeEstimate(int id){
+        ITaskObject whichITaskObject = database.getTasks()[id];
+        timeEstimator = new TimeEstimator(4,40);
+        return timeEstimator.getTimeEstimate(whichITaskObject);
+    }
+    public String getTaskPriorityText (ITaskObject task){
+
+        String rawText = task.getPriority().name();
+        String priorityText = rawText.substring(0,1) + rawText.substring(1).toLowerCase();
+        return priorityText;
+    }
     private boolean validTaskInput(String name, String priorityText, String endTime) {
 
         boolean notEmptyName = !name.equals("");
@@ -68,4 +87,9 @@ public class CalendarLogic implements ICalendarLogic {
         return result;
     }
 
+    public boolean setCompleted(int id, boolean status){
+        ITaskObject whichTask = database.getTasks()[id];
+        whichTask.setCompleted(status);
+        return database.updateTask(whichTask,id);
+    }
 }

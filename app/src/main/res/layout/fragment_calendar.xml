@@ -23,7 +23,7 @@
 
     <LinearLayout
         android:id="@+id/Calendar_TaskList"
-        android:layout_width="379dp"
+        android:layout_width="380dp"
         android:layout_height="349dp"
         android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -33,8 +33,7 @@
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/task_recyclerView"
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="22"
+            android:layout_height="353dp"
             android:nestedScrollingEnabled="true"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             app:layout_constraintBottom_toTopOf="@+id/Calendar_TaskList"

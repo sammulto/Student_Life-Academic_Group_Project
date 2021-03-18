@@ -1,5 +1,4 @@
-package com.groupeleven.studentlife.ui.todolist;
-
+package com.groupeleven.studentlife.ui.calendar;
 import android.content.Context;
 import android.content.Intent;
 import android.view.Gravity;
@@ -12,22 +11,28 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.groupeleven.studentlife.R;
 import com.groupeleven.studentlife.domainSpecificObjects.ITaskObject;
+import com.groupeleven.studentlife.logic.CalendarLogic;
+import com.groupeleven.studentlife.logic.ICalendarLogic;
 import com.groupeleven.studentlife.logic.ITodolistLogic;
 import com.groupeleven.studentlife.logic.TodolistLogic;
+import com.groupeleven.studentlife.ui.todolist.Toupdate;
+
 import org.jetbrains.annotations.NotNull;
 
-public class TodolistAdapter extends RecyclerView.Adapter<TodolistAdapter.ViewHolder>{
+public class CalendarAdapter extends RecyclerView.Adapter<com.groupeleven.studentlife.ui.calendar.CalendarAdapter.ViewHolder>{
     private ITaskObject[] taskList;
-    private ITodolistLogic logic;
+    private ICalendarLogic logic;
+    private String date;
 
-    public TodolistAdapter(ITaskObject[] taskList){
+    public CalendarAdapter(ITaskObject[] taskList, String selectedDate){
         this.taskList = taskList;
-        this.logic = new TodolistLogic();
+        this.logic = new CalendarLogic();
+        this.date=selectedDate;
     }
 
     @NotNull
     @Override
-    public TodolistAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public com.groupeleven.studentlife.ui.calendar.CalendarAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
 
         //inflate the layout
         Context context = parent.getContext();
@@ -35,17 +40,17 @@ public class TodolistAdapter extends RecyclerView.Adapter<TodolistAdapter.ViewHo
         View eventView = inflater.inflate(R.layout.task_layout, parent, false);
 
         //create and return View Holder
-        return new ViewHolder(eventView);
+        return new com.groupeleven.studentlife.ui.calendar.CalendarAdapter.ViewHolder(eventView);
     }
 
     @Override
-    public void onBindViewHolder(TodolistAdapter.ViewHolder holder, int position) {
+    public void onBindViewHolder(com.groupeleven.studentlife.ui.calendar.CalendarAdapter.ViewHolder holder, int position) {
         //get data according to position
         ITaskObject task = taskList[position];
         String output = task.getTaskName()+"\n"+"Due: "+
-                        task.getEndTime().substring(0, task.getEndTime().length() - 3)+"\n"+
-                        "Priority: "+logic.getTaskPriorityText(task)+"\n"+
-                        task.getType()+" estimated: \n"+logic.getTimeEstimate(position)+" minutes";
+                task.getEndTime().substring(0, task.getEndTime().length() - 3)+"\n"+
+                "Priority: "+logic.getTaskPriorityText(task)+"\n"+
+                task.getType()+" estimated: \n"+logic.getTimeEstimate(position)+" minutes";
 
 //--------------------------------------------------------------------------------------------------
 // show task detail in check box
@@ -72,9 +77,9 @@ public class TodolistAdapter extends RecyclerView.Adapter<TodolistAdapter.ViewHo
 
         //update the adapter with new data
         public void refreshAdapterData(){
-            TodolistAdapter.this.taskList = logic.getData();
+            com.groupeleven.studentlife.ui.calendar.CalendarAdapter.this.taskList = logic.viewTask(date);
 
-            TodolistAdapter.this.notifyDataSetChanged();
+            com.groupeleven.studentlife.ui.calendar.CalendarAdapter.this.notifyDataSetChanged();
         }
 
         //itemView is the entire row in RecyclerView
@@ -84,7 +89,7 @@ public class TodolistAdapter extends RecyclerView.Adapter<TodolistAdapter.ViewHo
             taskBox = itemView.findViewById(R.id.todoCheckBox);
             edit = itemView.findViewById(R.id.editTask);
             delete = itemView.findViewById(R.id.deleteTask);
-            logic = new TodolistLogic();
+            logic = new CalendarLogic();
 
 //--------------------------------------------------------------------------------------------------
 // "check" button action, check a task and print message
@@ -141,7 +146,7 @@ public class TodolistAdapter extends RecyclerView.Adapter<TodolistAdapter.ViewHo
                         Toast toast = Toast.makeText(itemView.getContext(),"Task deleted task successfully",Toast.LENGTH_SHORT);
                         toast.setGravity(Gravity.CENTER_HORIZONTAL | Gravity.BOTTOM, 0, 400);
                         toast.show();
-                        TodolistAdapter.this.taskList = logic.getData();
+                        com.groupeleven.studentlife.ui.calendar.CalendarAdapter.this.taskList = logic.viewTask(date);
                         refreshAdapterData();
                     }
                 }
