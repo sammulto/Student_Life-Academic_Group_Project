@@ -36,13 +36,13 @@ Specific line numbers are not given since the change is almost everywhere. Any w
 We changed by starting our iteration by having interfaces that need to be implemented earlier, and had set up deadlines to start making merge requests after implementing them. This allowed us to work in the same time frame.
 
 links for evidence:
-https://code.cs.umanitoba.ca/3350-winter-2021-a01/your-internet-neighbours-group-11/-/commit/b378ea4130969b66ca840bd0eb0c9b0cd28e1414 -- link object interface
-https://code.cs.umanitoba.ca/3350-winter-2021-a01/your-internet-neighbours-group-11/-/commit/7f32f80659f1e34a07713d78759990a81c664660 -- task object interface
-https://code.cs.umanitoba.ca/3350-winter-2021-a01/your-internet-neighbours-group-11/-/commit/0a4a8df196207161ffe2d45c9686aa38d3b5e3e4 -- calendar interfaec object
-https://code.cs.umanitoba.ca/3350-winter-2021-a01/your-internet-neighbours-group-11/-/commit/db63b5c7663bd99a8837822012390162cc17d9a6 -- dashboard logic interface
-https://code.cs.umanitoba.ca/3350-winter-2021-a01/your-internet-neighbours-group-11/-/commit/0e41f1d1a8e39e3e8938d6fff3cf1b1e128e8018 -- time estimator interface
-https://code.cs.umanitoba.ca/3350-winter-2021-a01/your-internet-neighbours-group-11/-/commit/266be02b3fdf1a46a7f121f10d06679aa8e675cd -- to do interface
-https://code.cs.umanitoba.ca/3350-winter-2021-a01/your-internet-neighbours-group-11/-/commit/b378ea4130969b66ca840bd0eb0c9b0cd28e1414 -- useful link
+[link object interface](https://code.cs.umanitoba.ca/3350-winter-2021-a01/your-internet-neighbours-group-11/-/commit/b378ea4130969b66ca840bd0eb0c9b0cd28e1414)    
+[task object interface](https://code.cs.umanitoba.ca/3350-winter-2021-a01/your-internet-neighbours-group-11/-/commit/7f32f80659f1e34a07713d78759990a81c664660)     
+[calendar interfaec object](https://code.cs.umanitoba.ca/3350-winter-2021-a01/your-internet-neighbours-group-11/-/commit/0a4a8df196207161ffe2d45c9686aa38d3b5e3e4)     
+[dashboard logic interface](https://code.cs.umanitoba.ca/3350-winter-2021-a01/your-internet-neighbours-group-11/-/commit/db63b5c7663bd99a8837822012390162cc17d9a6)    
+[time estimator interface](https://code.cs.umanitoba.ca/3350-winter-2021-a01/your-internet-neighbours-group-11/-/commit/0e41f1d1a8e39e3e8938d6fff3cf1b1e128e8018)      
+[to do interface](https://code.cs.umanitoba.ca/3350-winter-2021-a01/your-internet-neighbours-group-11/-/commit/266be02b3fdf1a46a7f121f10d06679aa8e675cd)     
+[useful link](https://code.cs.umanitoba.ca/3350-winter-2021-a01/your-internet-neighbours-group-11/-/commit/b378ea4130969b66ca840bd0eb0c9b0cd28e1414)    
 
 
 # Design Patterns
