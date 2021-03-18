@@ -21,12 +21,11 @@
             android:id="@+id/todoCheckBox"
             android:layout_width="200dp"
             android:layout_height="101dp"
+            android:layout_weight="60"
             android:paddingStart="8dp"
             android:paddingEnd="8dp"
-            tool:text="Task"
             android:textSize="15sp"
-            >
-        </CheckBox>
+            tool:text="Task"></CheckBox>
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/editTask"
@@ -45,8 +44,8 @@
             android:layout_marginHorizontal="@dimen/cardview_default_elevation"
             android:layout_marginTop="20dp"
             android:clickable="true"
-            app:srcCompat="@android:drawable/ic_menu_delete"
-            android:contentDescription="@string/todo" />
+            android:contentDescription="@string/todo"
+            app:srcCompat="@android:drawable/ic_menu_delete" />
 
     </LinearLayout>
 
