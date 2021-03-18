@@ -46,6 +46,11 @@ public class UsefullinksFragment extends Fragment {
         link.setMovementMethod(LinkMovementMethod.getInstance());
         link = (TextView) getView().findViewById(R.id.link8);
         link.setMovementMethod(LinkMovementMethod.getInstance());
-
+        link = (TextView) getView().findViewById(R.id.link9);
+        link.setMovementMethod(LinkMovementMethod.getInstance());
+        link = (TextView) getView().findViewById(R.id.link10);
+        link.setMovementMethod(LinkMovementMethod.getInstance());
+        link = (TextView) getView().findViewById(R.id.link11);
+        link.setMovementMethod(LinkMovementMethod.getInstance());
     }
 }
