@@ -12,6 +12,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.PreparedStatement;
 
+import com.groupeleven.studentlife.domainSpecificObjects.ILinkObject;
 import com.groupeleven.studentlife.domainSpecificObjects.ITaskObject;
 import com.groupeleven.studentlife.domainSpecificObjects.Link;
 import com.groupeleven.studentlife.domainSpecificObjects.Task;
@@ -176,12 +177,26 @@ public class DB implements IDatabase {
         return out;
     }
 
+    public boolean deleteAllTask() {
+        boolean out = true;
+        try {
+            PreparedStatement cmd = connection.prepareStatement("DELETE FROM tasks");
+            cmd.executeUpdate();
+        } catch (SQLException e) {
+            out = false;
+            e.printStackTrace(System.out);
+        }
+
+        return out;
+    }
+
     public int getSize() {
         int out = -1;
         try {
-            PreparedStatement cmd = connection.prepareStatement("SELECT count(*) FROM tasks;");
+            PreparedStatement cmd = connection.prepareStatement("SELECT count(*) AS total FROM tasks;");
             ResultSet resultSet = cmd.executeQuery();
-            out = resultSet.getInt(0);
+            while(resultSet.next())
+                out = resultSet.getInt("total");
         } catch (SQLException e) {
             e.printStackTrace(System.out);
         }
@@ -212,8 +227,8 @@ public class DB implements IDatabase {
         return getTasksWhere("tid = "+tid, new String[0]);
     }
 
-    public Link[] getLinks(){
-        Link[] out = null;
+    public ILinkObject[] getLinks(){
+        ILinkObject[] out = null;
         int i = 0;
         String startTime, endTime;
         try {
@@ -239,4 +254,5 @@ public class DB implements IDatabase {
         }
         return out;
     }
+
 }
