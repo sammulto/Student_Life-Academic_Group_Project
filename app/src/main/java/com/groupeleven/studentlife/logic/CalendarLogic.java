@@ -1,5 +1,6 @@
 package com.groupeleven.studentlife.logic;
 
+import com.groupeleven.studentlife.data.DB;
 import com.groupeleven.studentlife.data.FakeDB;
 import com.groupeleven.studentlife.data.IDatabase;
 import com.groupeleven.studentlife.domainSpecificObjects.ITaskObject;
@@ -11,19 +12,16 @@ public class CalendarLogic implements ICalendarLogic {
 
 
     public CalendarLogic() {
-        database = new FakeDB();
+        database = new DB();
 
     }
 
     @Override
     public ITaskObject[] viewTask(String date) throws RuntimeException {
         ITaskObject[] taskList = null;
-        String startTime = date + " 00:00:00";
-        String endTime = "11:59:59";
 
-        //  todolistLogic=new ITodolistLogic();
         try {
-            taskList = database.getTasks(startTime, endTime);
+            taskList = database.getTasks(date);
         } catch (Exception e) {
             taskList = new ITaskObject[0];
 

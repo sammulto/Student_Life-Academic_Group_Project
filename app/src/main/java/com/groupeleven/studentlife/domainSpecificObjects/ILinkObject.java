@@ -6,4 +6,8 @@ public interface ILinkObject {
 
     public void setLinkAddress(String address);
 
+    public String getLinkName();
+
+    public String getLinkAddress();
+
 }

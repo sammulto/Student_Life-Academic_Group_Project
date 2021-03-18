@@ -17,7 +17,7 @@ public class DashboardLogic implements IDashboardLogic {
     }
 
     public DashboardLogic(){
-        this.database = new DB();
+        this.database = DB.getDB();
     }
 
     public ITaskObject[] getData(){

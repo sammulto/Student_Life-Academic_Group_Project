@@ -2,9 +2,10 @@ package com.groupeleven.studentlife.logic;
 
 import com.groupeleven.studentlife.domainSpecificObjects.ITaskObject;
 
-public class TimeEstimator implements ITimeEstimator{
-    private final int TIME_PER_PAGE = 5;
-    private final int WORDS_PER_MINUTE = 75;
+
+public class TimeEstimator implements ITimeEstimator {
+    private final int TIME_PER_PAGE = 2;
+    private final int WORDS_PER_MINUTE = 150;
     private final int LECTURES_PER_WEEK = 150;
     private int numCourses;
     private int minutesPerWeek;

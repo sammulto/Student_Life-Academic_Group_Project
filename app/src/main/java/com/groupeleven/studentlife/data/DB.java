@@ -19,22 +19,30 @@ import com.groupeleven.studentlife.domainSpecificObjects.Task;
 
 public class DB implements IDatabase {
     private Connection connection;
-    private Activity context;
     private final String path = "/data/data/com.groupeleven.studentlife/";
+    private static DB db;
+
+    public static DB getDB(){
+        if(db == null){
+            db = new DB();
+        }
+        return db;
+    }
 
     public DB() {
         this("storage", "file");
     }
 
-    public DB(String name) {
-        this(name, "mem");
-    }
 
     public DB(String name, String type) {
         try {;
             Class.forName("org.hsqldb.jdbcDriver");
-            context = new Activity();
-            connection = DriverManager.getConnection("jdbc:hsqldb:" + type + ":"+path+ name, "SA", "");
+            if(type.equals("file")) {
+                connection = DriverManager.getConnection("jdbc:hsqldb:" + type + ":" + path + name, "SA", "");
+            }
+            else if(type.equals("mem")){
+                connection = DriverManager.getConnection("jdbc:hsqldb:" + type + ":" + name, "SA", "");
+            }
         } catch (ClassNotFoundException e) {
             e.printStackTrace(System.out);
         } catch (SQLException e) {
@@ -60,6 +68,11 @@ public class DB implements IDatabase {
         try {
             connection.createStatement().executeUpdate(tasks);
             connection.createStatement().executeUpdate(links);
+            connection.createStatement().executeUpdate("DELETE FROM links;");
+            connection.createStatement().executeUpdate("INSERT INTO links VALUES('quizlet.com', 'Quizlet')");
+            connection.createStatement().executeUpdate("INSERT INTO links VALUES('www.khanacademy.org/', 'Khan Academy')");
+            connection.createStatement().executeUpdate("INSERT INTO links VALUES('ocw.mit.edu/index.htm', 'MIT Open Courseware')");
+            connection.createStatement().executeUpdate("INSERT INTO links VALUES('www.desmos.com/', 'Desmos')");
         } catch (SQLException e) {
             e.printStackTrace(System.out);
         }
@@ -230,22 +243,16 @@ public class DB implements IDatabase {
     public ILinkObject[] getLinks(){
         ILinkObject[] out = null;
         int i = 0;
-        String startTime, endTime;
+
         try {
             PreparedStatement cmd = connection.prepareStatement("SELECT COUNT(*) as count FROM links;");
             ResultSet resultSet = cmd.executeQuery();
             if (resultSet.next()) {
                 out = new Link[resultSet.getInt("count")];
 
-                cmd = connection.prepareStatement("SELECT * FROM tasks ORDER BY tid;");
+                cmd = connection.prepareStatement("SELECT * FROM links ORDER BY linkName;");
                 resultSet = cmd.executeQuery();
                 while (resultSet.next()) {
-                    startTime = resultSet.getString("startTime");
-                    if (startTime != null)
-                        startTime = startTime.substring(0, 19);
-                    endTime = resultSet.getString("endTime");
-                    if (endTime != null)
-                        endTime = endTime.substring(0, 19);
                     out[i++] = new Link(resultSet.getString("linkName"), resultSet.getString("linkAddress"));
                 }
             }
@@ -253,6 +260,12 @@ public class DB implements IDatabase {
             e.printStackTrace(System.out);
         }
         return out;
+    }
+
+    public ITaskObject[] getTasks(String day) {
+        String[] args = {day};
+
+        return getTasksWhere("CAST(endTime AS DATE)=?", args);
     }
 
 }

@@ -38,6 +38,13 @@ Specific line numbers are not given since the change is almost everywhere. Any w
 
 # Design Patterns
 
+We used the singleton design pattern for our database. This means that only one connection to the database can be active at a time which will help solve concurrency issues if they occur in the future. 
+
+[Link to design pattern](https://refactoring.guru/design-patterns/singleton)
+
+[Link to design pattern in our code](https://code.cs.umanitoba.ca/3350-winter-2021-a01/your-internet-neighbours-group-11/-/blob/master/app/src/main/java/com/groupeleven/studentlife/data/DB.java#L25)
+
+
 
 
 

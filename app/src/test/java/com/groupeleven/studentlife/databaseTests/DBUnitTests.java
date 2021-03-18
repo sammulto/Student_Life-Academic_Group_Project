@@ -3,6 +3,7 @@ package com.groupeleven.studentlife.databaseTests;
 import org.junit.Test;
 
 import com.groupeleven.studentlife.domainSpecificObjects.ITaskObject;
+import com.groupeleven.studentlife.domainSpecificObjects.Link;
 import com.groupeleven.studentlife.domainSpecificObjects.Task;
 import com.groupeleven.studentlife.data.DB;
 import com.groupeleven.studentlife.logic.TodolistLogic;
@@ -83,4 +84,88 @@ public class DBUnitTests {
         assertEquals("The return task should have a task name :new name", newTaskName, "new name");
     }
 
+    @Test
+    public void getTasksDate(){
+        DB db = new DB("getTasksDateTest", "mem");
+        ITaskObject[] tasks = new Task[1];
+        ITaskObject t = new Task(0, "test");
+        t.setEndTime("2021-03-18 11:11:11");
+        db.insertTask(t);
+        tasks[0] = t;
+        t = new Task("test2");
+        t.setEndTime("2021-03-19 20:20:20");
+        db.insertTask(t);
+        assertEquals("Should only return tasks with endTime on 2021-3-18", db.getTasks("2021-03-18"), tasks);
+    }
+
+    @Test
+    public void heavyDutyInsert() {
+        DB db = new DB("heavyDutyInsertTest", "mem");
+        ITaskObject[] tasks = new Task[1];
+        ITaskObject[] temp;
+        ITaskObject t;
+        double chance;
+        for (int i = 0; i < 1000; i++) {
+            t = new Task(i, "Test" + i);
+            if (Math.random() > 0.5) {
+                chance = Math.random();
+                if (chance < 0.33) {
+                    t.setPriority(ITaskObject.Priority.HIGH);
+                } else if (chance < 0.66) {
+                    t.setPriority(ITaskObject.Priority.MEDIUM);
+                } else {
+                    t.setPriority(ITaskObject.Priority.LOW);
+                }
+            }
+            if (Math.random() > 0.5) {
+                chance = Math.random();
+                if (chance < 0.33) {
+                    t.setType("Homework");
+                } else if (chance < 0.66) {
+                    t.setType("Lecture");
+                } else {
+                    t.setType("Reading");
+                }
+            }
+            db.insertTask(t);
+            tasks[i] = t;
+            assertEquals("Arrays should be equals", db.getTasks(), tasks);
+            temp = new Task[tasks.length + 1];
+            for (int j = 0; j < tasks.length; j++) {
+                temp[j] = tasks[j];
+            }
+            tasks = temp;
+        }
+    }
+
+    @Test
+    public void testCount(){
+        DB db = new DB("testCount", "mem");
+        ITaskObject t;
+        for (int i = 0; i < 1000; i++) {
+            t = new Task(i, "Test" + i);
+            db.insertTask(t);
+            assertEquals("Sizes should be equals", db.getSize(), i+1);
+        }
+    }
+
+    @Test
+    public void getDBTest(){
+        DB db1 = DB.getDB();
+        DB db2 = DB.getDB();
+
+        assertEquals("Two singleton instances of the DB object should be equal", db1, db2);
+    }
+
+    @Test
+    public void getLinks(){
+        DB db = new DB("testGetLinks", "mem");
+        Link l1 = new Link("Desmos", "www.desmos.com/"),
+             l2 = new Link("Khan Academy", "www.khanacademy.org/"),
+             l3 = new Link("MIT Open Courseware", "ocw.mit.edu/index.htm"),
+             l4 = new Link("Quizlet", "quizlet.com");
+        Link[] links = {l1, l2, l3, l4};
+
+        assertEquals("The links array should be equal to those in the database", db.getLinks(), links);
+    }
 }
