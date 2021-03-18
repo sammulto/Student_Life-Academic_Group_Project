@@ -1,12 +1,9 @@
 package com.groupeleven.studentlife.logic;
 
-import com.groupeleven.studentlife.data.DB;
 import com.groupeleven.studentlife.data.FakeDB;
 import com.groupeleven.studentlife.data.IDatabase;
 import com.groupeleven.studentlife.domainSpecificObjects.ITaskObject;
 import com.groupeleven.studentlife.domainSpecificObjects.Task;
-
-import java.util.Calendar;
 
 public class CalendarLogic implements ICalendarLogic {
 
@@ -19,8 +16,8 @@ public class CalendarLogic implements ICalendarLogic {
     }
 
     @Override
-    public Task[] viewTask(String date) throws RuntimeException {
-        Task[] taskList = null;
+    public ITaskObject[] viewTask(String date) throws RuntimeException {
+        ITaskObject[] taskList = null;
         String startTime = date + " 00:00:00";
         String endTime = "11:59:59";
 
@@ -28,7 +25,7 @@ public class CalendarLogic implements ICalendarLogic {
         try {
             taskList = database.getTasks(startTime, endTime);
         } catch (Exception e) {
-            taskList = new Task[0];
+            taskList = new ITaskObject[0];
 
         }
 
@@ -53,9 +50,9 @@ public class CalendarLogic implements ICalendarLogic {
     @Override
     public boolean deleteTask(int id) {
         boolean result = false;
-        Task whichTask = database.getTasks()[id];
+        ITaskObject whichITaskObject = database.getTasks()[id];
 
-        result = database.deleteTask(whichTask);
+        result = database.deleteTask(whichITaskObject);
 
 
         return result;

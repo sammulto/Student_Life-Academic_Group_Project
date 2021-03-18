@@ -1,6 +1,6 @@
 package com.groupeleven.studentlife.domainSpecificObjects;
 
-public class Link {
+public class Link implements ILinkObject{
     private String linkName;
     private String linkAddress;
 

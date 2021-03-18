@@ -13,12 +13,12 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.groupeleven.studentlife.R;
-import com.groupeleven.studentlife.domainSpecificObjects.Task;
+import com.groupeleven.studentlife.domainSpecificObjects.ITaskObject;
 import com.groupeleven.studentlife.logic.DashboardLogic;
 
 public class DashboardFragment extends Fragment {
 
-    private Task[] listData; //events to show in the Dashboard
+    private ITaskObject[] listData; //events to show in the Dashboard
     private DashboardLogic logicUnit;
     private DashboardEventListAdapter adapter;
     private RecyclerView recyclerView;
