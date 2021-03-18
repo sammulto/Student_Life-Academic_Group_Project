@@ -62,5 +62,9 @@ public interface ITaskObject {
     //mutator method to change task Quantity Unit
     public void setQuantityUnit(String quantityUnit);
 
+    public boolean isCompleted();
+
+    public void setCompleted(boolean completed);
+
 }
 

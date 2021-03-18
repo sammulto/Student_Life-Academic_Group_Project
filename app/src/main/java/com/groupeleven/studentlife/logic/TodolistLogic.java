@@ -18,7 +18,12 @@ public class TodolistLogic implements ITodolistLogic {
     private boolean startFirst;
 
     public TodolistLogic(){
-        this.database = new FakeDB();
+        this.database = new DB();
+        startFirst = false;
+    }
+
+    public TodolistLogic(IDatabase database){
+        this.database = database;
         startFirst = false;
     }
 
@@ -26,14 +31,14 @@ public class TodolistLogic implements ITodolistLogic {
 // get task list form database
 
     @Override
-    public Task[] getData() throws RuntimeException{
+    public ITaskObject[] getData() throws RuntimeException{
         //fetch data from the database
-        Task[] list = null;
+        ITaskObject[] list = null;
 
         try {
-            list = database.getTasks();
+            list = (ITaskObject[]) database.getTasks();
         }catch(Exception exception){
-            list = new Task[0];
+            list = new ITaskObject[0];
         }
 
         return list;
@@ -51,7 +56,7 @@ public class TodolistLogic implements ITodolistLogic {
 
             ITaskObject.Priority priority = ITaskObject.Priority.valueOf(priorityText.toUpperCase());
 
-            Task newTask = new Task(name, priority, startTime, endTime, 0, type,quantity,unit);
+            ITaskObject newTask = new Task(name, priority, startTime, endTime, 0, type,quantity,unit);
 
             result = database.insertTask(newTask);
         }
@@ -69,10 +74,15 @@ public class TodolistLogic implements ITodolistLogic {
         if(validTaskInput(name, priorityText, startTime, endTime, type, quantity, unit)) {
 
             ITaskObject.Priority priority = ITaskObject.Priority.valueOf(priorityText.toUpperCase());
-
-            Task newTask = new Task(name, priority, startTime, endTime, 0, type,quantity,unit);
-
-            result = database.updateTask(newTask,id);
+            ITaskObject taskToEdit = this.getData()[id];
+            taskToEdit.setTaskName(name);
+            taskToEdit.setPriority(priority);
+            taskToEdit.setStartTime(startTime);
+            taskToEdit.setEndTime(endTime);
+            taskToEdit.setType(type);
+            taskToEdit.setQuantityUnit(unit);
+            taskToEdit.setQuantity(quantity);
+            result = database.updateTask(taskToEdit,id);
         }
         return result;
     }
@@ -108,15 +118,15 @@ public class TodolistLogic implements ITodolistLogic {
 // delete a task
     @Override
     public boolean deleteTask(int id){
-        Task whichTask = database.getTasks()[id];
-        return database.deleteTask(whichTask);
+        ITaskObject whichITaskObject = database.getTasks()[id];
+        return database.deleteTask(whichITaskObject);
     }
 
 
 //--------------------------------------------------------------------------------------------------
 // set the task completed or uncompleted
     public boolean setCompleted(int id, boolean status){
-        Task whichTask = database.getTasks()[id];
+        ITaskObject whichTask = database.getTasks()[id];
         whichTask.setCompleted(status);
         return database.updateTask(whichTask,id);
     }
@@ -124,9 +134,9 @@ public class TodolistLogic implements ITodolistLogic {
 //--------------------------------------------------------------------------------------------------
 // get time estimate result
     public int getTimeEstimate(int id){
-        Task whichTask = database.getTasks()[id];
+        ITaskObject whichITaskObject = database.getTasks()[id];
         timeEstimator = new TimeEstimator(4,40);
-        return timeEstimator.getTimeEstimate(whichTask);
+        return timeEstimator.getTimeEstimate(whichITaskObject);
     }
 
 //--------------------------------------------------------------------------------------------------
@@ -174,7 +184,7 @@ public class TodolistLogic implements ITodolistLogic {
 //--------------------------------------------------------------------------------------------------
 // find which data user no input in adding
     @Override
-    public String getTaskPriorityText (Task task){
+    public String getTaskPriorityText (ITaskObject task){
 
         String rawText = task.getPriority().name();
         String priorityText = rawText.substring(0,1) + rawText.substring(1).toLowerCase();

@@ -5,10 +5,8 @@
 package com.groupeleven.studentlife.logic;
 
 import com.groupeleven.studentlife.data.DB;
-import com.groupeleven.studentlife.data.FakeDB;
 import com.groupeleven.studentlife.data.IDatabase;
 import com.groupeleven.studentlife.domainSpecificObjects.ITaskObject;
-import com.groupeleven.studentlife.domainSpecificObjects.Task;
 
 public class DashboardLogic implements IDashboardLogic {
 
@@ -30,7 +28,7 @@ public class DashboardLogic implements IDashboardLogic {
         try {
             list = (ITaskObject[]) database.getTasks();
         }catch(Exception exception){
-            list = (ITaskObject[]) new Task[0];
+            list = (ITaskObject[]) new ITaskObject[0];
         }
 
         return list;

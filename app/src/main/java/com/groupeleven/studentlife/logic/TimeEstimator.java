@@ -1,6 +1,6 @@
 package com.groupeleven.studentlife.logic;
 
-import com.groupeleven.studentlife.domainSpecificObjects.Task;
+import com.groupeleven.studentlife.domainSpecificObjects.ITaskObject;
 
 public class TimeEstimator implements ITimeEstimator{
     private final int TIME_PER_PAGE = 5;
@@ -16,7 +16,7 @@ public class TimeEstimator implements ITimeEstimator{
     }
 
     //Use this function to get the time in minutes estimated to complete a specific task
-    public int getTimeEstimate(Task t){
+    public int getTimeEstimate(ITaskObject t){
         int result = -1;
         switch(t.getType().toLowerCase()){
             case "reading":
@@ -32,7 +32,7 @@ public class TimeEstimator implements ITimeEstimator{
         return result;
     }
 
-    private int readingEstimate(Task t){
+    private int readingEstimate(ITaskObject t){
         int result = -1;
         switch(t.getQuantityUnit().toLowerCase()){
             case "pages":
@@ -45,7 +45,7 @@ public class TimeEstimator implements ITimeEstimator{
         return result;
     }
 
-    private int homeworkEstimate(Task t){
+    private int homeworkEstimate(ITaskObject t){
         int result = -1;
         switch(t.getQuantityUnit().toLowerCase()){
             case "days":
@@ -58,7 +58,7 @@ public class TimeEstimator implements ITimeEstimator{
         return result;
     }
 
-    private int lectureEstimate(Task t){
+    private int lectureEstimate(ITaskObject t){
         int result = -1;
         switch(t.getQuantityUnit().toLowerCase()){
             case "minutes":

@@ -11,16 +11,17 @@ import android.widget.Toast;
 import androidx.recyclerview.widget.RecyclerView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.groupeleven.studentlife.R;
+import com.groupeleven.studentlife.domainSpecificObjects.ITaskObject;
 import com.groupeleven.studentlife.domainSpecificObjects.Task;
 import com.groupeleven.studentlife.logic.ITodolistLogic;
 import com.groupeleven.studentlife.logic.TodolistLogic;
 import org.jetbrains.annotations.NotNull;
 
 public class TodolistAdapter extends RecyclerView.Adapter<TodolistAdapter.ViewHolder>{
-    private Task[] taskList;
+    private ITaskObject[] taskList;
     private ITodolistLogic logic;
 
-    public TodolistAdapter(Task[] taskList){
+    public TodolistAdapter(ITaskObject[] taskList){
         this.taskList = taskList;
         this.logic = new TodolistLogic();
     }
@@ -41,7 +42,7 @@ public class TodolistAdapter extends RecyclerView.Adapter<TodolistAdapter.ViewHo
     @Override
     public void onBindViewHolder(TodolistAdapter.ViewHolder holder, int position) {
         //get data according to position
-        Task task = taskList[position];
+        ITaskObject task = taskList[position];
         String output = task.getTaskName()+"\n"+"Due: "+
                         task.getEndTime().substring(0, task.getEndTime().length() - 3)+"\n"+
                         "Priority: "+logic.getTaskPriorityText(task)+"\n"+
