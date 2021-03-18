@@ -56,7 +56,11 @@ public class TodolistAdapter extends RecyclerView.Adapter<TodolistAdapter.ViewHo
 
     @Override
     public int getItemCount() {
-        return taskList.length;
+        int temp=0;
+        if(taskList!=null){
+            temp=taskList.length;
+        }
+        return temp;
     }
 
     // ViewHolder class provides refs to views (rows in RecyclerView)
