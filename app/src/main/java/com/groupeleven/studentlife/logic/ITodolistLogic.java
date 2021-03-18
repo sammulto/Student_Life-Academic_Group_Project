@@ -34,10 +34,6 @@ public interface ITodolistLogic {
     public void checkUserInput(int taskNameLength, String taskPriority, int startLength, int endLength, String type, int workNum, String workUnit) throws Exception;
 
 
-    //--------------------------------------------------------------------------------------------------
-    // covert a date to a standard date format of string
-    public String covertDateToString(int year, int month, int day);
-
 
     //--------------------------------------------------------------------------------------------------
     // set the task completed or uncompleted
@@ -47,6 +43,7 @@ public interface ITodolistLogic {
     //--------------------------------------------------------------------------------------------------
     // get the time estimate result of a task
     public int getTimeEstimate(int id);
+
 
     //--------------------------------------------------------------------------------------------------
     // Compare them, if the start time is after end end time return false
