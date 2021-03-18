@@ -59,13 +59,13 @@ We used the singleton design pattern for our database. This means that only one 
 
 # Iteration 1 Feedback fixes
 
-## [Issue #37 - Logic In the UI](https://code.cs.umanitoba.ca/3350-winter-2021-a01/your-internet-neighbours-group-11/-/issues/37)
+### [Issue #37 - Logic In the UI](https://code.cs.umanitoba.ca/3350-winter-2021-a01/your-internet-neighbours-group-11/-/issues/37)
 
-## Issue
+###Issue
 The UI source file (Toedit.java) had a section of code that checks the date and convers the date format. This violates the 3-tier architecture, the UI layer was doing logical tasks.
 
-## The Solution
+### The Solution
 The responsibility of checking and converting date format is transferred to the logic layer (TodolistLogic.java). A new method called `covertDateToString` is created to perform the task. The UI layer calls this method to do the date conversion so the UI layer is not doing the logical tasks anymore.
 
-## Link to the Commits
+### Link to the Commits
 [Solved Issue #37](https://code.cs.umanitoba.ca/3350-winter-2021-a01/your-internet-neighbours-group-11/-/commit/d89fd50c88f54d1410446a951f787a4f34aa76e0)
