@@ -193,29 +193,11 @@ public class TodolistLogic implements ITodolistLogic {
 
 
 //--------------------------------------------------------------------------------------------------
-// Covert int date to String in the a DB accepted format
-    @Override
-    public String covertDateToString(int year, int month, int day){
-
-        String tempMon=""+month;
-        String tempDay=""+day;
-        month = month + 1;
-        if(day<10){
-            tempDay = "0"+day;
-        }
-        if(month<10){
-            tempMon = "0"+month;
-        }
-        String date = year+"-"+tempMon+"-"+tempDay;
-        return date;
-    }
-
-//--------------------------------------------------------------------------------------------------
 // Given two date in String
 // Compare them, if the start time is after end end time return false
     public boolean dateCheck(String start, String end) throws ParseException {
         boolean result = false;
-        DateFormat format = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+        DateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         Date sDate = format.parse(start);
         Date eDate = format.parse(end);
         if(sDate.after(eDate)){

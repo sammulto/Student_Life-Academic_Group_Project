@@ -15,7 +15,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.groupeleven.studentlife.R;
 import com.groupeleven.studentlife.domainSpecificObjects.ITaskObject;
-import com.groupeleven.studentlife.domainSpecificObjects.Task;
 import com.groupeleven.studentlife.logic.ITodolistLogic;
 import com.groupeleven.studentlife.logic.TodolistLogic;
 
@@ -24,8 +23,6 @@ public class TodolistFragment extends Fragment {
 
     private TextView welcome;
     private FloatingActionButton fButtonAdd;
-    private FloatingActionButton fButtonEdit;
-    private FloatingActionButton fButtonDelete;
 
     private TodolistViewModel todolistViewModel;
     private ITodolistLogic logic;
@@ -47,7 +44,8 @@ public class TodolistFragment extends Fragment {
 
         fButtonAdd.setOnClickListener(new View.OnClickListener(){
             public void onClick(View v){
-                Intent in = new Intent(getActivity(), Toadd.class);
+                Intent in = new Intent(getActivity(), Toupdate.class);
+                in.putExtra("id",-1);
                 startActivity(in);
             }
         });
