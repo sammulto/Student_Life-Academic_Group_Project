@@ -1,7 +1,6 @@
 package com.groupeleven.studentlife.logic;
 
 import com.groupeleven.studentlife.data.DB;
-import com.groupeleven.studentlife.data.FakeDB;
 import com.groupeleven.studentlife.data.IDatabase;
 import com.groupeleven.studentlife.domainSpecificObjects.ITaskObject;
 import com.groupeleven.studentlife.domainSpecificObjects.Task;
@@ -143,7 +142,7 @@ public class TodolistLogic implements ITodolistLogic {
 // find which data user no input in adding
 
     @Override
-    public void checkUserInput(int taskNameLength, String taskPriority, int startLength, int endLength, String type, int workNum, String workUnit) throws Exception {
+    public void checkUserInput(int taskNameLength, String taskPriority, int startLength, int endLength, String type, int workNum, String workUnit) throws IllegalArgumentException {
 
         Boolean validPriority = !taskPriority.equals("Choose priority");
         boolean validType = !type.equals("Choose task type");
@@ -152,31 +151,31 @@ public class TodolistLogic implements ITodolistLogic {
 
         // check error one by one text box
         if ( taskNameLength != 0 && endLength != 0 && startLength != 0 && !validPriority && validType && workNum != 0 && notEmptyUnit){
-            throw new Exception("Please choose a priority");
+            throw new IllegalArgumentException("Please choose a priority");
         }
         else if (taskNameLength == 0 && endLength != 0 && startLength != 0 && validPriority && validType && workNum != 0 && notEmptyUnit){
-            throw new Exception("Please input a task name");
+            throw new IllegalArgumentException("Please input a task name");
         }
         else if(taskNameLength != 0 && endLength != 0 && startLength == 0 && validPriority && validType && workNum != 0 && notEmptyUnit){
-            throw new Exception("Please choose a start time");
+            throw new IllegalArgumentException("Please choose a start time");
         }
         else if(taskNameLength != 0 && endLength == 0 && startLength != 0 && validPriority && validType && workNum != 0 && notEmptyUnit){
-            throw new Exception("Please choose a end time");
+            throw new IllegalArgumentException("Please choose a end time");
         }
         else if(taskNameLength != 0 && endLength != 0 && startLength != 0 && validPriority && !validType && workNum != 0 && notEmptyUnit){
-            throw new Exception("Please choose a task type");
+            throw new IllegalArgumentException("Please choose a task type");
         }
         else if(taskNameLength != 0 && endLength != 0 && startLength != 0 && validPriority && validType && workNum == 0 && notEmptyUnit){
-            throw new Exception("Please choose a quantity");
+            throw new IllegalArgumentException("Please choose a quantity");
         }
         else if(taskNameLength != 0 && endLength != 0 && startLength != 0 && validPriority && validType && workNum != 0 && !notEmptyUnit){
-            throw new Exception("Please choose a unit");
+            throw new IllegalArgumentException("Please choose a unit");
         }
         else if(taskNameLength != 0 && endLength != 0 && startLength != 0 && validPriority && validType && workNum != 0 && notEmptyUnit && !startFirst){
-            throw new Exception("End time must after start time");
+            throw new IllegalArgumentException("End time must after start time");
         }
         else {
-            throw new Exception("Please fill all information");
+            throw new IllegalArgumentException("Please fill all information");
         }
     }
 

@@ -31,8 +31,7 @@ public interface ITodolistLogic {
 
     //--------------------------------------------------------------------------------------------------
     // check the user input to see is it validate
-    public void checkUserInput(int taskNameLength, String taskPriority, int startLength, int endLength, String type, int workNum, String workUnit) throws Exception;
-
+    public void checkUserInput(int taskNameLength, String taskPriority, int startLength, int endLength, String type, int workNum, String workUnit) throws IllegalArgumentException;
 
 
     //--------------------------------------------------------------------------------------------------
@@ -48,4 +47,6 @@ public interface ITodolistLogic {
     //--------------------------------------------------------------------------------------------------
     // Compare them, if the start time is after end end time return false
     public boolean dateCheck(String start, String end) throws ParseException;
+
+
 }
