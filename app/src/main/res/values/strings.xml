@@ -21,13 +21,8 @@
     <string name="link5"><a href="http://www.google.com">Google</a></string>
     <string name="link6"><a href="http://www.gather.town">Gather</a></string>
     <string name="link7"><a href="http://www.umlearn.ca">Umlearn</a></string>
-    <string name="link8"><a href="http://www.en.wikipedia.org">Wikipedia</a></string>
+    <string name="link8"><a href="http://www.wikipedia.org">Wikipedia</a></string>
 
-
-
-=======
-
->>>>>>> 00577c60dbd2912f83192c617b3fcdc8b3533708
     <string-array name="priority">
         <item>Choose priority</item>
         <item>Low</item>
