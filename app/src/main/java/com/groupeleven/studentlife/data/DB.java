@@ -4,17 +4,13 @@
 
 package com.groupeleven.studentlife.data;
 
-import android.app.Activity;
-
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.PreparedStatement;
 
-import com.groupeleven.studentlife.domainSpecificObjects.ILinkObject;
 import com.groupeleven.studentlife.domainSpecificObjects.ITaskObject;
-import com.groupeleven.studentlife.domainSpecificObjects.Link;
 import com.groupeleven.studentlife.domainSpecificObjects.Task;
 
 public class DB implements IDatabase {
@@ -61,18 +57,8 @@ public class DB implements IDatabase {
                 " quantityUnit VARCHAR(50)," +
                 " completed BOOLEAN" +
                 ");";
-        String links = "CREATE TABLE IF NOT EXISTS links( " +
-                " linkAddress varchar(50) PRIMARY KEY," +
-                " linkName varchar(20)" +
-                ");";
         try {
             connection.createStatement().executeUpdate(tasks);
-            connection.createStatement().executeUpdate(links);
-            connection.createStatement().executeUpdate("DELETE FROM links;");
-            connection.createStatement().executeUpdate("INSERT INTO links VALUES('quizlet.com', 'Quizlet')");
-            connection.createStatement().executeUpdate("INSERT INTO links VALUES('www.khanacademy.org/', 'Khan Academy')");
-            connection.createStatement().executeUpdate("INSERT INTO links VALUES('ocw.mit.edu/index.htm', 'MIT Open Courseware')");
-            connection.createStatement().executeUpdate("INSERT INTO links VALUES('www.desmos.com/', 'Desmos')");
         } catch (SQLException e) {
             e.printStackTrace(System.out);
         }
@@ -238,28 +224,6 @@ public class DB implements IDatabase {
 
     public ITaskObject[] getTask(int tid){
         return getTasksWhere("tid = "+tid, new String[0]);
-    }
-
-    public ILinkObject[] getLinks(){
-        ILinkObject[] out = null;
-        int i = 0;
-
-        try {
-            PreparedStatement cmd = connection.prepareStatement("SELECT COUNT(*) as count FROM links;");
-            ResultSet resultSet = cmd.executeQuery();
-            if (resultSet.next()) {
-                out = new Link[resultSet.getInt("count")];
-
-                cmd = connection.prepareStatement("SELECT * FROM links ORDER BY linkName;");
-                resultSet = cmd.executeQuery();
-                while (resultSet.next()) {
-                    out[i++] = new Link(resultSet.getString("linkName"), resultSet.getString("linkAddress"));
-                }
-            }
-        } catch (SQLException e) {
-            e.printStackTrace(System.out);
-        }
-        return out;
     }
 
     public ITaskObject[] getTasks(String day) {

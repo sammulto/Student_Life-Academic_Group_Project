@@ -5,16 +5,13 @@
 package com.groupeleven.studentlife.data;
 
 
-import com.groupeleven.studentlife.domainSpecificObjects.ILinkObject;
 import com.groupeleven.studentlife.domainSpecificObjects.ITaskObject;
-import com.groupeleven.studentlife.domainSpecificObjects.Task;
 
 import java.util.ArrayList;
 
 public class FakeDB implements IDatabase {
 
     static ArrayList<ITaskObject> database = new ArrayList<>();
-    static ArrayList<ILinkObject> databaseLink = new ArrayList<>();
 
     public FakeDB() { }
 
@@ -135,15 +132,6 @@ public class FakeDB implements IDatabase {
             success = true;
         return success;
     }
-
-    public ILinkObject[] getLinks(){
-        ILinkObject[] list = databaseLink.toArray(new ILinkObject[databaseLink.size()]);
-        return list;
-    }
-
-
-
-
 
     public ITaskObject[] getTasks(String date){
         ITaskObject[] result = null;
