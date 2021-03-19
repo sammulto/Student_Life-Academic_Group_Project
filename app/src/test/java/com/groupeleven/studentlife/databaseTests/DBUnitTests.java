@@ -3,10 +3,8 @@ package com.groupeleven.studentlife.databaseTests;
 import org.junit.Test;
 
 import com.groupeleven.studentlife.domainSpecificObjects.ITaskObject;
-import com.groupeleven.studentlife.domainSpecificObjects.Link;
 import com.groupeleven.studentlife.domainSpecificObjects.Task;
 import com.groupeleven.studentlife.data.DB;
-import com.groupeleven.studentlife.logic.TodolistLogic;
 
 import static org.junit.Assert.*;
 
@@ -155,17 +153,5 @@ public class DBUnitTests {
         DB db2 = DB.getDB();
 
         assertEquals("Two singleton instances of the DB object should be equal", db1, db2);
-    }
-
-    @Test
-    public void getLinks(){
-        DB db = new DB("testGetLinks", "mem");
-        Link l1 = new Link("Desmos", "www.desmos.com/"),
-             l2 = new Link("Khan Academy", "www.khanacademy.org/"),
-             l3 = new Link("MIT Open Courseware", "ocw.mit.edu/index.htm"),
-             l4 = new Link("Quizlet", "quizlet.com");
-        Link[] links = {l1, l2, l3, l4};
-
-        assertEquals("The links array should be equal to those in the database", db.getLinks(), links);
     }
 }

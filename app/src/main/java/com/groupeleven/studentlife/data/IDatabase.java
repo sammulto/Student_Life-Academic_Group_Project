@@ -1,6 +1,5 @@
 package com.groupeleven.studentlife.data;
 
-import com.groupeleven.studentlife.domainSpecificObjects.ILinkObject;
 import com.groupeleven.studentlife.domainSpecificObjects.ITaskObject;
 
 public interface IDatabase {
@@ -23,8 +22,6 @@ public interface IDatabase {
     public ITaskObject[] getTasksUncompleted();
 
     public ITaskObject[] getTask(int tid);
-
-    public ILinkObject[] getLinks();
 
     public ITaskObject[] getTasks(String date);
 }
