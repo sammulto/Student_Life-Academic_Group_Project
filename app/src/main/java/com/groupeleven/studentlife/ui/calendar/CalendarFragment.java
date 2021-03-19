@@ -1,5 +1,6 @@
 package com.groupeleven.studentlife.ui.calendar;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,8 +19,13 @@ import com.groupeleven.studentlife.logic.ICalendarLogic;
 import com.groupeleven.studentlife.logic.ITodolistLogic;
 import com.groupeleven.studentlife.logic.TodolistLogic;
 import com.prolificinteractive.materialcalendarview.CalendarDay;
+import com.prolificinteractive.materialcalendarview.DayViewDecorator;
+import com.prolificinteractive.materialcalendarview.DayViewFacade;
 import com.prolificinteractive.materialcalendarview.MaterialCalendarView;
 import com.prolificinteractive.materialcalendarview.OnDateSelectedListener;
+import com.prolificinteractive.materialcalendarview.spans.DotSpan;
+
+import java.util.ArrayList;
 
 public class CalendarFragment extends Fragment {
 
@@ -50,6 +56,19 @@ public class CalendarFragment extends Fragment {
 
         MaterialCalendarView materialCalendarView = (MaterialCalendarView) root.findViewById(R.id.Calendar_CalendarView);
 
+        ArrayList<CalendarDay> dayList = calendarLogic.getDayList();
+
+        materialCalendarView.addDecorator(new DayViewDecorator() {
+            @Override
+            public boolean shouldDecorate(CalendarDay day) {
+                return dayList.contains(day);
+            }
+
+            @Override
+            public void decorate(DayViewFacade view) {
+                view.addSpan(new DotSpan(10, Color.RED));
+            }
+        });
 
         materialCalendarView.setOnDateChangedListener(new OnDateSelectedListener() {
             @Override
@@ -83,6 +102,8 @@ public class CalendarFragment extends Fragment {
         taskRecycle.setLayoutManager(new LinearLayoutManager(getContext()));
 
     }
+
+
 
 
 }

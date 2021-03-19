@@ -9,10 +9,13 @@ import com.groupeleven.studentlife.logic.CalendarLogic;
 import com.groupeleven.studentlife.logic.ICalendarLogic;
 import com.groupeleven.studentlife.logic.ITodolistLogic;
 import com.groupeleven.studentlife.logic.TodolistLogic;
+import com.prolificinteractive.materialcalendarview.CalendarDay;
 
 import org.junit.After;
 import org.junit.BeforeClass;
 import org.junit.Test;
+
+import java.util.ArrayList;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
@@ -163,7 +166,33 @@ public class CalendarLogicTest {
     }
 
 
+    @Test
+    public void getDayListTest(){
+        FakeDB db = new FakeDB();
+        ICalendarLogic logic = new CalendarLogic(db);
 
+        ITaskObject task1 = new Task("Task1");
+        ITaskObject task2 = new Task("Task2");
+        ITaskObject task3 = new Task("Task3");
+        task1.setEndTime("2021-05-01 01:02:12");
+        task2.setEndTime("2022-06-02 01:02:12");
+        task3.setEndTime("2023-07-03 01:02:12");
+        db.insertTask(task1);
+        db.insertTask(task2);
+        db.insertTask(task3);
 
+        CalendarDay day1 = CalendarDay.from(2021,05,01);
+        CalendarDay day2 = CalendarDay.from(2022,06,02);
+        CalendarDay day3 = CalendarDay.from(2023,07,03);
+
+        ArrayList<CalendarDay> dayList = logic.getDayList();
+
+        assertEquals("The returned list should have 3 items.",3,dayList.size());
+        assertTrue("The list should contian day1.",dayList.contains(day1));
+        assertTrue("The list should contian day2.",dayList.contains(day2));
+        assertTrue("The list should contian day3.",dayList.contains(day3));
+
+        db.deleteAllTask();
+    }
 
 }

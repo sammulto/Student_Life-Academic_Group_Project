@@ -22,7 +22,7 @@
             android:layout_height="wrap_content"
             app:mcv_calendarMode="month"
             app:mcv_dateTextAppearance="@style/TextAppearance.AppCompat.Body1"
-            app:mcv_tileHeight="30dp"
+            app:mcv_tileHeight="35dp"
             app:mcv_tileWidth="0dp"></com.prolificinteractive.materialcalendarview.MaterialCalendarView>
 
         <androidx.recyclerview.widget.RecyclerView
