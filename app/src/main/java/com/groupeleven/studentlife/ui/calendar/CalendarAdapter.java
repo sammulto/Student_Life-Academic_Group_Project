@@ -67,7 +67,6 @@ public class CalendarAdapter extends RecyclerView.Adapter<com.groupeleven.studen
 
         CheckBox taskBox;
 
-
         //update the adapter with new data
         public void refreshAdapterData(){
             com.groupeleven.studentlife.ui.calendar.CalendarAdapter.this.taskList = logic.viewTask(date);
