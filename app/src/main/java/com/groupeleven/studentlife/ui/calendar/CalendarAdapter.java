@@ -13,8 +13,6 @@ import com.groupeleven.studentlife.R;
 import com.groupeleven.studentlife.domainSpecificObjects.ITaskObject;
 import com.groupeleven.studentlife.logic.CalendarLogic;
 import com.groupeleven.studentlife.logic.ICalendarLogic;
-import com.groupeleven.studentlife.logic.ITodolistLogic;
-import com.groupeleven.studentlife.logic.TodolistLogic;
 import com.groupeleven.studentlife.ui.todolist.Toupdate;
 
 import org.jetbrains.annotations.NotNull;

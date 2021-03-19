@@ -1,13 +1,9 @@
 package com.groupeleven.studentlife.logic;
 
 import com.groupeleven.studentlife.data.DB;
-import com.groupeleven.studentlife.data.FakeDB;
 import com.groupeleven.studentlife.data.IDatabase;
 import com.groupeleven.studentlife.domainSpecificObjects.ITaskObject;
 import com.groupeleven.studentlife.domainSpecificObjects.Task;
-import com.groupeleven.studentlife.ui.todolist.TodolistAdapter;
-
-import java.sql.Time;
 
 public class CalendarLogic implements ICalendarLogic {
 
@@ -17,7 +13,6 @@ public class CalendarLogic implements ICalendarLogic {
 
     public CalendarLogic(){
         this.database = DB.getDB();
-
     }
 
     public CalendarLogic(IDatabase database){
@@ -32,9 +27,7 @@ public class CalendarLogic implements ICalendarLogic {
             taskList = database.getTasks(date);
         } catch (Exception e) {
             taskList = new ITaskObject[0];
-
         }
-
 
         return taskList;
     }
@@ -47,9 +40,7 @@ public class CalendarLogic implements ICalendarLogic {
             Task newTask = new Task(name, priority, "2020-01-01 12:12:12", endTime, 0, "test Type");
             result = database.updateTask(newTask, id);
         }
-
         return result;
-
 
     }
 
@@ -59,7 +50,6 @@ public class CalendarLogic implements ICalendarLogic {
         ITaskObject whichITaskObject = database.getTasks()[id];
 
         result = database.deleteTask(whichITaskObject);
-
 
         return result;
 

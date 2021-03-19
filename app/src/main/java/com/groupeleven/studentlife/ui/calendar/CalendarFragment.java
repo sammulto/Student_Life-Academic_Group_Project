@@ -13,12 +13,10 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.groupeleven.studentlife.R;
 import com.groupeleven.studentlife.domainSpecificObjects.ITaskObject;
-import com.groupeleven.studentlife.domainSpecificObjects.Task;
 import com.groupeleven.studentlife.logic.CalendarLogic;
 import com.groupeleven.studentlife.logic.ICalendarLogic;
 import com.groupeleven.studentlife.logic.ITodolistLogic;
 import com.groupeleven.studentlife.logic.TodolistLogic;
-import com.groupeleven.studentlife.ui.todolist.TodolistAdapter;
 import com.prolificinteractive.materialcalendarview.CalendarDay;
 import com.prolificinteractive.materialcalendarview.MaterialCalendarView;
 import com.prolificinteractive.materialcalendarview.OnDateSelectedListener;
@@ -65,18 +63,9 @@ public class CalendarFragment extends Fragment {
                 } else if (temp[2].length() == 1) {
                     selectedDate += "-0" + temp[2];
                 }
-
-
                 taskList = calendarLogic.viewTask(selectedDate);
-
-
-                
-
                 viewTasksForSelectedDate(root, selectedDate);
-
             }
-
-
         });
 
         return root;
