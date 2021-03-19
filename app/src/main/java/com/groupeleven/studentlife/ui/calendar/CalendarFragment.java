@@ -69,12 +69,8 @@ public class CalendarFragment extends Fragment {
 
                 taskList = calendarLogic.viewTask(selectedDate);
 
-                if (taskList != null) {
-                    System.out.println(taskList.length);
-                } else {
-                    System.out.println("There are no tasks for the day");
 
-                }
+                
 
                 viewTasksForSelectedDate(root, selectedDate);
 
