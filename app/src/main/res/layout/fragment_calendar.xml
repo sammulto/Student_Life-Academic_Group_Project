@@ -23,8 +23,8 @@
 
     <LinearLayout
         android:id="@+id/Calendar_TaskList"
-        android:layout_width="380dp"
-        android:layout_height="349dp"
+        android:layout_width="372dp"
+        android:layout_height="339dp"
         android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
