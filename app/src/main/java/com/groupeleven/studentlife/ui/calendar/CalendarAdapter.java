@@ -98,7 +98,7 @@ public class CalendarAdapter extends RecyclerView.Adapter<com.groupeleven.studen
                     if(taskBox.isChecked()){
                         if(logic.setCompleted(getAdapterPosition(),true)) {
                             Toast toast = Toast.makeText(itemView.getContext(), "Check", Toast.LENGTH_SHORT);
-                            toast.setGravity(Gravity.CENTER_HORIZONTAL | Gravity.BOTTOM, 0, 400);
+                            toast.setGravity(Gravity.CENTER_HORIZONTAL | Gravity.BOTTOM, 0, 200);
                             toast.show();
                         }
                         else{
@@ -108,7 +108,7 @@ public class CalendarAdapter extends RecyclerView.Adapter<com.groupeleven.studen
                     if(!taskBox.isChecked()){
                         if(logic.setCompleted(getAdapterPosition(),false)) {
                             Toast toast = Toast.makeText(itemView.getContext(), "Uncheck", Toast.LENGTH_SHORT);
-                            toast.setGravity(Gravity.CENTER_HORIZONTAL | Gravity.BOTTOM, 0, 400);
+                            toast.setGravity(Gravity.CENTER_HORIZONTAL | Gravity.BOTTOM, 0, 200);
                             toast.show();
                         }
                         else{
@@ -142,7 +142,7 @@ public class CalendarAdapter extends RecyclerView.Adapter<com.groupeleven.studen
                     }
                     else{
                         Toast toast = Toast.makeText(itemView.getContext(),"Task deleted task successfully",Toast.LENGTH_SHORT);
-                        toast.setGravity(Gravity.CENTER_HORIZONTAL | Gravity.BOTTOM, 0, 400);
+                        toast.setGravity(Gravity.CENTER_HORIZONTAL | Gravity.BOTTOM, 0, 200);
                         toast.show();
                         com.groupeleven.studentlife.ui.calendar.CalendarAdapter.this.taskList = logic.viewTask(date);
                         refreshAdapterData();
