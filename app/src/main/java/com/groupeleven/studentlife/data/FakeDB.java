@@ -141,8 +141,22 @@ public class FakeDB implements IDatabase {
         return list;
     }
 
-    public ITaskObject[] getTasks(String date){
-        return getTasks(date+"00:00:00", date+"11:59:00");
-    }
 
+
+
+
+    public ITaskObject[] getTasks(String date){
+        ITaskObject[] result = null;
+        ArrayList<ITaskObject> temp = new ArrayList<>();
+
+        for (int i = 0; i < database.size(); i++) {
+            if (database.get(i).getStartTime().startsWith(date)) {
+                temp.add(database.get(i));
+            }
+        }
+        if (temp.size() > 0) {
+            result = temp.toArray(new ITaskObject[temp.size()]);
+        }
+        return result;
+    }
 }

@@ -14,8 +14,9 @@ public interface ICalendarLogic {
 
     public String getTaskPriorityText(ITaskObject task);
 
-    public int getTimeEstimate(int id);
+
     public boolean setCompleted(int id, boolean status);
+    public int getTimeEstimate(int id, ITaskObject[] taskObjects);
 
 
 }

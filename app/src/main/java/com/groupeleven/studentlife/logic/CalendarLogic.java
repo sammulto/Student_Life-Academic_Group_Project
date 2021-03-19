@@ -92,4 +92,9 @@ public class CalendarLogic implements ICalendarLogic {
         whichTask.setCompleted(status);
         return database.updateTask(whichTask,id);
     }
+    public int getTimeEstimate(int id, ITaskObject [] taskObjects){
+        ITaskObject whichITaskObject = taskObjects[id];
+        timeEstimator = new TimeEstimator(4,40);
+        return timeEstimator.getTimeEstimate(whichITaskObject);
+    }
 }
