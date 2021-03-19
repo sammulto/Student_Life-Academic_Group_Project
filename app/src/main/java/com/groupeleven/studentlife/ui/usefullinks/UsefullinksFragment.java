@@ -30,27 +30,27 @@ public class UsefullinksFragment extends Fragment {
         TextView link;
 
         //make each link clickable
-        link = (TextView) getView().findViewById(R.id.link1);
+        link = (TextView) getView().findViewById(R.id.link_khan_academy);
         link.setMovementMethod(LinkMovementMethod.getInstance());
-        link = (TextView) getView().findViewById(R.id.link2);
+        link = (TextView) getView().findViewById(R.id.link_wiki);
         link.setMovementMethod(LinkMovementMethod.getInstance());
-        link = (TextView) getView().findViewById(R.id.link3);
+        link = (TextView) getView().findViewById(R.id.link_quizlet);
         link.setMovementMethod(LinkMovementMethod.getInstance());
-        link = (TextView) getView().findViewById(R.id.link4);
+        link = (TextView) getView().findViewById(R.id.link_crowdmark);
         link.setMovementMethod(LinkMovementMethod.getInstance());
-        link = (TextView) getView().findViewById(R.id.link5);
+        link = (TextView) getView().findViewById(R.id.link_youtube);
         link.setMovementMethod(LinkMovementMethod.getInstance());
-        link = (TextView) getView().findViewById(R.id.link6);
+        link = (TextView) getView().findViewById(R.id.link_ocw);
         link.setMovementMethod(LinkMovementMethod.getInstance());
-        link = (TextView) getView().findViewById(R.id.link7);
+        link = (TextView) getView().findViewById(R.id.link_gather);
         link.setMovementMethod(LinkMovementMethod.getInstance());
-        link = (TextView) getView().findViewById(R.id.link8);
+        link = (TextView) getView().findViewById(R.id.link_umlearn);
         link.setMovementMethod(LinkMovementMethod.getInstance());
-        link = (TextView) getView().findViewById(R.id.link9);
+        link = (TextView) getView().findViewById(R.id.link_desmos);
         link.setMovementMethod(LinkMovementMethod.getInstance());
-        link = (TextView) getView().findViewById(R.id.link10);
+        link = (TextView) getView().findViewById(R.id.link_iclicker);
         link.setMovementMethod(LinkMovementMethod.getInstance());
-        link = (TextView) getView().findViewById(R.id.link11);
+        link = (TextView) getView().findViewById(R.id.link_google_doc);
         link.setMovementMethod(LinkMovementMethod.getInstance());
     }
 }
