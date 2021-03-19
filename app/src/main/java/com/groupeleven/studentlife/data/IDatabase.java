@@ -1,17 +1,27 @@
 package com.groupeleven.studentlife.data;
 
-import com.groupeleven.studentlife.domainSpecificObjects.Task;
+import com.groupeleven.studentlife.domainSpecificObjects.ITaskObject;
 
 public interface IDatabase {
-    public boolean insertTask(Task t);
+    public boolean insertTask(ITaskObject t);
 
-    public Task[] getTasks();
+    public ITaskObject[] getTasks();
 
     public int getSize();
 
-    public boolean updateTask(Task t,int position);
+    public boolean updateTask(ITaskObject t,int position);
 
-    public boolean deleteTask(Task t);
+    public boolean deleteTask(ITaskObject t);
 
-    public Task [] getTasks( String startTime, String endTime);
+    public boolean deleteAllTask();
+
+    public ITaskObject[] getTasks(String startTime, String endTime);
+
+    public ITaskObject[] getTasksCompleted();
+
+    public ITaskObject[] getTasksUncompleted();
+
+    public ITaskObject[] getTask(int tid);
+
+    public ITaskObject[] getTasks(String date);
 }

@@ -6,18 +6,37 @@
     android:layout_height="match_parent"
     tools:context=".ui.calendar.CalendarFragment">
 
-    <com.prolificinteractive.materialcalendarview.MaterialCalendarView
-        android:id="@+id/Calendar_CalendarView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_weight="3"
+    <LinearLayout
+        android:id="@+id/Calendar_TaskList"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:mcv_calendarMode="month"
-        app:mcv_dateTextAppearance="@color/normalText">
+        app:layout_constraintTop_toTopOf="parent">
 
-    </com.prolificinteractive.materialcalendarview.MaterialCalendarView>
+        <com.prolificinteractive.materialcalendarview.MaterialCalendarView
+            android:id="@+id/Calendar_CalendarView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:mcv_calendarMode="month"
+            app:mcv_dateTextAppearance="@style/TextAppearance.AppCompat.Body1"
+            app:mcv_tileHeight="35dp"
+            app:mcv_tileWidth="0dp"></com.prolificinteractive.materialcalendarview.MaterialCalendarView>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/task_recyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:nestedScrollingEnabled="true"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/Calendar_CalendarView" />
+
+    </LinearLayout>
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

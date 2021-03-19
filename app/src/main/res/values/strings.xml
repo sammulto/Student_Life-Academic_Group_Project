@@ -13,10 +13,42 @@
     <string name="time">Time</string>
     <string name="task_name">Task name</string>
     <string name="add">Add</string>
+
+    <string name="link_khan_academy"><a href="http://www.khanacademy.org">Khan Academy</a></string>
+    <string name="link_iclicker"><a href="https://app.reef-education.com/#/login">iClicker</a></string>
+    <string name="link_google_doc"><a href="http://www.docs.google.com">Google Doc</a></string>
+    <string name="link_youtube"><a href="http://www.youtube.com">Youtube</a></string>
+    <string name="link_crowdmark"><a href="https://app.crowdmark.com/sign-in">Crowdmark</a></string>
+    <string name="link_gather"><a href="http://www.gather.town">Gather</a></string>
+    <string name="link_umlearn"><a href="http://www.umlearn.ca">Umlearn</a></string>
+    <string name="link_wiki"><a href="http://www.wikipedia.org">Wikipedia</a></string>
+    <string name="link_quizlet"><a href="http://www.quizlet.com">Quizlet</a></string>
+    <string name="link_ocw"><a href="http://www.ocw.mit.edu/index.html">MIT OpenCourseWare</a></string>
+    <string name="link_desmos"><a href="http://www.desmos.com">Desmos</a></string>
+
+
     <string-array name="priority">
         <item>Choose priority</item>
         <item>Low</item>
         <item>Medium</item>
         <item>High</item>
+    </string-array>
+    <string-array name="type">
+        <item>Choose task type</item>
+        <item>Reading</item>
+        <item>Homework</item>
+        <item>Lecture</item>
+    </string-array>
+    <string-array name="read">
+        <item>pages</item>
+        <item>words</item>
+    </string-array>
+    <string-array name="homework">
+        <item>days</item>
+        <item>weeks</item>
+    </string-array>
+    <string-array name="lecture">
+        <item>minutes</item>
+        <item>hours</item>
     </string-array>
 </resources>

@@ -2,11 +2,14 @@ package com.groupeleven.studentlife.logicTests;
 
 
 import com.groupeleven.studentlife.data.FakeDB;
+import com.groupeleven.studentlife.domainSpecificObjects.ITaskObject;
 import com.groupeleven.studentlife.domainSpecificObjects.Task;
 import com.groupeleven.studentlife.logic.ITodolistLogic;
 import com.groupeleven.studentlife.logic.TodolistLogic;
 
 import org.junit.Test;
+
+import java.text.ParseException;
 
 import static org.junit.Assert.*;
 
@@ -17,18 +20,17 @@ public class TodoLogicLayerUnitTests {
     public void retrievedDataSafety() {
 
         FakeDB db = new FakeDB();
-        db.clearDatabase();
-        TodolistLogic retrievedDataSafety = new TodolistLogic();
+        db.deleteAllTask();
+        ITodolistLogic retrievedDataSafety = new TodolistLogic(db);
 
-        assertTrue(retrievedDataSafety.addTask("Task1", "High", "2220-05-01 01:02:12"));
-        assertTrue(retrievedDataSafety.addTask("Task 2", "Low", "2020-07-01 11:22:12"));
-        assertTrue(retrievedDataSafety.addTask("Task-3", "Medium", "2020-11-01 07:20:12"));
-        assertTrue(retrievedDataSafety.addTask("Meeting", "High", "2020-03-01 07:10:12"));
-        assertTrue(retrievedDataSafety.addTask("project", "Medium", "2020-03-12 04:20:12"));
-
+        assertTrue(retrievedDataSafety.addTask("Task1", "High", "2220-05-01 01:02:12","2220-05-02 01:02:12","Reading",10,"pages"));
+        assertTrue(retrievedDataSafety.addTask("Task 2", "Low", "2020-07-01 11:22:12","2220-05-02 01:02:12","Reading",10,"pages"));
+        assertTrue(retrievedDataSafety.addTask("Task-3", "Medium", "2020-11-01 07:20:12","2220-05-02 01:02:12","Reading",10,"pages"));
+        assertTrue(retrievedDataSafety.addTask("Meeting", "High", "2020-03-01 07:10:12","2220-05-02 01:02:12","Reading",10,"pages"));
+        assertTrue(retrievedDataSafety.addTask("project", "Medium", "2020-03-12 04:20:12","2220-05-02 01:02:12","Reading",10,"pages"));
 
         assertEquals(5, retrievedDataSafety.getData().length);
-        db.clearDatabase();
+        db.deleteAllTask();
 
 
     }
@@ -40,9 +42,9 @@ public class TodoLogicLayerUnitTests {
 
         FakeDB db = new FakeDB();
 
-        TodolistLogic addingNewTask = new TodolistLogic();
-        assertTrue(addingNewTask.addTask("Task1", "High", "2020-01-01 12:12:12"));
-        db.clearDatabase();
+        ITodolistLogic addingNewTask = new TodolistLogic(db);
+        assertTrue(addingNewTask.addTask("Task1", "High", "2020-01-01 12:12:12","2220-05-02 01:02:12","Reading",10,"pages"));
+        db.deleteAllTask();
     }
 
 
@@ -51,35 +53,22 @@ public class TodoLogicLayerUnitTests {
     public void addTaskNoNameFailed() {
         FakeDB db = new FakeDB();
 
-        TodolistLogic noName = new TodolistLogic();
+        ITodolistLogic noName = new TodolistLogic(db);
 
-        assertFalse(noName.addTask("", "High", "2020-01-01 12:12:12"));
-        db.clearDatabase();
+        assertFalse(noName.addTask("", "High", "2020-01-01 12:12:12","2220-05-02 01:02:12","Reading",10,"pages"));
+        db.deleteAllTask();
     }
     //Task can't be added without the task name
-
-
-    //Task can't be added without the priority
-    //Priority can be set between (1-3)
-    @Test
-    public void addTaskNoPriorityFailed() {
-        FakeDB db = new FakeDB();
-        TodolistLogic noPriority = new TodolistLogic();
-        assertFalse(noPriority.addTask("reading a book", "High", "2020-01-01 12:12:12"));
-        db.clearDatabase();
-
-    }
-    //Task can't be added without the priority
 
 
     //after first task addition database shouldn't be empty, and data can be pulled out to logic layer
     @Test
     public void retrievedDataListIsNotEmpty() {
         FakeDB db = new FakeDB();
-        TodolistLogic listIsNotEmpty = new TodolistLogic();
-        assertTrue(listIsNotEmpty.addTask("Task1", "High", "2020-01-01 12:12:12"));
+        ITodolistLogic listIsNotEmpty = new TodolistLogic();
+        assertTrue(listIsNotEmpty.addTask("Task1", "High", "2020-01-01 12:12:12","2220-05-02 01:02:12","Reading",10,"pages"));
         assertNotNull(listIsNotEmpty.getData());
-        db.clearDatabase();
+        db.deleteAllTask();
 
 
     }
@@ -91,10 +80,10 @@ public class TodoLogicLayerUnitTests {
     @Test
     public void noTaskAdded() {
         FakeDB db = new FakeDB();
-        TodolistLogic listIsNotEmpty = new TodolistLogic();
+        ITodolistLogic listIsNotEmpty = new TodolistLogic(db);
 
         assertEquals(0, listIsNotEmpty.getData().length);
-        db.clearDatabase();
+        db.deleteAllTask();
 
     }
     // after first task addition database shouldn't be empty, and data can be pulled out to logic layer
@@ -104,10 +93,10 @@ public class TodoLogicLayerUnitTests {
     @Test
     public void editTask() {
         FakeDB db = new FakeDB();
-        TodolistLogic noName = new TodolistLogic();
-        assertTrue(noName.addTask("it-1", "High", "2020-01-01 12:12:12"));
-        assertTrue(noName.editTask(0,"it-1", "Medium", "2020-01-01 10:12:12"));
-        db.clearDatabase();
+        ITodolistLogic noName = new TodolistLogic(db);
+        assertTrue(noName.addTask("it-1", "High", "2020-01-01 12:12:12","2220-05-02 01:02:12","Reading",10,"pages"));
+        assertTrue(noName.editTask(0,"it-1", "Medium", "2020-01-01 10:12:12","2220-05-02 01:02:12","Reading",10,"pages"));
+        db.deleteAllTask();
     }
 
 
@@ -115,10 +104,10 @@ public class TodoLogicLayerUnitTests {
     @Test
     public void editTaskFailed() {
         FakeDB db = new FakeDB();
-        TodolistLogic noName = new TodolistLogic();
-        assertTrue(noName.addTask("it-1", "High", "2020-01-01 12:12:12"));
-        assertFalse(noName.editTask(0,"it-1", "Choose priority", "2020-01-01 10:12:12"));
-        db.clearDatabase();
+        ITodolistLogic noName = new TodolistLogic(db);
+        assertTrue(noName.addTask("it-1", "High", "2020-01-01 12:12:12","2220-05-02 01:02:12","Reading",10,"pages"));
+        assertFalse(noName.editTask(0,"it-1", "Choose priority", "2020-01-01 10:12:12","2220-05-02 01:02:12","Reading",10,"pages"));
+        db.deleteAllTask();
     }
     //Task edit should return false with no priority
 
@@ -128,10 +117,10 @@ public class TodoLogicLayerUnitTests {
     @Test
     public void deleteTask() {
         FakeDB db = new FakeDB();
-        TodolistLogic deleteTaskSuccess = new TodolistLogic();
-        assertTrue(deleteTaskSuccess.addTask("it-1", "High", "2020-01-01 12:12:12"));
+        ITodolistLogic deleteTaskSuccess = new TodolistLogic(db);
+        assertTrue(deleteTaskSuccess.addTask("it-1", "High", "2020-01-01 12:12:12","2220-05-02 01:02:12","Reading",10,"pages"));
         assertTrue(deleteTaskSuccess.deleteTask(0));
-        db.clearDatabase();
+        db.deleteAllTask();
     }
     //Task edit should return false with no priority
 
@@ -140,52 +129,83 @@ public class TodoLogicLayerUnitTests {
     @Test
     public void deleteTaskSafety() {
         FakeDB db = new FakeDB();
-        TodolistLogic deleteDataSafety = new TodolistLogic();
-        assertTrue(deleteDataSafety.addTask("it-1", "High", "2020-01-01 12:12:12"));
-        assertTrue(deleteDataSafety.addTask("Task-3", "Medium", "2020-11-01 07:20:12"));
-        assertTrue(deleteDataSafety.addTask("Meeting", "High", "2020-03-01 07:10:12"));
-        assertTrue(deleteDataSafety.addTask("project", "Medium", "2020-03-12 04:20:12"));
+        ITodolistLogic deleteDataSafety = new TodolistLogic(db);
+        assertTrue(deleteDataSafety.addTask("it-1", "High", "2020-01-01 12:12:12","2220-05-02 01:02:12","Reading",10,"pages"));
+        assertTrue(deleteDataSafety.addTask("Task-3", "Medium", "2020-11-01 07:20:12","2220-05-02 01:02:12","Reading",10,"pages"));
+        assertTrue(deleteDataSafety.addTask("Meeting", "High", "2020-03-01 07:10:12","2220-05-02 01:02:12","Reading",10,"pages"));
+        assertTrue(deleteDataSafety.addTask("project", "Medium", "2020-03-12 04:20:12","2220-05-02 01:02:12","Reading",10,"pages"));
 
         assertTrue(deleteDataSafety.deleteTask(1));
         assertTrue(deleteDataSafety.deleteTask(2));
         assertEquals(2,deleteDataSafety.getData().length);
 
-        db.clearDatabase();
+        db.deleteAllTask();
     }
     //Task edit should return false with no priority
 
-  //Sending missing field information to UI
+
+  //Input Validation Exceptional tests
+    @Test(expected = IllegalArgumentException.class)
+    public void validateAllEmptyInputTest() throws IllegalArgumentException {
+        ITodolistLogic missingFields = new TodolistLogic();
+        missingFields.checkUserInput(0,"Choose priority",0, 0,"",0,"");
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void validateEmptyNameInputTest() throws IllegalArgumentException {
+        ITodolistLogic missingFields = new TodolistLogic();
+        missingFields.checkUserInput(0,"Choose priority",10, 10,"Reading", 1,"pages");
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void validateEmptyTimeInputTest() throws IllegalArgumentException {
+        ITodolistLogic missingFields = new TodolistLogic();
+        missingFields.checkUserInput(5,"Choose priority",10, 10,"Reading", 0,"pages");
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void validateEmptyDateInputTest() throws IllegalArgumentException {
+        ITodolistLogic missingFields = new TodolistLogic();
+        missingFields.checkUserInput(5,"Choose priority",0, 0,"Reading", 1,"pages");
+    }
+
     @Test
-    public void informMissingFields()
-    {
-        FakeDB db = new FakeDB();
-        TodolistLogic missingFields = new TodolistLogic();
-        assertEquals("Please choose a priority",missingFields.whichDataNotfill("toDO","","2020-01-01", "12:12:12"));
-        assertEquals("Please fill all information",missingFields.whichDataNotfill("","","", ""));
-        db.clearDatabase();
+    public void getTaskPriorityTextTest(){
+        ITodolistLogic logic = new TodolistLogic();
+        ITaskObject taskHigh = new Task("task");
+        taskHigh.setPriority(ITaskObject.Priority.HIGH);
+        ITaskObject taskMed = new Task("task");
+        taskMed.setPriority(ITaskObject.Priority.MEDIUM);
+        ITaskObject taskLow = new Task("task");
+        taskLow.setPriority(ITaskObject.Priority.LOW);
+
+        assertEquals("getTaskPriorityText should return High.","High", logic.getTaskPriorityText(taskHigh));
+        assertEquals("getTaskPriorityText should return Medium.","Medium", logic.getTaskPriorityText(taskMed));
+        assertEquals("getTaskPriorityText should return Low.","Low", logic.getTaskPriorityText(taskLow));
     }
 
 
-//    //taking numerical Priority Level From DB and sending text priority level UI
-//    @Test
-//    public void priorityIntToString(){
-//
-//        FakeDB db = new FakeDB();
-//        TodolistLogic priorityConversion = new TodolistLogic();
-//        assertEquals("High",ITodolistLogic.toPriority(1));
-//
-//        db.clearDatabase();
-//    }
-//
-//    //taking text priority level from UI and sending  numerical Priority Level to DB
-//
-//    @Test
-//    public void priorityStringTInt(){
-//
-//        FakeDB db = new FakeDB();
-//        TodolistLogic priorityConversion = new TodolistLogic();
-//        assertEquals(2, ITodolistLogic.toInt("Medium"));
-//
-//        db.clearDatabase();
-//    }
+    @Test(expected = ParseException.class)
+    public void dateCheckExceptionTest() throws Exception {
+        ITodolistLogic logic = new TodolistLogic();
+        logic.dateCheck("not a date","not a date");
+    }
+
+    @Test
+    public void dateCheckTest() {
+        ITodolistLogic logic = new TodolistLogic();
+        Boolean exceptionRaised = false;
+
+        try {
+            assertEquals("dateCheck should return true.",true, logic.dateCheck("2020-03-12 04:20:12", "2020-05-13 04:20:12"));
+            assertEquals("dateCheck should return false.",false, logic.dateCheck("2020-03-12 04:20:12", "2019-03-11 04:20:12"));
+        }catch (Exception e){
+            exceptionRaised = true;
+        }
+
+        assertEquals("no exception should be raised",false, exceptionRaised);
+    }
+
+
+
 }

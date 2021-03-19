@@ -13,7 +13,6 @@ import android.widget.TextView;
 import androidx.recyclerview.widget.RecyclerView;
 import com.groupeleven.studentlife.R;
 import com.groupeleven.studentlife.domainSpecificObjects.ITaskObject;
-import com.groupeleven.studentlife.domainSpecificObjects.Task;
 import com.groupeleven.studentlife.logic.DashboardLogic;
 
 import org.jetbrains.annotations.NotNull;
@@ -24,10 +23,10 @@ import java.util.Locale;
 
 public class DashboardEventListAdapter extends RecyclerView.Adapter<DashboardEventListAdapter.ViewHolder>{
 
-    private Task[] taskList;   // list to hold data from DSO
+    private ITaskObject[] taskList;   // list to hold data from DSO
     private DashboardLogic logic;
 
-    public DashboardEventListAdapter(Task[] taskList){
+    public DashboardEventListAdapter(ITaskObject[] taskList){
 
         this.taskList = taskList;
         this.logic = new DashboardLogic();
@@ -52,7 +51,7 @@ public class DashboardEventListAdapter extends RecyclerView.Adapter<DashboardEve
         TextView taskNameView = holder.taskNameTextView;
         TextView taskStatusView = holder.taskStatusTextView;
         TextView taskEndTimeView = holder.taskEndTimeTextView;
-        Task task = taskList[position];
+        ITaskObject task = taskList[position];
         ITaskObject.Priority priority = task.getPriority();
         String priorityText = logic.getPriorityText(task);
 
