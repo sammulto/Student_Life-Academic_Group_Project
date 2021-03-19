@@ -4,6 +4,12 @@ import com.groupeleven.studentlife.data.DB;
 import com.groupeleven.studentlife.data.IDatabase;
 import com.groupeleven.studentlife.domainSpecificObjects.ITaskObject;
 import com.groupeleven.studentlife.domainSpecificObjects.Task;
+import com.prolificinteractive.materialcalendarview.CalendarDay;
+
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 
 public class CalendarLogic implements ICalendarLogic {
 
@@ -86,5 +92,29 @@ public class CalendarLogic implements ICalendarLogic {
         ITaskObject whichITaskObject = taskObjects[id];
         timeEstimator = new TimeEstimator(4,40);
         return timeEstimator.getTimeEstimate(whichITaskObject);
+    }
+
+    public ArrayList getDayList() {
+        ArrayList<CalendarDay> dayList = new ArrayList();
+        ITaskObject taskList[] = database.getTasks();
+        Calendar calendar = Calendar.getInstance();
+        SimpleDateFormat taskFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+
+        for (int i = 0; i < taskList.length; i ++){
+            String taskDateString = taskList[i].getEndTime();
+            Date taskDate;
+            int year, month, day;
+            try {
+                taskDate = taskFormat.parse(taskDateString);
+                calendar.setTime(taskDate);
+                year = calendar.get(Calendar.YEAR);
+                month = calendar.get(Calendar.MONTH)+1;
+                day = calendar.get(Calendar.DAY_OF_MONTH);
+                dayList.add(CalendarDay.from(year,month,day));
+            }catch (Exception e){
+                System.err.println(e.getStackTrace());
+            }
+        }
+        return dayList;
     }
 }
