@@ -50,7 +50,7 @@ public class CalendarAdapter extends RecyclerView.Adapter<com.groupeleven.studen
         String output = task.getTaskName()+"\n"+"Due: "+
                 task.getEndTime().substring(0, task.getEndTime().length() - 3)+"\n"+
                 "Priority: "+logic.getTaskPriorityText(task)+"\n"+
-                task.getType()+" estimated: \n"+logic.getTimeEstimate(position)+" minutes";
+                task.getType()+" estimated: \n"+logic.getTimeEstimate(position,taskList)+" minutes";
 
 //--------------------------------------------------------------------------------------------------
 // show task detail in check box
