@@ -33,8 +33,6 @@ public class Toupdate extends AppCompatActivity implements
     private EditText name;
     private EditText startTime;
     private EditText endTime;
-    private EditText priorityText;
-    private EditText taskType;
     private EditText quantity;
     private EditText unit;
     private Spinner priority;
@@ -65,24 +63,21 @@ public class Toupdate extends AppCompatActivity implements
 
 //--------------------------------------------------------------------------------------------------
 // variable initialization
+        name = findViewById(R.id.name);
         startTime = findViewById(R.id.editStartTime);
         startTime.setInputType(InputType.TYPE_NULL);
 
         endTime = findViewById(R.id.editEndTime);
         endTime.setInputType(InputType.TYPE_NULL);
 
-        button = findViewById(R.id.button3);
-
-        priorityText = findViewById(R.id.editPriority);
         priority = findViewById((R.id.spinner1));
-        name = findViewById(R.id.name);
 
-        taskType = findViewById(R.id.taskType);
+        taskTypeSpinner = findViewById(R.id.taskTypeSpinner);
         quantity = findViewById(R.id.quantity);
         unit = findViewById(R.id.unit);
-        taskTypeSpinner = findViewById(R.id.taskTypeSpinner);
         unitSpinner = findViewById(R.id.unitSpinner);
 
+        button = findViewById(R.id.button3);
 //--------------------------------------------------------------------------------------------------
 // handle date passed by adapter
         Intent in = getIntent();
@@ -113,18 +108,6 @@ public class Toupdate extends AppCompatActivity implements
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
 
-            }
-        });
-
-//--------------------------------------------------------------------------------------------------
-// priority show up
-// after we clicked priority box we can see the spinner
-
-        priorityText.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View v) {
-                priorityText.setHint("");
-                priority.setVisibility(View.VISIBLE);
             }
         });
 
@@ -262,23 +245,10 @@ public class Toupdate extends AppCompatActivity implements
 
             }
         });
-
-
-//--------------------------------------------------------------------------------------------------
-// task type show up
-// after we clicked task type box we can see the spinner
-
-        taskType.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View v) {
-                taskType.setHint("");
-                taskTypeSpinner.setVisibility(View.VISIBLE);
-            }
-        });
     }
 
 
-    //--------------------------------------------------------------------------------------------------
+//--------------------------------------------------------------------------------------------------
 // unit spinner
     public void setUnitSpinner(){
         unit.setHint("");
