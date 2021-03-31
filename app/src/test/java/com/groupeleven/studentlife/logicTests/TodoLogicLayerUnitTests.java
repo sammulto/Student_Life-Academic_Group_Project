@@ -65,7 +65,7 @@ public class TodoLogicLayerUnitTests {
     @Test
     public void retrievedDataListIsNotEmpty() {
         FakeDB db = new FakeDB();
-        ITodolistLogic listIsNotEmpty = new TodolistLogic();
+        ITodolistLogic listIsNotEmpty = new TodolistLogic(db);
         assertTrue(listIsNotEmpty.addTask("Task1", "High", "2020-01-01 12:12:12","2220-05-02 01:02:12","Reading",10,"pages"));
         assertNotNull(listIsNotEmpty.getData());
         db.deleteAllTask();
