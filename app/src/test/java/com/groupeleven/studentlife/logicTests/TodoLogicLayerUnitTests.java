@@ -65,7 +65,7 @@ public class TodoLogicLayerUnitTests {
     @Test
     public void retrievedDataListIsNotEmpty() {
         FakeDB db = new FakeDB();
-        ITodolistLogic listIsNotEmpty = new TodolistLogic();
+        ITodolistLogic listIsNotEmpty = new TodolistLogic(db);
         assertTrue(listIsNotEmpty.addTask("Task1", "High", "2020-01-01 12:12:12","2220-05-02 01:02:12","Reading",10,"pages"));
         assertNotNull(listIsNotEmpty.getData());
         db.deleteAllTask();
@@ -147,31 +147,36 @@ public class TodoLogicLayerUnitTests {
   //Input Validation Exceptional tests
     @Test(expected = IllegalArgumentException.class)
     public void validateAllEmptyInputTest() throws IllegalArgumentException {
-        ITodolistLogic missingFields = new TodolistLogic();
+        FakeDB db = new FakeDB();
+        ITodolistLogic missingFields = new TodolistLogic(db);
         missingFields.checkUserInput(0,"Choose priority",0, 0,"",0,"");
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void validateEmptyNameInputTest() throws IllegalArgumentException {
-        ITodolistLogic missingFields = new TodolistLogic();
+        FakeDB db = new FakeDB();
+        ITodolistLogic missingFields = new TodolistLogic(db);
         missingFields.checkUserInput(0,"Choose priority",10, 10,"Reading", 1,"pages");
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void validateEmptyTimeInputTest() throws IllegalArgumentException {
-        ITodolistLogic missingFields = new TodolistLogic();
+        FakeDB db = new FakeDB();
+        ITodolistLogic missingFields = new TodolistLogic(db);
         missingFields.checkUserInput(5,"Choose priority",10, 10,"Reading", 0,"pages");
     }
 
     @Test(expected = IllegalArgumentException.class)
     public void validateEmptyDateInputTest() throws IllegalArgumentException {
-        ITodolistLogic missingFields = new TodolistLogic();
+        FakeDB db = new FakeDB();
+        ITodolistLogic missingFields = new TodolistLogic(db);
         missingFields.checkUserInput(5,"Choose priority",0, 0,"Reading", 1,"pages");
     }
 
     @Test
     public void getTaskPriorityTextTest(){
-        ITodolistLogic logic = new TodolistLogic();
+        FakeDB db = new FakeDB();
+        ITodolistLogic logic = new TodolistLogic(db);
         ITaskObject taskHigh = new Task("task");
         taskHigh.setPriority(ITaskObject.Priority.HIGH);
         ITaskObject taskMed = new Task("task");
@@ -187,13 +192,15 @@ public class TodoLogicLayerUnitTests {
 
     @Test(expected = ParseException.class)
     public void dateCheckExceptionTest() throws Exception {
-        ITodolistLogic logic = new TodolistLogic();
+        FakeDB db = new FakeDB();
+        ITodolistLogic logic = new TodolistLogic(db);
         logic.dateCheck("not a date","not a date");
     }
 
     @Test
     public void dateCheckTest() {
-        ITodolistLogic logic = new TodolistLogic();
+        FakeDB db = new FakeDB();
+        ITodolistLogic logic = new TodolistLogic(db);
         Boolean exceptionRaised = false;
 
         try {

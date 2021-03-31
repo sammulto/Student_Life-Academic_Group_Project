@@ -25,6 +25,7 @@ public class TodoLogicAndTimeEstimatorTests {
     @AfterClass
     //clean up the items in database since the database is a singleton
     static public void beforeAllTests(){
+        DB.setDBPath("src/main/assets/db/");
         IDatabase classDB = new DB();
         classDB.deleteAllTask();
     }
