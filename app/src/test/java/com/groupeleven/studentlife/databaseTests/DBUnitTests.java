@@ -149,6 +149,7 @@ public class DBUnitTests {
 
     @Test
     public void getDBTest(){
+        DB.setDBPath("src/main/assets/db/");
         DB db1 = DB.getDB();
         DB db2 = DB.getDB();
 
