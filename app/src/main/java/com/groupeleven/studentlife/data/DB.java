@@ -4,6 +4,9 @@
 
 package com.groupeleven.studentlife.data;
 
+import android.content.Context;
+
+import java.io.File;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
@@ -15,7 +18,7 @@ import com.groupeleven.studentlife.domainSpecificObjects.Task;
 
 public class DB implements IDatabase {
     private Connection connection;
-    private final String path = "/data/data/com.groupeleven.studentlife/";
+    private static String path = "/data/data/com.groupeleven.studentlife/";
     private static DB db;
 
     public static DB getDB(){
@@ -29,12 +32,20 @@ public class DB implements IDatabase {
         this("storage", "file");
     }
 
+    public static void setDBPath(Context context){
+        File dbPath =  context.getDir("db", Context.MODE_PRIVATE);
+        path = dbPath.toString();
+    }
+
+    public static void setDBPath(String filePath){
+        path = filePath;
+    }
 
     public DB(String name, String type) {
         try {;
             Class.forName("org.hsqldb.jdbcDriver");
             if(type.equals("file")) {
-                connection = DriverManager.getConnection("jdbc:hsqldb:" + type + ":" + path + name, "SA", "");
+                connection = DriverManager.getConnection("jdbc:hsqldb:" + type + ":" + DB.path + name, "SA", "");
             }
             else if(type.equals("mem")){
                 connection = DriverManager.getConnection("jdbc:hsqldb:" + type + ":" + name, "SA", "");
