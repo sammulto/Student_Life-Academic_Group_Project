@@ -88,12 +88,6 @@ public class CalendarLogic implements ICalendarLogic {
         return dayList;
     }
 
-    // delete a task
-    @Override
-    public boolean deleteTask(int id) {
-        ITaskObject whichITaskObject = database.getTasks()[id];
-        return database.deleteTask(whichITaskObject);
-    }
 
     //--------------------------------------------------------------------------------------------------
 // add a task
@@ -110,36 +104,6 @@ public class CalendarLogic implements ICalendarLogic {
             ITaskObject newTask = new Task(name, priority, startTime, endTime, 0, type, quantity, unit);
             result = database.insertTask(newTask);
 
-        }
-        return result;
-    }
-
-    //--------------------------------------------------------------------------------------------------
-// edit a task
-    @Override
-    public boolean editTask(int id, String name, String priorityText, String startTime, String endTime, String type, int quantity, String unit) {
-
-        boolean result = false;
-
-        // check the input
-        if (validTaskInput(name, priorityText, startTime, endTime, type, quantity, unit)) {
-
-            ITaskObject.Priority priority = ITaskObject.Priority.valueOf(priorityText.toUpperCase());
-//            getTask(int tid)
-//            ITaskObject taskToEdit = database.getTask(id)[0];
-//            ITaskObject taskToEdit = database.getTask(id)[0];
-
-
-            ITaskObject taskToEdit=           this.viewTask(clSelectedDate)[id];
-
-            taskToEdit.setTaskName(name);
-            taskToEdit.setPriority(priority);
-            taskToEdit.setStartTime(startTime);
-            taskToEdit.setEndTime(endTime);
-            taskToEdit.setType(type);
-            taskToEdit.setQuantityUnit(unit);
-            taskToEdit.setQuantity(quantity);
-            result = database.updateTask(taskToEdit, id);
         }
         return result;
     }
@@ -238,5 +202,18 @@ public class CalendarLogic implements ICalendarLogic {
             result = database.updateTask(taskToEdit, id);
         }
         return result;
+    }
+
+    public boolean deleteTask(String date, int id) {
+
+        ITaskObject temp = this.viewTask(date)[id];
+
+        return database.deleteTask(temp);
+    }
+    public boolean setCompleted(String date, int id, boolean status) {
+
+        ITaskObject temp = this.viewTask(date)[id];
+        temp.setCompleted(status);
+        return database.updateTask(temp,temp.getTid());
     }
 }

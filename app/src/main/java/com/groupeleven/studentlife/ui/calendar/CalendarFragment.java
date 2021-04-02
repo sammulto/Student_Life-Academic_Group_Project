@@ -46,9 +46,8 @@ public class CalendarFragment extends Fragment {
 
     private String selectedDate;
 
-    private Inflater myInflater;
-    private ViewGroup myViewGroup;
-    MaterialCalendarView materialCalendarView;
+
+    private MaterialCalendarView materialCalendarView;
 
     public CalendarFragment() {
     }
@@ -95,13 +94,11 @@ public class CalendarFragment extends Fragment {
                 }
 
                 taskList = calendarLogic.viewTask(selectedDate);
-                viewTasksForSelectedDate( selectedDate);
-
+                viewTasksForSelectedDate(selectedDate);
 
 
             }
         });
-
 
 
         return root;
@@ -114,7 +111,7 @@ public class CalendarFragment extends Fragment {
         taskList = calendarLogic.viewTask(date);
         taskRecycle.setLayoutManager(new LinearLayoutManager(getContext()));
 
-        taskAdapter = new CalendarAdapter(taskList, date);
+        taskAdapter = new CalendarAdapter(taskList, date, materialCalendarView);
         taskRecycle.setAdapter(taskAdapter);
 
 
