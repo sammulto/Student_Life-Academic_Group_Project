@@ -12,9 +12,11 @@ import com.groupeleven.studentlife.ui.MainActivity;
 
 import org.hamcrest.Matchers;
 import org.junit.Before;
+import org.junit.FixMethodOrder;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.junit.runners.MethodSorters;
 
 import static androidx.test.espresso.Espresso.closeSoftKeyboard;
 import static androidx.test.espresso.Espresso.onData;
@@ -36,9 +38,8 @@ import static org.hamcrest.Matchers.containsString;
 import static org.hamcrest.Matchers.instanceOf;
 import static org.hamcrest.Matchers.is;
 
-
-
 @RunWith(AndroidJUnit4.class)
+@FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class TodoListAcceptanceTests {
 
     private View decorView;
@@ -56,13 +57,13 @@ public class TodoListAcceptanceTests {
     }
 
     @Test
-    public void displayTest() {
+    public void a_displayTest() {
         onView(withId(R.id.navigation_todolist)).perform(click()).check(matches(isDisplayed()));
         onView(withId(R.id.todolist_layout)).check(matches(isDisplayed()));
     }
 
     @Test
-    public void addTaskTest() {
+    public void b_addTaskTest() {
 
         onView(withId(R.id.navigation_todolist)).perform(click());
         onView(withId(R.id.fbutton)).perform(click());
@@ -91,7 +92,7 @@ public class TodoListAcceptanceTests {
     }
 
     @Test
-    public void EditTaskTest() {
+    public void c_editTaskTest() {
 
         onView(withId(R.id.navigation_todolist)).perform(click());
         onView(withId(R.id.fbutton)).perform(click());
@@ -109,7 +110,7 @@ public class TodoListAcceptanceTests {
     }
 
     @Test
-    public void DeleteTaskTest() {
+    public void d_deleteTaskTest() {
 
         onView(withId(R.id.navigation_todolist)).perform(click());
         onView(withId(R.id.fbutton)).perform(click());
