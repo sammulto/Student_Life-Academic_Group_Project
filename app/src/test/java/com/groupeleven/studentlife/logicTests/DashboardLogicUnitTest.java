@@ -1,7 +1,6 @@
 package com.groupeleven.studentlife.logicTests;
 
-import com.groupeleven.studentlife.data.FakeDB;
-import com.groupeleven.studentlife.data.IDatabase;
+import com.groupeleven.studentlife.faskDB.FakeDB;
 import com.groupeleven.studentlife.domainSpecificObjects.ITaskObject;
 import com.groupeleven.studentlife.domainSpecificObjects.Task;
 import com.groupeleven.studentlife.logic.DashboardLogic;

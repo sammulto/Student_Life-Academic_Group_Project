@@ -70,14 +70,14 @@ public class Toupdate extends AppCompatActivity implements
         endTime = findViewById(R.id.editEndTime);
         endTime.setInputType(InputType.TYPE_NULL);
 
-        priority = findViewById((R.id.spinner1));
+        priority = findViewById((R.id.prioritySpinner));
 
         taskTypeSpinner = findViewById(R.id.taskTypeSpinner);
         quantity = findViewById(R.id.quantity);
         unit = findViewById(R.id.unit);
         unitSpinner = findViewById(R.id.unitSpinner);
 
-        button = findViewById(R.id.button3);
+        button = findViewById(R.id.updateButton);
 //--------------------------------------------------------------------------------------------------
 // handle date passed by adapter
         Intent in = getIntent();
