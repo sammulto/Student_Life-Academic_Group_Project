@@ -74,10 +74,10 @@ public class CalendarToUpdate extends AppCompatActivity implements
         endTime = findViewById(R.id.editEndTime);
         endTime.setInputType(InputType.TYPE_NULL);
 
-        button = findViewById(R.id.button3);
+        button = findViewById(R.id.updateButton);
 
         priorityText = findViewById(R.id.editPriority);
-        priority = findViewById((R.id.spinner1));
+        priority = findViewById((R.id.prioritySpinner));
         name = findViewById(R.id.name);
 
         taskType = findViewById(R.id.taskType);
