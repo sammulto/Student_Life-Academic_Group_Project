@@ -2,9 +2,10 @@
  *  This is a fake database for iteration 1
  */
 
-package com.groupeleven.studentlife.data;
+package com.groupeleven.studentlife.faskDB;
 
 
+import com.groupeleven.studentlife.data.IDatabase;
 import com.groupeleven.studentlife.domainSpecificObjects.ITaskObject;
 
 import java.util.ArrayList;
