@@ -1,5 +1,6 @@
-package com.groupeleven.studentlife.ui.todolist;
+package com.groupeleven.studentlife.ui.calendar;
 
+import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.content.Intent;
@@ -22,17 +23,19 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.groupeleven.studentlife.R;
-import com.groupeleven.studentlife.logic.ITodolistLogic;
-import com.groupeleven.studentlife.logic.TodolistLogic;
+import com.groupeleven.studentlife.logic.CalendarLogic;
+import com.groupeleven.studentlife.logic.ICalendarLogic;
 
 import java.util.Calendar;
 
-public class Toupdate extends AppCompatActivity implements
-        DatePickerDialog.OnDateSetListener,TimePickerDialog.OnTimeSetListener{
+public class CalendarToUpdate extends AppCompatActivity implements
+        DatePickerDialog.OnDateSetListener, TimePickerDialog.OnTimeSetListener {
 
     private EditText name;
     private EditText startTime;
     private EditText endTime;
+    private EditText priorityText;
+    private EditText taskType;
     private EditText quantity;
     private EditText unit;
     private Spinner priority;
@@ -40,11 +43,11 @@ public class Toupdate extends AppCompatActivity implements
     private Spinner unitSpinner;
     private Button button;
 
-    private ITodolistLogic logic = new TodolistLogic();
+    private ICalendarLogic logic = new CalendarLogic();
 
     // variable for time/date picker
-    private int sYear,sMonth,sDay,eYear,eMonth,eDay;
-    private int sHour,sMinute,eHour,eMinute;
+    private int sYear, sMonth, sDay, eYear, eMonth, eDay;
+    private int sHour, sMinute, eHour, eMinute;
 
     // flag to see we are in start time picker or end time picker
     private int flag;
@@ -53,6 +56,8 @@ public class Toupdate extends AppCompatActivity implements
 
     // to see which type of output we want in unit
     private int resource = 0;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,27 +68,32 @@ public class Toupdate extends AppCompatActivity implements
 
 //--------------------------------------------------------------------------------------------------
 // variable initialization
-        name = findViewById(R.id.name);
         startTime = findViewById(R.id.editStartTime);
         startTime.setInputType(InputType.TYPE_NULL);
 
         endTime = findViewById(R.id.editEndTime);
         endTime.setInputType(InputType.TYPE_NULL);
 
-        priority = findViewById((R.id.prioritySpinner));
+        button = findViewById(R.id.updateButton);
 
-        taskTypeSpinner = findViewById(R.id.taskTypeSpinner);
+        priorityText = findViewById(R.id.editPriority);
+        priority = findViewById((R.id.prioritySpinner));
+        name = findViewById(R.id.name);
+
+        taskType = findViewById(R.id.taskType);
         quantity = findViewById(R.id.quantity);
         unit = findViewById(R.id.unit);
+        taskTypeSpinner = findViewById(R.id.taskTypeSpinner);
         unitSpinner = findViewById(R.id.unitSpinner);
 
-        button = findViewById(R.id.updateButton);
 //--------------------------------------------------------------------------------------------------
 // handle date passed by adapter
         Intent in = getIntent();
         int positon = in.getExtras().getInt("id",-1);
+        String mySelectedDate=in.getExtras().getString("selectedDate");
 
-        if(positon==-1){
+//        int positon = -1;
+        if (positon == -1) {
             button.setText("Add");
         }
 
@@ -91,7 +101,7 @@ public class Toupdate extends AppCompatActivity implements
 // priority spinner
 
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
-                android.R.layout.simple_list_item_1,getResources().getStringArray(R.array.priority));
+                android.R.layout.simple_list_item_1, getResources().getStringArray(R.array.priority));
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         priority.setAdapter(adapter);
 
@@ -100,7 +110,7 @@ public class Toupdate extends AppCompatActivity implements
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
 
                 // the first choice in spinner is hint(cannot be chose)
-                if(parent.getItemAtPosition(position).equals("Choose priority")){
+                if (parent.getItemAtPosition(position).equals("Choose priority")) {
                     ((TextView) view).setTextColor(Color.GRAY);
                 }
             }
@@ -111,11 +121,23 @@ public class Toupdate extends AppCompatActivity implements
             }
         });
 
+//--------------------------------------------------------------------------------------------------
+// priority show up
+// after we clicked priority box we can see the spinner
+
+        priorityText.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                priorityText.setHint("");
+                priority.setVisibility(View.VISIBLE);
+            }
+        });
+
 
 //--------------------------------------------------------------------------------------------------
 //Pick start time (both date and time )
 
-        startTime.setOnClickListener(new View.OnClickListener(){
+        startTime.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 flag = 0;
@@ -124,7 +146,7 @@ public class Toupdate extends AppCompatActivity implements
                 sMonth = calendar.get(Calendar.MONTH);
                 sDay = calendar.get(Calendar.DAY_OF_MONTH);
 
-                DatePickerDialog datePickerDialog = new DatePickerDialog(Toupdate.this, Toupdate.this,sYear,sMonth,sDay);
+                DatePickerDialog datePickerDialog = new DatePickerDialog(CalendarToUpdate.this, CalendarToUpdate.this, sYear, sMonth, sDay);
                 datePickerDialog.show();
             }
         });
@@ -133,7 +155,7 @@ public class Toupdate extends AppCompatActivity implements
 //--------------------------------------------------------------------------------------------------
 //Pick end time (both date and time)
 
-        endTime.setOnClickListener(new View.OnClickListener(){
+        endTime.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 flag = 1;
@@ -142,7 +164,7 @@ public class Toupdate extends AppCompatActivity implements
                 eMonth = calendar.get(Calendar.MONTH);
                 eDay = calendar.get(Calendar.DAY_OF_MONTH);
 
-                DatePickerDialog datePickerDialog = new DatePickerDialog(Toupdate.this, Toupdate.this,eYear,eMonth,eDay);
+                DatePickerDialog datePickerDialog = new DatePickerDialog(CalendarToUpdate.this, CalendarToUpdate.this, eYear, eMonth, eDay);
                 datePickerDialog.show();
             }
         });
@@ -151,8 +173,8 @@ public class Toupdate extends AppCompatActivity implements
 // add or update button
 // final process in this activity
 
-        button.setOnClickListener(new View.OnClickListener(){
-            public void onClick(View v){
+        button.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
                 String taskName = name.getText().toString();
                 String taskPriority = priority.getSelectedItem().toString();
                 String taskStart = startTime.getText().toString();
@@ -167,10 +189,10 @@ public class Toupdate extends AppCompatActivity implements
                 int endLength = taskEnd.length();
 
 
-                if(unitSpinner.getSelectedItem()!=null){
+                if (unitSpinner.getSelectedItem() != null) {
                     workUnit = unitSpinner.getSelectedItem().toString();
                 }
-                if(!quantity.getText().toString().equals("")){
+                if (!quantity.getText().toString().equals("")) {
                     num = Integer.parseInt(quantity.getText().toString());
                 }
 
@@ -178,19 +200,19 @@ public class Toupdate extends AppCompatActivity implements
                 boolean isComplete = false;
                 String message = "";
 
-                if(positon==-1){
-                    isComplete = logic.addTask(taskName, taskPriority, fixedStart, fixedEnd,type,num,workUnit);
+                if (positon == -1) {
+                    isComplete = logic.addTask(taskName, taskPriority, fixedStart, fixedEnd, type, num, workUnit);
                     message = "Task added successfully";
-                }
-                else{
-                    isComplete = logic.editTask(positon,taskName, taskPriority, fixedStart, fixedEnd,type,num,workUnit);
+                } else {
+                    isComplete = logic.editTask(mySelectedDate,positon, taskName, taskPriority, fixedStart, fixedEnd, type, num, workUnit);
                     message = "Task edited successfully";
                 }
 
                 // pass to logic to check is add complete
+
                 if (isComplete) {
                     finish();
-                    Toast toast = Toast.makeText(Toupdate.this,message,Toast.LENGTH_SHORT);
+                    Toast toast = Toast.makeText(CalendarToUpdate.this, message, Toast.LENGTH_SHORT);
                     toast.setGravity(Gravity.CENTER_HORIZONTAL | Gravity.BOTTOM, 0, 400);
                     toast.show();
                 }
@@ -199,11 +221,15 @@ public class Toupdate extends AppCompatActivity implements
                 else {
                     try {
                         logic.checkUserInput(nameLength, taskPriority, startLength, endLength, type, num, workUnit);
-                    }catch (Exception e) {
-                        Toast.makeText(Toupdate.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+                    } catch (Exception e) {
+                        Toast.makeText(CalendarToUpdate.this, e.getMessage(), Toast.LENGTH_SHORT).show();
                     }
                 }
+
+
+
             }
+
         });
 
 
@@ -213,7 +239,7 @@ public class Toupdate extends AppCompatActivity implements
 // task type spinner
 
         ArrayAdapter<String> adapter1 = new ArrayAdapter<String>(this,
-                android.R.layout.simple_list_item_1,getResources().getStringArray(R.array.type));
+                android.R.layout.simple_list_item_1, getResources().getStringArray(R.array.type));
         adapter1.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         taskTypeSpinner.setAdapter(adapter1);
 
@@ -221,19 +247,17 @@ public class Toupdate extends AppCompatActivity implements
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
 
-                if(parent.getItemAtPosition(position).equals("Choose task type")){
+                if (parent.getItemAtPosition(position).equals("Choose task type")) {
                     ((TextView) view).setTextColor(Color.GRAY);
                 }
 
-                if(parent.getItemAtPosition(position).equals("Reading")){
+                if (parent.getItemAtPosition(position).equals("Reading")) {
                     resource = R.array.read;
                     setUnitSpinner();
-                }
-                else if(parent.getItemAtPosition(position).equals("Homework")){
+                } else if (parent.getItemAtPosition(position).equals("Homework")) {
                     resource = R.array.homework;
                     setUnitSpinner();
-                }
-                else if(parent.getItemAtPosition(position).equals("Lecture")){
+                } else if (parent.getItemAtPosition(position).equals("Lecture")) {
                     resource = R.array.lecture;
                     setUnitSpinner();
                 }
@@ -245,16 +269,29 @@ public class Toupdate extends AppCompatActivity implements
 
             }
         });
-    }
 
 
 //--------------------------------------------------------------------------------------------------
+// task type show up
+// after we clicked task type box we can see the spinner
+
+        taskType.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                taskType.setHint("");
+                taskTypeSpinner.setVisibility(View.VISIBLE);
+            }
+        });
+    }
+
+
+    //--------------------------------------------------------------------------------------------------
 // unit spinner
-    public void setUnitSpinner(){
+    public void setUnitSpinner() {
         unit.setHint("");
         unitSpinner.setVisibility(View.VISIBLE);
         ArrayAdapter<String> adapter2 = new ArrayAdapter<String>(this,
-                android.R.layout.simple_list_item_1,getResources().getStringArray(resource));
+                android.R.layout.simple_list_item_1, getResources().getStringArray(resource));
         adapter2.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         unitSpinner.setAdapter(adapter2);
 
@@ -262,7 +299,7 @@ public class Toupdate extends AppCompatActivity implements
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
 
-                if(parent.getItemAtPosition(position).equals("Choose you unit")){
+                if (parent.getItemAtPosition(position).equals("Choose you unit")) {
                     ((TextView) view).setTextColor(Color.GRAY);
                 }
             }
@@ -283,26 +320,26 @@ public class Toupdate extends AppCompatActivity implements
         Calendar calendar = Calendar.getInstance();
 
         // we are in start time picker
-        if (flag == FLAG_START){
+        if (flag == FLAG_START) {
             sYear = year;
             sMonth = month;
             sDay = dayOfMonth;
             sHour = calendar.get(Calendar.HOUR_OF_DAY);
             sMinute = calendar.get(Calendar.MINUTE);
 
-            TimePickerDialog timePickerDialog = new TimePickerDialog(Toupdate.this, Toupdate.this, sHour, sMinute, DateFormat.is24HourFormat(this));
+            TimePickerDialog timePickerDialog = new TimePickerDialog(CalendarToUpdate.this, CalendarToUpdate.this, sHour, sMinute, DateFormat.is24HourFormat(this));
             timePickerDialog.show();
         }
 
         // we are in end time picker
-        else if(flag == FLAG_END){
+        else if (flag == FLAG_END) {
             eYear = year;
             eMonth = month;
             eDay = dayOfMonth;
             eHour = calendar.get(Calendar.HOUR_OF_DAY);
             eMinute = calendar.get(Calendar.MINUTE);
 
-            TimePickerDialog timePickerDialog = new TimePickerDialog(Toupdate.this, Toupdate.this, eHour, eMinute, DateFormat.is24HourFormat(this));
+            TimePickerDialog timePickerDialog = new TimePickerDialog(CalendarToUpdate.this, CalendarToUpdate.this, eHour, eMinute, DateFormat.is24HourFormat(this));
             timePickerDialog.show();
         }
     }

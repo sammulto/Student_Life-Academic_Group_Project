@@ -34,6 +34,7 @@ public class CalendarAndDBTests {
     //make sure the database is empty before tests
     static public void beforeAllTests() {
         // DB is a singleton
+        DB.setDBPath("src/main/assets/db/");
         IDatabase classDB = new DB();
         classDB.deleteAllTask();
     }

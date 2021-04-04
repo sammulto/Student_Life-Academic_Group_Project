@@ -1,6 +1,6 @@
 package com.groupeleven.studentlife.databaseTests;
 
-import com.groupeleven.studentlife.data.FakeDB;
+import com.groupeleven.studentlife.faskDB.FakeDB;
 import com.groupeleven.studentlife.domainSpecificObjects.ITaskObject;
 import com.groupeleven.studentlife.domainSpecificObjects.Task;
 

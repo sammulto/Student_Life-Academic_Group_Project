@@ -2,6 +2,7 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/usefullink_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ui.usefullinks.UsefullinksFragment">
@@ -47,11 +48,11 @@
 
         <TextView
             android:id="@+id/link_desmos"
-            android:text="@string/link_desmos"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="0dp"
             android:layout_marginTop="20dp"
+            android:text="@string/link_desmos"
             android:textAlignment="center"
             android:textAllCaps="true"
             android:textAppearance="@style/TextAppearance.AppCompat.Medium"
@@ -61,11 +62,11 @@
 
         <TextView
             android:id="@+id/link_khan_academy"
-            android:text="@string/link_khan_academy"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="0dp"
             android:layout_marginTop="8dp"
+            android:text="@string/link_khan_academy"
             android:textAlignment="center"
             android:textAllCaps="true"
             android:textAppearance="@style/TextAppearance.AppCompat.Medium"
@@ -75,11 +76,11 @@
 
         <TextView
             android:id="@+id/link_wiki"
-            android:text="@string/link_wiki"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="0dp"
             android:layout_marginTop="8dp"
+            android:text="@string/link_wiki"
             android:textAlignment="center"
             android:textAllCaps="true"
             android:textAppearance="@style/TextAppearance.AppCompat.Medium"
@@ -89,11 +90,11 @@
 
         <TextView
             android:id="@+id/link_quizlet"
-            android:text="@string/link_quizlet"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="0dp"
             android:layout_marginTop="8dp"
+            android:text="@string/link_quizlet"
             android:textAlignment="center"
             android:textAllCaps="true"
             android:textAppearance="@style/TextAppearance.AppCompat.Medium"
@@ -103,11 +104,11 @@
 
         <TextView
             android:id="@+id/link_ocw"
-            android:text="@string/link_ocw"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="0dp"
             android:layout_marginTop="8dp"
+            android:text="@string/link_ocw"
             android:textAlignment="center"
             android:textAllCaps="true"
             android:textAppearance="@style/TextAppearance.AppCompat.Medium"
@@ -117,11 +118,11 @@
 
         <TextView
             android:id="@+id/link_youtube"
-            android:text="@string/link_youtube"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="0dp"
             android:layout_marginTop="8dp"
+            android:text="@string/link_youtube"
             android:textAlignment="center"
             android:textAllCaps="true"
             android:textAppearance="@style/TextAppearance.AppCompat.Medium"
@@ -162,11 +163,11 @@
 
         <TextView
             android:id="@+id/link_iclicker"
-            android:text="@string/link_iclicker"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="0dp"
             android:layout_marginTop="15dp"
+            android:text="@string/link_iclicker"
             android:textAlignment="center"
             android:textAllCaps="true"
             android:textAppearance="@style/TextAppearance.AppCompat.Medium"
@@ -176,11 +177,11 @@
 
         <TextView
             android:id="@+id/link_crowdmark"
-            android:text="@string/link_crowdmark"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="0dp"
             android:layout_marginTop="8dp"
+            android:text="@string/link_crowdmark"
             android:textAlignment="center"
             android:textAllCaps="true"
             android:textAppearance="@style/TextAppearance.AppCompat.Medium"
@@ -190,11 +191,11 @@
 
         <TextView
             android:id="@+id/link_umlearn"
-            android:text="@string/link_umlearn"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="0dp"
             android:layout_marginTop="8dp"
+            android:text="@string/link_umlearn"
             android:textAlignment="center"
             android:textAllCaps="true"
             android:textAppearance="@style/TextAppearance.AppCompat.Medium"
@@ -204,11 +205,11 @@
 
         <TextView
             android:id="@+id/link_gather"
-            android:text="@string/link_gather"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="0dp"
             android:layout_marginTop="8dp"
+            android:text="@string/link_gather"
             android:textAlignment="center"
             android:textAllCaps="true"
             android:textAppearance="@style/TextAppearance.AppCompat.Medium"
@@ -218,11 +219,11 @@
 
         <TextView
             android:id="@+id/link_google_doc"
-            android:text="@string/link_google_doc"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="0dp"
             android:layout_marginTop="8dp"
+            android:text="@string/link_google_doc"
             android:textAlignment="center"
             android:textAllCaps="true"
             android:textAppearance="@style/TextAppearance.AppCompat.Medium"
