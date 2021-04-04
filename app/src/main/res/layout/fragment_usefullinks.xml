@@ -231,6 +231,17 @@
             android:textStyle="bold"
             android:typeface="normal" />
 
+
+
     </LinearLayout>
+
+    <ImageButton
+        android:id="@+id/tutorial_button"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_marginStart="330dp"
+        android:src="@drawable/ic_tutorial"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
