@@ -7,6 +7,11 @@ public class TimeEstimator implements ITimeEstimator {
     private final int TIME_PER_PAGE = 2;
     private final int WORDS_PER_MINUTE = 150;
     private final int LECTURES_PER_WEEK = 150;
+    private final int LAB_TIME = 75;
+    private final int TERM_PAPER_TIME_PER_PAGE = 480;
+    private final int TIME_PER_FLASHCARD = 1;
+    private final int TIME_PER_WEEK = 60;
+    private final int TIME_PER_MODULE = 30;
     private int numCourses;
     private int minutesPerWeek;
 
@@ -28,6 +33,15 @@ public class TimeEstimator implements ITimeEstimator {
                 break;
             case "lecture":
                 result = lectureEstimate(t);
+                break;
+            case "lab":
+                result = labEstimate(t);
+                break;
+            case "term paper":
+                result = termPaperEstimate(t);
+                break;
+            case "studying":
+                result = studyingEstimate(t);
                 break;
         }
         return result;
@@ -67,6 +81,46 @@ public class TimeEstimator implements ITimeEstimator {
                 break;
             case "hours":
                 result = t.getQuantity()*60;
+        }
+        return result;
+    }
+
+    private int labEstimate(ITaskObject t){
+        int result = -1;
+        if(t.getQuantityUnit().toLowerCase().equals("labs")) {
+            result = t.getQuantity()*LAB_TIME;
+        }
+
+        return result;
+    }
+
+    private int termPaperEstimate(ITaskObject t){
+        int result = -1;
+        if(t.getQuantityUnit().toLowerCase().equals("pages")){
+            result = t.getQuantity()*TERM_PAPER_TIME_PER_PAGE;
+        }
+
+        return result;
+    }
+
+    private int studyingEstimate(ITaskObject t){
+        int result = -1;
+        switch(t.getQuantityUnit().toLowerCase()){
+            case "weeks":
+                result = t.getQuantity()*TIME_PER_WEEK;
+                break;
+            case "modules":
+                result = t.getQuantity()*TIME_PER_MODULE;
+                break;
+            case "flashcards":
+                result = t.getQuantity()*TIME_PER_FLASHCARD;
+                break;
+            case "pages":
+                result = readingEstimate(t);
+                break;
+            case "words":
+                result = readingEstimate(t);
+                break;
         }
         return result;
     }
