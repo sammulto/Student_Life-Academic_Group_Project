@@ -16,22 +16,16 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-<!--        <ImageButton-->
-<!--            android:id="@+id/tutorial_button"-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="40dp"-->
-<!--            android:layout_marginStart="0dp"-->
-<!--            android:layout_marginTop="15dp"-->
-<!--            android:layout_weight="0"-->
-<!--            android:background="#FFFFFF"-->
-<!--            android:scaleType="fitCenter"-->
-<!--            android:src="@drawable/ic_tutorial" />-->
-
-        <Button
+        <ImageButton
             android:id="@+id/tutorial_button"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Tutorial" />
+            android:layout_height="40dp"
+            android:layout_marginStart="0dp"
+            android:layout_marginTop="15dp"
+            android:layout_weight="0"
+            android:background="#FFFFFF"
+            android:scaleType="fitCenter"
+            android:src="@drawable/ic_tutorial" />
 
         <TextView
             android:layout_width="match_parent"
