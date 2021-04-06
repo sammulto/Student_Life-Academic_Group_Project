@@ -18,6 +18,11 @@
             android:parentActivityName=".ui.calendar.CalendarToUpdate"></activity>
 
         <activity
+            android:name=".ui.usefullinks.Tutorial"
+            android:parentActivityName=".ui.usefullinks.Tutorial"></activity>
+
+
+        <activity
             android:name=".ui.MainActivity"
             android:label="@string/app_name"
             android:screenOrientation="portrait">
