@@ -226,7 +226,7 @@ public class DB implements IDatabase {
     }
 
     public ITaskObject[] getTasksUncompleted(){
-        return getTasksWhere("completed = TRUE", new String[0]);
+        return getTasksWhere("completed = FALSE", new String[0]);
     }
 
     public ITaskObject[] getTasksCompleted(){
