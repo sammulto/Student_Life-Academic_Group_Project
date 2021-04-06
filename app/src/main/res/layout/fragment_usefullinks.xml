@@ -16,6 +16,30 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
+        <ImageButton
+            android:id="@+id/tutorial_button"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_marginStart="0dp"
+            android:layout_marginTop="15dp"
+            android:layout_weight="0"
+            android:background="#FFFFFF"
+            android:scaleType="fitCenter"
+            android:src="@drawable/ic_tutorial" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:layout_marginEnd="0dp"
+            android:layout_weight="0"
+            android:text="Student Life Tutorial"
+            android:textAlignment="center"
+            android:textAppearance="@style/TextAppearance.AppCompat.Large"
+            android:textColor="@color/teal_700"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -26,7 +50,7 @@
                 android:layout_width="40dp"
                 android:layout_height="40dp"
                 android:layout_marginStart="50dp"
-                android:layout_marginTop="20dp"
+                android:layout_marginTop="10dp"
                 android:layout_weight="5"
                 android:src="@drawable/ic_study_helper" />
 
@@ -34,7 +58,7 @@
                 android:id="@+id/study_website_static_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="25dp"
+                android:layout_marginTop="12dp"
                 android:layout_marginEnd="60dp"
                 android:layout_weight="5"
                 android:text="Essential Websites"
@@ -51,7 +75,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="0dp"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="5dp"
             android:text="@string/link_desmos"
             android:textAlignment="center"
             android:textAllCaps="true"
@@ -133,7 +157,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="30dp"
+            android:layout_marginTop="10dp"
             android:orientation="horizontal">
 
             <ImageView
@@ -141,7 +165,7 @@
                 android:layout_width="40dp"
                 android:layout_height="40dp"
                 android:layout_marginStart="40dp"
-                android:layout_marginTop="20dp"
+                android:layout_marginTop="10dp"
                 android:layout_weight="5"
                 android:src="@drawable/ic_study_guide" />
 
@@ -149,7 +173,7 @@
                 android:id="@+id/textView2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="25dp"
+                android:layout_marginTop="12dp"
                 android:layout_marginEnd="60dp"
                 android:layout_weight="5"
                 android:text="Essential Tools"
@@ -166,7 +190,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="0dp"
-            android:layout_marginTop="15dp"
+            android:layout_marginTop="5dp"
             android:text="@string/link_iclicker"
             android:textAlignment="center"
             android:textAllCaps="true"
@@ -232,16 +256,6 @@
             android:typeface="normal" />
 
 
-
     </LinearLayout>
-
-    <ImageButton
-        android:id="@+id/tutorial_button"
-        android:layout_width="60dp"
-        android:layout_height="60dp"
-        android:layout_marginStart="330dp"
-        android:src="@drawable/ic_tutorial"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
