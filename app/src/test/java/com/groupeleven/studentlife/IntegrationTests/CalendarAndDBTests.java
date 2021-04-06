@@ -50,26 +50,24 @@ public class CalendarAndDBTests {
     @Test
     public void testGetTaskForADay() {
 
-        ITaskObject taskObject1 = new Task("Task 1", null, "2021-04-01 12:12:12", "2021-04-01 01:02:12", 10, "Reading", 10, "Reading");
-
-        ITaskObject taskObject2 = new Task("Task 1", null, "2021-04-01 12:12:12", "2021-04-01 01:02:12", 10, "Reading", 10, "Reading");
-        ITaskObject taskObject3 = new Task("Task 1", null, "2021-04-01 12:12:12", "2021-04-01 01:02:12", 10, "Reading", 10, "Reading");
+        ITaskObject taskObject1 = new Task("Task 1", ITaskObject.Priority.LOW, "2021-04-01 12:12:12", "2021-04-11 01:02:12", 10, "Reading", 10, "Pages");
+        ITaskObject taskObject2 = new Task("Task 2", ITaskObject.Priority.LOW, "2021-04-01 12:12:12", "2021-04-11 01:02:12", 10, "Reading", 10, "Pages");
+        ITaskObject taskObject3 = new Task("Task 3", ITaskObject.Priority.LOW, "2021-04-01 12:12:12", "2021-04-11 01:02:12", 10, "Reading", 10, "Pages");
 
         db.insertTask(taskObject1);
         db.insertTask(taskObject2);
         db.insertTask(taskObject3);
 
-        assertEquals("Task for Date: 2021-04-01  Should be three", 3, logic.viewTask("2021-04-01").length);
+        assertEquals("Task for Date: 2021-04-11  Should be three", 3, logic.viewTask("2021-04-11").length);
     }
 
 
     @Test
     public void testADayWithNoTask() {
 
-        ITaskObject taskObject1 = new Task("Task 1", null, "2021-04-01 12:12:12", "2021-04-01 01:02:12", 10, "Reading", 10, "Reading");
-
-        ITaskObject taskObject2 = new Task("Task 1", null, "2021-04-01 12:12:12", "2021-04-01 01:02:12", 10, "Reading", 10, "Reading");
-        ITaskObject taskObject3 = new Task("Task 1", null, "2021-04-01 12:12:12", "2021-04-01 01:02:12", 10, "Reading", 10, "Reading");
+        ITaskObject taskObject1 = new Task("Task 1", ITaskObject.Priority.LOW, "2021-04-01 12:12:12", "2021-04-21 01:02:12", 10, "Reading", 10, "Pages");
+        ITaskObject taskObject2 = new Task("Task 2", ITaskObject.Priority.LOW, "2021-04-01 12:12:12", "2021-04-11 01:02:12", 10, "Reading", 10, "Pages");
+        ITaskObject taskObject3 = new Task("Task 3", ITaskObject.Priority.LOW, "2021-04-01 12:12:12", "2021-04-12 01:02:12", 10, "Reading", 10, "Pages");
 
         db.insertTask(taskObject1);
         db.insertTask(taskObject2);
@@ -82,10 +80,9 @@ public class CalendarAndDBTests {
     @Test
     public void testNoTaskInAConsecutiveDay() {
 
-        ITaskObject taskObject1 = new Task("Task 1", null, "2021-05-01 12:12:12", "2021-05-01 01:02:12", 10, "Reading", 10, "Reading");
-
-        ITaskObject taskObject2 = new Task("Task 1", null, "2021-05-02 12:12:12", "2021-05-02 01:02:12", 10, "Reading", 10, "Reading");
-        ITaskObject taskObject3 = new Task("Task 1", null, "2021-05-04 12:12:12", "2021-05-04 01:02:12", 10, "Reading", 10, "Reading");
+        ITaskObject taskObject1 = new Task("Task 1", ITaskObject.Priority.LOW, "2021-05-01 12:12:12", "2021-05-01 16:02:12", 10, "Reading", 10, "Reading");
+        ITaskObject taskObject2 = new Task("Task 2", ITaskObject.Priority.LOW, "2021-05-02 12:12:12", "2021-05-02 18:02:12", 10, "Reading", 10, "Reading");
+        ITaskObject taskObject3 = new Task("Task 3", ITaskObject.Priority.LOW, "2021-05-04 12:12:12", "2021-05-04 19:02:12", 10, "Reading", 10, "Reading");
 
         db.insertTask(taskObject1);
         db.insertTask(taskObject2);
@@ -93,7 +90,6 @@ public class CalendarAndDBTests {
 
 
         assertEquals("Task for Date: 2021-04-02  Should be 1, so taskList is not NULL", 1, logic.viewTask("2021-05-01").length);
-
         assertEquals("Task for Date: 2021-04-02  Should be 1, so taskList is not NULL", 1, logic.viewTask("2021-05-02").length);
         assertEquals("Task for Date: 2021-04-02  Should be 0", 0, logic.viewTask("2021-05-03").length);
         assertEquals("Task for Date: 2021-04-02  Should be 1, so taskList is not NULL", 1, logic.viewTask("2021-05-04").length);
