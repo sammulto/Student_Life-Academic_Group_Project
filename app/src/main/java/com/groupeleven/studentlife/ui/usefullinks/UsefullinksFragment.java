@@ -1,11 +1,14 @@
 package com.groupeleven.studentlife.ui.usefullinks;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.method.LinkMovementMethod;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -15,18 +18,39 @@ import androidx.lifecycle.ViewModelProvider;
 
 import com.groupeleven.studentlife.R;
 
+
 public class UsefullinksFragment extends Fragment {
+    private Button button;
     private UsefullinksViewModel usefullinksViewModel;
+
+ //   private ImageButton tutorial;
+
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         usefullinksViewModel =
                 new ViewModelProvider(this).get(UsefullinksViewModel.class);
         View root = inflater.inflate(R.layout.fragment_usefullinks, container, false);
+
+//
+        button = root.findViewById(R.id.tutorial_button);
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent= new Intent(v.getContext(),Tutorial.class);
+                v.getContext().startActivity(intent);
+
+            }
+        });
+
+
         return root;
+
     }
 
-    public void onViewCreated(View view, @Nullable Bundle savedInstanceState){
+
+
+    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         TextView link;
 
         //make each link clickable
