@@ -1,13 +1,18 @@
-package com.groupeleven.studentlife;
+package com.groupeleven.studentlife.acceptanceTests;
 
-import android.view.View;
 import android.widget.DatePicker;
 import android.widget.TimePicker;
 import androidx.test.espresso.contrib.PickerActions;
 import androidx.test.espresso.contrib.RecyclerViewActions;
+import androidx.test.espresso.matcher.ViewMatchers;
 import androidx.test.ext.junit.rules.ActivityScenarioRule;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
+
+import com.groupeleven.studentlife.R;
 import com.groupeleven.studentlife.data.DB;
+import com.groupeleven.studentlife.data.IDatabase;
+import com.groupeleven.studentlife.domainSpecificObjects.ITaskObject;
+import com.groupeleven.studentlife.domainSpecificObjects.Task;
 import com.groupeleven.studentlife.ui.MainActivity;
 
 import org.hamcrest.Matchers;
@@ -42,7 +47,7 @@ import static org.hamcrest.Matchers.is;
 @FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class TodoListAcceptanceTests {
 
-    private View decorView;
+    private IDatabase testDB;
 
     @Rule
     public ActivityScenarioRule<MainActivity> activityRule
@@ -52,13 +57,13 @@ public class TodoListAcceptanceTests {
     @Before
     public void testSetup(){
         //clean up the data base
-        DB testDB = new DB();
+        testDB = new DB();
         testDB.deleteAllTask();
     }
 
     @Test
     public void a_displayTest() {
-        onView(withId(R.id.navigation_todolist)).perform(click()).check(matches(isDisplayed()));
+        onView(ViewMatchers.withId(R.id.navigation_todolist)).perform(click()).check(matches(isDisplayed()));
         onView(withId(R.id.todolist_layout)).check(matches(isDisplayed()));
     }
 
@@ -67,20 +72,22 @@ public class TodoListAcceptanceTests {
 
         onView(withId(R.id.navigation_todolist)).perform(click());
         onView(withId(R.id.fbutton)).perform(click());
+        onView(withId(R.id.toupdate_layout)).check(matches(isDisplayed()));
         fillTask(2021,04,15,15,30,"addTaskTest","High","Reading","Words","1200");
 
         //should have one task display
-        assertCustomAssertionAtPosition(R.id.task_recyclerView, 0, R.id.todoCheckBox, matches(withText(containsString("addTaskTest"))));
+        assertCustomAssertionAtPosition(R.id.task_recyclerView, 0, R.id.calendar_todoCheckBox, matches(withText(containsString("addTaskTest"))));
         assertListItemCount(R.id.task_recyclerView, 1);
 
         //test the check box
         onView(withId(R.id.task_recyclerView)).perform(RecyclerViewActions.actionOnItemAtPosition(0,click()));
-        onView(withId(R.id.todoCheckBox)).check(matches(isChecked()));
+        onView(withId(R.id.calendar_todoCheckBox)).check(matches(isChecked()));
         onView(withId(R.id.task_recyclerView)).perform(RecyclerViewActions.actionOnItemAtPosition(0,click()));
-        onView(withId(R.id.todoCheckBox)).check(matches(isNotChecked()));
+        onView(withId(R.id.calendar_todoCheckBox)).check(matches(isNotChecked()));
 
         //check if the new task is displayed in dashboard
         onView(withId(R.id.navigation_dashboard)).perform(click());
+        assertCustomAssertionAtPosition(R.id.dashboard_recyclerView, 0, R.id.dashboard_task_name, matches(withText(containsString("addTaskTest"))));
 
         //add more task
         onView(withId(R.id.navigation_todolist)).perform(click());
@@ -94,27 +101,28 @@ public class TodoListAcceptanceTests {
     @Test
     public void c_editTaskTest() {
 
+        ITaskObject taskObject = new Task("Before Edit", ITaskObject.Priority.LOW, "2021-04-01 12:12:12", "2021-04-29 06:02:12", 0, "Reading", 10, "Pages");
+        testDB.insertTask(taskObject);
         onView(withId(R.id.navigation_todolist)).perform(click());
-        onView(withId(R.id.fbutton)).perform(click());
-        fillTask(2021,04,13,12,30,"Before Edit","Low","Reading","Pages","10");
 
         //check if the new task is displayed
-        assertCustomAssertionAtPosition(R.id.task_recyclerView, 0, R.id.todoCheckBox, matches(withText(containsString("Before Edit"))));
+        assertCustomAssertionAtPosition(R.id.task_recyclerView, 0, R.id.calendar_todoCheckBox, matches(withText(containsString("Before Edit"))));
 
         //perform Edit action
         clickListItemChild(R.id.task_recyclerView, 0, R.id.editTask);
+        onView(withId(R.id.toupdate_layout)).check(matches(isDisplayed()));
         fillTask(2021,04,13,12,30,"After Edit","Medium","Reading","Pages","10");
 
         //check if the edited task is displayed
-        assertCustomAssertionAtPosition(R.id.task_recyclerView, 0, R.id.todoCheckBox, matches(withText(containsString("After Edit"))));
+        assertCustomAssertionAtPosition(R.id.task_recyclerView, 0, R.id.calendar_todoCheckBox, matches(withText(containsString("After Edit"))));
     }
 
     @Test
     public void d_deleteTaskTest() {
 
+        ITaskObject taskObject = new Task("Before Edit", ITaskObject.Priority.LOW, "2021-04-01 12:12:12", "2021-04-29 06:02:12", 0, "Reading", 10, "Pages");
+        testDB.insertTask(taskObject);
         onView(withId(R.id.navigation_todolist)).perform(click());
-        onView(withId(R.id.fbutton)).perform(click());
-        fillTask(2021,04,13,12,30,"DeleteTask","Low","Reading","Pages","10");
 
         //perform Delete action
         clickListItemChild(R.id.task_recyclerView, 0, R.id.deleteTask);
@@ -122,7 +130,6 @@ public class TodoListAcceptanceTests {
         //check if the edited task is delete
         assertListItemCount(R.id.task_recyclerView, 0);
     }
-
 
 
     private static void fillTask(int year, int month, int day, int hrs, int min, String name, String priority, String taskType, String unit, String quantity){
