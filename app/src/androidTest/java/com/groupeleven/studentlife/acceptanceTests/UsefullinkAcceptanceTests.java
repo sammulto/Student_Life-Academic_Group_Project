@@ -1,7 +1,10 @@
-package com.groupeleven.studentlife;
+package com.groupeleven.studentlife.acceptanceTests;
 
+import androidx.test.espresso.matcher.ViewMatchers;
 import androidx.test.ext.junit.rules.ActivityScenarioRule;
 import androidx.test.ext.junit.runners.AndroidJUnit4;
+
+import com.groupeleven.studentlife.R;
 import com.groupeleven.studentlife.ui.MainActivity;
 import org.junit.Rule;
 import org.junit.Test;
@@ -25,7 +28,7 @@ public class UsefullinkAcceptanceTests {
 
     @Test
     public void displayTest() {
-        onView(withId(R.id.navigation_usefullinks)).perform(click()).check(matches(isDisplayed()));
+        onView(ViewMatchers.withId(R.id.navigation_usefullinks)).perform(click()).check(matches(isDisplayed()));
         onView(withId(R.id.usefullink_layout)).check(matches(isDisplayed()));
     }
 

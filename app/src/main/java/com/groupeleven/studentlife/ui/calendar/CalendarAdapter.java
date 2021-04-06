@@ -17,7 +17,6 @@ import com.groupeleven.studentlife.R;
 import com.groupeleven.studentlife.domainSpecificObjects.ITaskObject;
 import com.groupeleven.studentlife.logic.CalendarLogic;
 import com.groupeleven.studentlife.logic.ICalendarLogic;
-import com.groupeleven.studentlife.ui.todolist.Toupdate;
 import com.prolificinteractive.materialcalendarview.CalendarDay;
 import com.prolificinteractive.materialcalendarview.DayViewDecorator;
 import com.prolificinteractive.materialcalendarview.DayViewFacade;
@@ -122,7 +121,7 @@ public class CalendarAdapter extends RecyclerView.Adapter<CalendarAdapter.ViewHo
         public ViewHolder(View itemView) {
             super(itemView);
             //find the subviews
-            taskBox = itemView.findViewById(R.id.todoCheckBox);
+            taskBox = itemView.findViewById(R.id.calendar_todoCheckBox);
 
             edit = itemView.findViewById(R.id.calendarEditTask);
             delete = itemView.findViewById(R.id.calendarDeleteTask);

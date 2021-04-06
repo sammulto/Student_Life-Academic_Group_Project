@@ -76,7 +76,7 @@ public class TodolistAdapter extends RecyclerView.Adapter<TodolistAdapter.ViewHo
         public ViewHolder(View itemView){
             super(itemView);
             //find the subviews
-            taskBox = itemView.findViewById(R.id.todoCheckBox);
+            taskBox = itemView.findViewById(R.id.calendar_todoCheckBox);
             edit = itemView.findViewById(R.id.editTask);
             delete = itemView.findViewById(R.id.deleteTask);
             logic = new TodolistLogic();
