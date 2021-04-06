@@ -7,6 +7,7 @@ import org.junit.runners.Suite;
 @Suite.SuiteClasses({DashboardAcceptanceTests.class,
         TodoListAcceptanceTests.class,
         UsefullinkAcceptanceTests.class,
-        CalendarAcceptanceTests.class})
+        CalendarAcceptanceTests.class,
+        TutorialAcceptanceTests.class})
 
 public class AllAcceptanceTests { }
