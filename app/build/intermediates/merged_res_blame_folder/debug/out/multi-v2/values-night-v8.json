@@ -1,0 +1,79 @@
+{
+    "logs": [
+        {
+            "outputFile": "C:\\Users\\MuhammadBilal Sheikh\\OneDrive\\Desktop\\compCourses\\COMP3350\\tutorial2\\your-internet-neighbours-group-11\\app\\build\\intermediates\\incremental\\mergeDebugResources\\merged.dir\\values-night-v8\\values-night-v8.xml",
+            "map": [
+                {
+                    "source": "C:\\Users\\MuhammadBilal Sheikh\\.gradle\\caches\\transforms-2\\files-2.1\\44b21666f861b2b454523071d69d07d7\\appcompat-1.2.0\\res\\values-night-v8\\values-night-v8.xml",
+                    "from": {
+                        "startLines": "2,3,4,5,6,7,8,9",
+                        "startColumns": "4,4,4,4,4,4,4,4",
+                        "startOffsets": "55,125,209,293,389,491,593,687",
+                        "endColumns": "69,83,83,95,101,101,93,88",
+                        "endOffsets": "120,204,288,384,486,588,682,771"
+                    },
+                    "to": {
+                        "startLines": "15,16,17,18,19,20,21,51",
+                        "startColumns": "4,4,4,4,4,4,4,4",
+                        "startOffsets": "701,771,855,939,1035,1137,1239,3918",
+                        "endColumns": "69,83,83,95,101,101,93,88",
+                        "endOffsets": "766,850,934,1030,1132,1234,1328,4002"
+                    }
+                },
+                {
+                    "source": "C:\\Users\\MuhammadBilal Sheikh\\.gradle\\caches\\transforms-2\\files-2.1\\0b040ae6fd7360855475a012c5af81a6\\material-1.3.0\\res\\values-night-v8\\values-night-v8.xml",
+                    "from": {
+                        "startLines": "2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24",
+                        "startColumns": "4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4",
+                        "startOffsets": "55,143,267,369,471,587,689,803,931,1047,1169,1305,1425,1559,1679,1791,1917,2055,2179,2309,2431,2569,2685",
+                        "endColumns": "87,123,101,101,115,101,113,127,115,121,135,119,133,119,111,125,137,123,129,121,137,115,119",
+                        "endOffsets": "138,262,364,466,582,684,798,926,1042,1164,1300,1420,1554,1674,1786,1912,2050,2174,2304,2426,2564,2680,2800"
+                    },
+                    "to": {
+                        "startLines": "22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,52,53,54,55,56,57,58",
+                        "startColumns": "4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4",
+                        "startOffsets": "1333,1421,1545,1647,1749,1865,1967,2081,2209,2325,2447,2583,2703,2837,2957,3069,4007,4145,4269,4399,4521,4659,4775",
+                        "endColumns": "87,123,101,101,115,101,113,127,115,121,135,119,133,119,111,125,137,123,129,121,137,115,119",
+                        "endOffsets": "1416,1540,1642,1744,1860,1962,2076,2204,2320,2442,2578,2698,2832,2952,3064,3190,4140,4264,4394,4516,4654,4770,4890"
+                    }
+                },
+                {
+                    "source": "C:\\Users\\MuhammadBilal Sheikh\\OneDrive\\Desktop\\compCourses\\COMP3350\\tutorial2\\your-internet-neighbours-group-11\\app\\src\\main\\res\\values-night\\themes.xml",
+                    "from": {
+                        "startLines": "2",
+                        "startColumns": "4",
+                        "startOffsets": "102",
+                        "endLines": "14",
+                        "endColumns": "12",
+                        "endOffsets": "834"
+                    },
+                    "to": {
+                        "startLines": "38",
+                        "startColumns": "4",
+                        "startOffsets": "3195",
+                        "endLines": "50",
+                        "endColumns": "12",
+                        "endOffsets": "3913"
+                    }
+                },
+                {
+                    "source": "C:\\Users\\MuhammadBilal Sheikh\\OneDrive\\Desktop\\compCourses\\COMP3350\\tutorial2\\your-internet-neighbours-group-11\\app\\src\\main\\res\\values-night\\colors.xml",
+                    "from": {
+                        "startLines": "7,10,11,13,12,2,3,4,9,5,6,14,8",
+                        "startColumns": "4,4,4,4,4,4,4,4,4,4,4,4,4",
+                        "startOffsets": "293,431,483,575,529,57,105,153,379,201,247,624,336",
+                        "endColumns": "41,50,44,47,44,46,46,46,50,44,44,45,41",
+                        "endOffsets": "330,477,523,618,569,99,147,195,425,241,287,665,373"
+                    },
+                    "to": {
+                        "startLines": "2,3,4,5,6,7,8,9,10,11,12,13,14",
+                        "startColumns": "4,4,4,4,4,4,4,4,4,4,4,4,4",
+                        "startOffsets": "100,142,193,238,286,331,378,425,472,523,568,613,659",
+                        "endColumns": "41,50,44,47,44,46,46,46,50,44,44,45,41",
+                        "endOffsets": "137,188,233,281,326,373,420,467,518,563,608,654,696"
+                    }
+                }
+            ]
+        }
+    ]
+}

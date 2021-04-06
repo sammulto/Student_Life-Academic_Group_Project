@@ -46,6 +46,7 @@ dependencies {
     implementation 'androidx.navigation:navigation-ui:2.3.3'
     implementation 'androidx.lifecycle:lifecycle-livedata-ktx:2.2.0'
     implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.2.0'
+    implementation 'com.github.barteksc:android-pdf-viewer:3.2.0-beta.1' // vi
     implementation files('libs/hsqldb.jar')
 
     testImplementation 'junit:junit:4.12'
