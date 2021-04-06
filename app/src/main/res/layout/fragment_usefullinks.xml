@@ -31,19 +31,7 @@
             android:id="@+id/tutorial_button"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Tutorial" />
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
-            android:layout_marginEnd="0dp"
-            android:layout_weight="0"
-            android:text="Student Life Tutorial"
-            android:textAlignment="center"
-            android:textAppearance="@style/TextAppearance.AppCompat.Large"
-            android:textColor="@color/teal_700"
-            android:textSize="18sp"
+            android:text="Student Life APP Tutorial"
             android:textStyle="bold" />
 
         <LinearLayout
