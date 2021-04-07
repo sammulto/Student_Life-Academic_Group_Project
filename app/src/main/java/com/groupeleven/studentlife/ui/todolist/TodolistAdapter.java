@@ -92,19 +92,12 @@ public class TodolistAdapter extends RecyclerView.Adapter<TodolistAdapter.ViewHo
                             Toast toast = Toast.makeText(itemView.getContext(), "Check", Toast.LENGTH_SHORT);
                             toast.setGravity(Gravity.CENTER_HORIZONTAL | Gravity.BOTTOM, 0, 400);
                             toast.show();
+                            taskBox.setEnabled(false);
+                            delete.setEnabled(false);
+                            edit.setEnabled(false);
                         }
                         else{
                             throw new RuntimeException("Check task fail");
-                        }
-                    }
-                    if(!taskBox.isChecked()){
-                        if(logic.setCompleted(false,getAdapterPosition(),false)) {
-                            Toast toast = Toast.makeText(itemView.getContext(), "Uncheck", Toast.LENGTH_SHORT);
-                            toast.setGravity(Gravity.CENTER_HORIZONTAL | Gravity.BOTTOM, 0, 400);
-                            toast.show();
-                        }
-                        else{
-                            throw new RuntimeException("Uncheck task fail");
                         }
                     }
                 }
