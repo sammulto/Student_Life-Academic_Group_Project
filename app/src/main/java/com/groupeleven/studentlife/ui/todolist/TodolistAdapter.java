@@ -68,7 +68,7 @@ public class TodolistAdapter extends RecyclerView.Adapter<TodolistAdapter.ViewHo
 
         //update the adapter with new data
         public void refreshAdapterData(){
-            TodolistAdapter.this.taskList = logic.getData();
+            TodolistAdapter.this.taskList = logic.getUncompleted();
             TodolistAdapter.this.notifyDataSetChanged();
         }
 
@@ -76,7 +76,7 @@ public class TodolistAdapter extends RecyclerView.Adapter<TodolistAdapter.ViewHo
         public ViewHolder(View itemView){
             super(itemView);
             //find the subviews
-            taskBox = itemView.findViewById(R.id.calendar_todoCheckBox);
+            taskBox = itemView.findViewById(R.id.todoCheckBox);
             edit = itemView.findViewById(R.id.editTask);
             delete = itemView.findViewById(R.id.deleteTask);
             logic = new TodolistLogic();
@@ -88,7 +88,7 @@ public class TodolistAdapter extends RecyclerView.Adapter<TodolistAdapter.ViewHo
                 @Override
                 public void onClick(View v) {
                     if(taskBox.isChecked()){
-                        if(logic.setCompleted(getAdapterPosition(),true)) {
+                        if(logic.setCompleted(false,getAdapterPosition(),true)) {
                             Toast toast = Toast.makeText(itemView.getContext(), "Check", Toast.LENGTH_SHORT);
                             toast.setGravity(Gravity.CENTER_HORIZONTAL | Gravity.BOTTOM, 0, 400);
                             toast.show();
@@ -98,7 +98,7 @@ public class TodolistAdapter extends RecyclerView.Adapter<TodolistAdapter.ViewHo
                         }
                     }
                     if(!taskBox.isChecked()){
-                        if(logic.setCompleted(getAdapterPosition(),false)) {
+                        if(logic.setCompleted(false,getAdapterPosition(),false)) {
                             Toast toast = Toast.makeText(itemView.getContext(), "Uncheck", Toast.LENGTH_SHORT);
                             toast.setGravity(Gravity.CENTER_HORIZONTAL | Gravity.BOTTOM, 0, 400);
                             toast.show();
@@ -129,14 +129,14 @@ public class TodolistAdapter extends RecyclerView.Adapter<TodolistAdapter.ViewHo
             delete.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    if(!logic.deleteTask(getAdapterPosition())){
+                    if(!logic.deleteTask(false,getAdapterPosition())){
                         throw new RuntimeException("Delete task fail");
                     }
                     else{
                         Toast toast = Toast.makeText(itemView.getContext(),"Task deleted task successfully",Toast.LENGTH_SHORT);
                         toast.setGravity(Gravity.CENTER_HORIZONTAL | Gravity.BOTTOM, 0, 400);
                         toast.show();
-                        TodolistAdapter.this.taskList = logic.getData();
+                        TodolistAdapter.this.taskList = logic.getUncompleted();
                         refreshAdapterData();
                     }
                 }
