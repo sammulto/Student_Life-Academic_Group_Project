@@ -55,7 +55,7 @@ public class TodolistFragment extends Fragment {
 
 //--------------------------------------------------------------------------------------------------
 // "finished task" button action, jump to a new fragment
-        button = root.findViewById(R.id.button);
+        button = root.findViewById(R.id.finished_tasks_button);
 
         button.setOnClickListener(new View.OnClickListener(){
             public void onClick(View v){
