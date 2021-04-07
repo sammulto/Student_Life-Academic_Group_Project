@@ -91,21 +91,13 @@ public class FinishedAdapter extends RecyclerView.Adapter<FinishedAdapter.ViewHo
             taskBox.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    if(taskBox.isChecked()){
-                        if(logic.setCompleted(true,getAdapterPosition(),true)) {
-                            Toast toast = Toast.makeText(itemView.getContext(), "Check", Toast.LENGTH_SHORT);
-                            toast.setGravity(Gravity.CENTER_HORIZONTAL | Gravity.BOTTOM, 0, 400);
-                            toast.show();
-                        }
-                        else{
-                            throw new RuntimeException("Check task fail");
-                        }
-                    }
                     if(!taskBox.isChecked()){
                         if(logic.setCompleted(true,getAdapterPosition(),false)) {
                             Toast toast = Toast.makeText(itemView.getContext(), "Uncheck", Toast.LENGTH_SHORT);
                             toast.setGravity(Gravity.CENTER_HORIZONTAL | Gravity.BOTTOM, 0, 400);
                             toast.show();
+                            taskBox.setEnabled(false);
+                            delete.setEnabled(false);
                         }
                         else{
                             throw new RuntimeException("Uncheck task fail");
