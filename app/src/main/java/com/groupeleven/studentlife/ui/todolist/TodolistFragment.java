@@ -5,10 +5,12 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -23,6 +25,7 @@ public class TodolistFragment extends Fragment {
 
     private TextView welcome;
     private FloatingActionButton fButtonAdd;
+    private Button button;
 
     private TodolistViewModel todolistViewModel;
     private ITodolistLogic logic;
@@ -50,6 +53,18 @@ public class TodolistFragment extends Fragment {
             }
         });
 //--------------------------------------------------------------------------------------------------
+
+//--------------------------------------------------------------------------------------------------
+// "finished task" button action, jump to a new fragment
+        button = root.findViewById(R.id.button);
+
+        button.setOnClickListener(new View.OnClickListener(){
+            public void onClick(View v){
+                Intent in = new Intent(getActivity(), Viewtask.class);
+                startActivity(in);
+            }
+        });
+//--------------------------------------------------------------------------------------------------
         return root;
     }
 
@@ -57,7 +72,7 @@ public class TodolistFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         logic = new TodolistLogic();
-        taskList= logic.getData();
+        taskList= logic.getUncompleted();
         taskRecycle = view.findViewById(R.id.task_recyclerView);
 
 //--------------------------------------------------------------------------------------------------
@@ -86,7 +101,7 @@ public class TodolistFragment extends Fragment {
     public void onResume() {
 
         //update task list
-        taskList = logic.getData();
+        taskList = logic.getUncompleted();
 
         //set welcome message visibility
         if(taskList.length!=0)
