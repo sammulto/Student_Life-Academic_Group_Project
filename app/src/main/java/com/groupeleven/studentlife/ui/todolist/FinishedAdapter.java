@@ -1,51 +1,57 @@
 package com.groupeleven.studentlife.ui.todolist;
 
 import android.content.Context;
-import android.content.Intent;
+
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
 import android.widget.Toast;
+
 import androidx.recyclerview.widget.RecyclerView;
+
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.groupeleven.studentlife.R;
 import com.groupeleven.studentlife.domainSpecificObjects.ITaskObject;
 import com.groupeleven.studentlife.logic.ITodolistLogic;
 import com.groupeleven.studentlife.logic.TodolistLogic;
+
 import org.jetbrains.annotations.NotNull;
 
-public class TodolistAdapter extends RecyclerView.Adapter<TodolistAdapter.ViewHolder>{
+public class FinishedAdapter extends RecyclerView.Adapter<FinishedAdapter.ViewHolder>{
+
     private ITaskObject[] taskList;
     private ITodolistLogic logic;
 
-    public TodolistAdapter(ITaskObject[] taskList){
+    public FinishedAdapter(ITaskObject[] taskList){
         this.taskList = taskList;
         this.logic = new TodolistLogic();
     }
 
     @NotNull
     @Override
-    public TodolistAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public FinishedAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
 
         //inflate the layout
         Context context = parent.getContext();
         LayoutInflater inflater = LayoutInflater.from(context);
-        View eventView = inflater.inflate(R.layout.task_layout, parent, false);
+        View eventView = inflater.inflate(R.layout.finished_task_layout, parent, false);
 
         //create and return View Holder
-        return new ViewHolder(eventView);
+        return new FinishedAdapter.ViewHolder(eventView);
     }
 
     @Override
-    public void onBindViewHolder(TodolistAdapter.ViewHolder holder, int position) {
+    public void onBindViewHolder(FinishedAdapter.ViewHolder holder, int position) {
         //get data according to position
         ITaskObject task = taskList[position];
-        String output = task.getTaskName()+"\n"+"Due: "+
-                        task.getEndTime().substring(0, task.getEndTime().length() - 3)+"\n"+
-                        "Priority: "+logic.getTaskPriorityText(task)+"\n"+
-                        task.getType()+" estimated: \n"+logic.getTimeEstimate(position)+" minutes";
+
+        String output = "Name: "+task.getTaskName() + "\n" +
+                    "Start: " + task.getStartTime().substring(0, task.getStartTime().length() - 3) + "\n" +
+                    "Due: " + task.getEndTime().substring(0, task.getEndTime().length() - 3) + "\n" +
+                    "Priority: " + logic.getTaskPriorityText(task) + "\n" +
+                    "Task: "+task.getType()+" "+task.getQuantity()+" ("+task.getQuantityUnit()+")";
 
 //--------------------------------------------------------------------------------------------------
 // show task detail in check box
@@ -63,13 +69,12 @@ public class TodolistAdapter extends RecyclerView.Adapter<TodolistAdapter.ViewHo
     public class ViewHolder extends RecyclerView.ViewHolder{
 
         CheckBox taskBox;
-        FloatingActionButton edit;
         FloatingActionButton delete;
 
         //update the adapter with new data
         public void refreshAdapterData(){
-            TodolistAdapter.this.taskList = logic.getUncompleted();
-            TodolistAdapter.this.notifyDataSetChanged();
+            FinishedAdapter.this.taskList = logic.getCompleted();
+            FinishedAdapter.this.notifyDataSetChanged();
         }
 
         //itemView is the entire row in RecyclerView
@@ -77,7 +82,6 @@ public class TodolistAdapter extends RecyclerView.Adapter<TodolistAdapter.ViewHo
             super(itemView);
             //find the subviews
             taskBox = itemView.findViewById(R.id.todoCheckBox);
-            edit = itemView.findViewById(R.id.editTask);
             delete = itemView.findViewById(R.id.deleteTask);
             logic = new TodolistLogic();
 
@@ -87,34 +91,20 @@ public class TodolistAdapter extends RecyclerView.Adapter<TodolistAdapter.ViewHo
             taskBox.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    if(taskBox.isChecked()){
-                        if(logic.setCompleted(false,getAdapterPosition(),true)) {
-                            Toast toast = Toast.makeText(itemView.getContext(), "Check", Toast.LENGTH_SHORT);
+                    if(!taskBox.isChecked()){
+                        if(logic.setCompleted(true,getAdapterPosition(),false)) {
+                            Toast toast = Toast.makeText(itemView.getContext(), "Uncheck", Toast.LENGTH_SHORT);
                             toast.setGravity(Gravity.CENTER_HORIZONTAL | Gravity.BOTTOM, 0, 400);
                             toast.show();
                             taskBox.setEnabled(false);
                             delete.setEnabled(false);
-                            edit.setEnabled(false);
                         }
                         else{
-                            throw new RuntimeException("Check task fail");
+                            throw new RuntimeException("Uncheck task fail");
                         }
                     }
                 }
             });
-
-//--------------------------------------------------------------------------------------------------
-// "edit" button action, jump to edit activity
-            edit.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Intent in = new Intent(itemView.getContext(), Toupdate.class);
-                    in.putExtra("id",getAdapterPosition());
-                    itemView.getContext().startActivity(in);
-                    refreshAdapterData();
-                }
-            });
-//--------------------------------------------------------------------------------------------------
 
 //--------------------------------------------------------------------------------------------------
 //  "delete" button action, delete a task
@@ -122,14 +112,14 @@ public class TodolistAdapter extends RecyclerView.Adapter<TodolistAdapter.ViewHo
             delete.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    if(!logic.deleteTask(false,getAdapterPosition())){
+                    if(!logic.deleteTask(true,getAdapterPosition())){
                         throw new RuntimeException("Delete task fail");
                     }
                     else{
                         Toast toast = Toast.makeText(itemView.getContext(),"Task deleted task successfully",Toast.LENGTH_SHORT);
                         toast.setGravity(Gravity.CENTER_HORIZONTAL | Gravity.BOTTOM, 0, 400);
                         toast.show();
-                        TodolistAdapter.this.taskList = logic.getUncompleted();
+                        FinishedAdapter.this.taskList = logic.getCompleted();
                         refreshAdapterData();
                     }
                 }

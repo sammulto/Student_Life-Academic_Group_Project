@@ -237,6 +237,18 @@ public class Toupdate extends AppCompatActivity implements
                     resource = R.array.lecture;
                     setUnitSpinner();
                 }
+                else if(parent.getItemAtPosition(position).equals("Lab")){
+                    resource = R.array.lab;
+                    setUnitSpinner();
+                }
+                else if(parent.getItemAtPosition(position).equals("Term paper")){
+                    resource = R.array.paper;
+                    setUnitSpinner();
+                }
+                else if(parent.getItemAtPosition(position).equals("Studying")){
+                    resource = R.array.study;
+                    setUnitSpinner();
+                }
 
             }
 

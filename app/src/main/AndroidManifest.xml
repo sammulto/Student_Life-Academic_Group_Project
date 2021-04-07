@@ -11,17 +11,24 @@
         android:theme="@style/Theme.StudentLife">
         <activity
             android:name=".ui.todolist.Toupdate"
+            android:label="@string/title_update"
             android:parentActivityName=".ui.todolist.Toupdate"></activity>
 
         <activity
             android:name=".ui.calendar.CalendarToUpdate"
+            android:label="@string/title_update"
             android:parentActivityName=".ui.calendar.CalendarToUpdate"></activity>
 
         <activity
             android:name=".ui.usefullinks.Tutorial"
+            android:label="@string/title_tutorial"
             android:parentActivityName=".ui.usefullinks.Tutorial"></activity>
 
-
+        <activity
+            android:name=".ui.todolist.Viewtask"
+            android:label="@string/title_view"
+            android:parentActivityName=".ui.todolist.Viewtask" />
+            
         <activity
             android:name=".ui.MainActivity"
             android:label="@string/app_name"
