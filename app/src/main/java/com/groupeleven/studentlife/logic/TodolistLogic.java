@@ -27,19 +27,32 @@ public class TodolistLogic implements ITodolistLogic {
     }
 
 //--------------------------------------------------------------------------------------------------
-// get task list form database
-
+// get completed task list form database
     @Override
-    public ITaskObject[] getData() throws RuntimeException{
+    public ITaskObject[] getCompleted() throws RuntimeException{
         //fetch data from the database
         ITaskObject[] list = null;
 
         try {
-            list = (ITaskObject[]) database.getTasks();
+            list = (ITaskObject[]) database.getTasksCompleted();
         }catch(Exception exception){
             list = new ITaskObject[0];
         }
+        return list;
+    }
 
+//--------------------------------------------------------------------------------------------------
+// get uncompleted task list form database
+    @Override
+    public ITaskObject[] getUncompleted() throws RuntimeException{
+        //fetch data from the database
+        ITaskObject[] list = null;
+
+        try {
+            list = (ITaskObject[]) database.getTasksUncompleted();
+        }catch(Exception exception){
+            list = new ITaskObject[0];
+        }
         return list;
     }
 
@@ -73,7 +86,7 @@ public class TodolistLogic implements ITodolistLogic {
         if(validTaskInput(name, priorityText, startTime, endTime, type, quantity, unit)) {
 
             ITaskObject.Priority priority = ITaskObject.Priority.valueOf(priorityText.toUpperCase());
-            ITaskObject taskToEdit = this.getData()[id];
+            ITaskObject taskToEdit = this.getUncompleted()[id];
             taskToEdit.setTaskName(name);
             taskToEdit.setPriority(priority);
             taskToEdit.setStartTime(startTime);
@@ -116,17 +129,30 @@ public class TodolistLogic implements ITodolistLogic {
 //--------------------------------------------------------------------------------------------------
 // delete a task
     @Override
-    public boolean deleteTask(int id){
-        ITaskObject whichITaskObject = database.getTasks()[id];
+    public boolean deleteTask(boolean completed, int id){
+        ITaskObject whichITaskObject;
+        if(completed) {
+            whichITaskObject = getCompleted()[id];
+        }
+        else{
+            whichITaskObject = getUncompleted()[id];
+        }
         return database.deleteTask(whichITaskObject);
     }
 
 
 //--------------------------------------------------------------------------------------------------
 // set the task completed or uncompleted
-    public boolean setCompleted(int id, boolean status){
-        ITaskObject whichTask = database.getTasks()[id];
+    public boolean setCompleted(boolean completed, int id, boolean status){
+        ITaskObject whichTask;
+        if(completed){
+            whichTask = getCompleted()[id];
+        }
+        else{
+            whichTask = getUncompleted()[id];
+        }
         whichTask.setCompleted(status);
+
         return database.updateTask(whichTask,id);
     }
 

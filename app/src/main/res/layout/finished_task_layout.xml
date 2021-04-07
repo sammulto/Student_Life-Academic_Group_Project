@@ -13,29 +13,19 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:orientation="horizontal"
         android:padding="10dp">
 
         <CheckBox
             android:id="@+id/todoCheckBox"
-            android:layout_width="200dp"
+            android:layout_width="match_parent"
             android:layout_height="101dp"
             android:layout_weight="60"
             android:paddingStart="8dp"
             android:paddingEnd="8dp"
             android:textSize="15sp"
             tool:text="Task"></CheckBox>
-
-        <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/editTask"
-            android:layout_width="wrap_content"
-            android:layout_height="113dp"
-            android:layout_marginHorizontal="@dimen/cardview_default_elevation"
-            android:layout_marginTop="20dp"
-            android:clickable="true"
-            app:srcCompat="@android:drawable/ic_menu_edit"
-            android:contentDescription="@string/todo" />
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/deleteTask"
@@ -46,7 +36,5 @@
             android:clickable="true"
             android:contentDescription="@string/todo"
             app:srcCompat="@android:drawable/ic_menu_delete" />
-
     </LinearLayout>
-
 </androidx.cardview.widget.CardView>
