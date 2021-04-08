@@ -14,7 +14,10 @@ import org.junit.runner.RunWith;
 import org.junit.runners.MethodSorters;
 
 import static androidx.test.espresso.Espresso.onView;
+import static androidx.test.espresso.Espresso.pressBack;
 import static androidx.test.espresso.action.ViewActions.click;
+import static androidx.test.espresso.action.ViewActions.swipeLeft;
+import static androidx.test.espresso.action.ViewActions.swipeRight;
 import static androidx.test.espresso.assertion.ViewAssertions.matches;
 import static androidx.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
@@ -41,6 +44,11 @@ public class TutorialAcceptanceTests {
         onView(ViewMatchers.withId(R.id.navigation_usefullinks)).perform(click()).check(matches(isDisplayed()));
         onView(ViewMatchers.withId(R.id.tutorial_button)).perform(click());
         onView(withId(R.id.pdfView)).check(matches(isDisplayed()));
+        onView(withId(R.id.pdfView)).perform(swipeLeft());
+        onView(withId(R.id.pdfView)).perform(swipeLeft());
+        onView(withId(R.id.pdfView)).perform(swipeRight());
+        pressBack();
+        onView(withId(R.id.usefullink_layout)).check(matches(isDisplayed()));
     }
 
 

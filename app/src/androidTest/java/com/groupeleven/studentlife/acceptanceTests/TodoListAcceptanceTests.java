@@ -26,12 +26,12 @@ import org.junit.runners.MethodSorters;
 import static androidx.test.espresso.Espresso.closeSoftKeyboard;
 import static androidx.test.espresso.Espresso.onData;
 import static androidx.test.espresso.Espresso.onView;
+import static androidx.test.espresso.Espresso.pressBack;
 import static androidx.test.espresso.action.ViewActions.click;
 import static androidx.test.espresso.action.ViewActions.typeText;
 import static androidx.test.espresso.assertion.ViewAssertions.matches;
 import static androidx.test.espresso.matcher.ViewMatchers.isChecked;
 import static androidx.test.espresso.matcher.ViewMatchers.isDisplayed;
-import static androidx.test.espresso.matcher.ViewMatchers.isNotChecked;
 import static androidx.test.espresso.matcher.ViewMatchers.withClassName;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
 import static androidx.test.espresso.matcher.ViewMatchers.withText;
@@ -65,6 +65,7 @@ public class TodoListAcceptanceTests {
     public void a_displayTest() {
         onView(ViewMatchers.withId(R.id.navigation_todolist)).perform(click()).check(matches(isDisplayed()));
         onView(withId(R.id.todolist_layout)).check(matches(isDisplayed()));
+        onView(withId(R.id.finished_tasks_button)).check(matches(isDisplayed()));
     }
 
     @Test
@@ -76,14 +77,21 @@ public class TodoListAcceptanceTests {
         fillTask(2021,04,15,15,30,"addTaskTest","High","Reading","Words","1200");
 
         //should have one task display
-        assertCustomAssertionAtPosition(R.id.task_recyclerView, 0, R.id.calendar_todoCheckBox, matches(withText(containsString("addTaskTest"))));
+        assertCustomAssertionAtPosition(R.id.task_recyclerView, 0, R.id.todoCheckBox, matches(withText(containsString("addTaskTest"))));
         assertListItemCount(R.id.task_recyclerView, 1);
 
         //test the check box
         onView(withId(R.id.task_recyclerView)).perform(RecyclerViewActions.actionOnItemAtPosition(0,click()));
-        onView(withId(R.id.calendar_todoCheckBox)).check(matches(isChecked()));
-        onView(withId(R.id.task_recyclerView)).perform(RecyclerViewActions.actionOnItemAtPosition(0,click()));
-        onView(withId(R.id.calendar_todoCheckBox)).check(matches(isNotChecked()));
+        onView(withId(R.id.todoCheckBox)).check(matches(isChecked()));
+
+        //test if the the checked task display in finished tasks list
+        onView(withId(R.id.finished_tasks_button)).perform(click());
+        assertCustomAssertionAtPosition(R.id.finished, 0, R.id.todoCheckBox, matches(withText(containsString("addTaskTest"))));
+
+        //uncheck the check box to put task back to the to-do list
+        onView(withId(R.id.finished)).perform(RecyclerViewActions.actionOnItemAtPosition(0,click()));
+        pressBack();
+
 
         //check if the new task is displayed in dashboard
         onView(withId(R.id.navigation_dashboard)).perform(click());
@@ -106,7 +114,7 @@ public class TodoListAcceptanceTests {
         onView(withId(R.id.navigation_todolist)).perform(click());
 
         //check if the new task is displayed
-        assertCustomAssertionAtPosition(R.id.task_recyclerView, 0, R.id.calendar_todoCheckBox, matches(withText(containsString("Before Edit"))));
+        assertCustomAssertionAtPosition(R.id.task_recyclerView, 0, R.id.todoCheckBox, matches(withText(containsString("Before Edit"))));
 
         //perform Edit action
         clickListItemChild(R.id.task_recyclerView, 0, R.id.editTask);
@@ -114,7 +122,7 @@ public class TodoListAcceptanceTests {
         fillTask(2021,04,13,12,30,"After Edit","Medium","Reading","Pages","10");
 
         //check if the edited task is displayed
-        assertCustomAssertionAtPosition(R.id.task_recyclerView, 0, R.id.calendar_todoCheckBox, matches(withText(containsString("After Edit"))));
+        assertCustomAssertionAtPosition(R.id.task_recyclerView, 0, R.id.todoCheckBox, matches(withText(containsString("After Edit"))));
     }
 
     @Test
