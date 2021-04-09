@@ -46,6 +46,16 @@
         <uses-library android:name="android.test.mock"
             android:required="false" />
 
+        //logic for notification
+        <receiver android:name=".logic.AlarmReceiver">
+            <intent-filter>
+                <action android:name="ALARM" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </receiver>
     </application>
+
+    //permission for user to receive notification offline
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
 
 </manifest>
