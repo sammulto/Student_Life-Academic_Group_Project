@@ -62,9 +62,7 @@ public class Toupdate extends AppCompatActivity implements
     // to see which type of output we want in unit
     private int resource = 0;
 
-    //notification variable
-    private NotificationManagerCompat notificationManager;
-    private PriorityChannel myPriorityChannel;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -90,10 +88,6 @@ public class Toupdate extends AppCompatActivity implements
         unitSpinner = findViewById(R.id.unitSpinner);
 
         button = findViewById(R.id.updateButton);
-
-
-        notificationManager = NotificationManagerCompat.from(this);
-        myPriorityChannel = new PriorityChannel(this);
 //--------------------------------------------------------------------------------------------------
 // handle date passed by adapter
         Intent in = getIntent();
@@ -195,7 +189,7 @@ public class Toupdate extends AppCompatActivity implements
 //--------------------------------------------------------------------------------------------------
 //notification added
 //--------------------------------------------------------------------------------------------------
-                String hint = taskName + " begins from " + taskStart;
+                String hint = taskName + " begins from " + taskStart + " and deadline is " + taskEnd;
                 Calendar c = Calendar.getInstance();
                 c.set(sYear, sMonth, sDay, sHour, sMinute);
                 startAlarm(c, taskName,hint, taskPriority);
@@ -382,10 +376,10 @@ public class Toupdate extends AppCompatActivity implements
         intent.putExtra("Priority", priority);
         PendingIntent pendingIntent = PendingIntent.getBroadcast(this, 1, intent, 0);
 
-        if(c.before(Calendar.getInstance())){
-            c.add(Calendar.DATE, 1);
-        }
+//        if(c.before(Calendar.getInstance())){
+//            c.add(Calendar.DATE, 1);
+//        }
 
-        alarmManager.setExact(AlarmManager.RTC_WAKEUP, c.getTimeInMillis(), pendingIntent);
+        alarmManager.set(AlarmManager.RTC_WAKEUP, c.getTimeInMillis(), pendingIntent);
     }
 }

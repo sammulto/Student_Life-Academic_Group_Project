@@ -23,19 +23,14 @@ public class AlarmReceiver extends BroadcastReceiver {
                 intent.getStringExtra("Priority"));
     }
 
-    public void sendOnChannel1(String title, String message){
-        NotificationCompat.Builder bd = myPriorityChannel.getChannel1Notification(title, message);
-        myPriorityChannel.getManager().notify(1, bd.build());
-    }
-
     public void createNotification(Context context, Intent intent, String title, String message, String priority){
         NotificationCompat.Builder bd = null;
 
-        if(priority == "High") {
+        if(priority.equals("High")) {
             bd = myPriorityChannel.getChannel1Notification(title, message);
-        }else if (priority == "Medium"){
+        }else if (priority.equals("Medium")){
             bd = myPriorityChannel.getChannel2Notification(title, message);
-        }else if (priority == "Low"){
+        }else if (priority.equals("Low")){
             bd = myPriorityChannel.getChannel3Notification(title, message);
         }
 
