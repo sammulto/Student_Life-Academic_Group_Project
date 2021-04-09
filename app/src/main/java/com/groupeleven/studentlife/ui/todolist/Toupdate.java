@@ -34,6 +34,8 @@ import com.groupeleven.studentlife.logic.ITodolistLogic;
 import com.groupeleven.studentlife.logic.TodolistLogic;
 
 import java.util.Calendar;
+import java.util.Date;
+import java.util.Random;
 
 public class Toupdate extends AppCompatActivity implements
         DatePickerDialog.OnDateSetListener,TimePickerDialog.OnTimeSetListener{
@@ -189,10 +191,10 @@ public class Toupdate extends AppCompatActivity implements
 //--------------------------------------------------------------------------------------------------
 //notification added
 //--------------------------------------------------------------------------------------------------
-                String hint = taskName + " begins from " + taskStart + " and deadline is " + taskEnd;
+                String hint = taskName + " begins from " + taskStart;
                 Calendar c = Calendar.getInstance();
                 c.set(sYear, sMonth, sDay, sHour, sMinute);
-                startAlarm(c, taskName,hint, taskPriority);
+                startAlarm(c, taskName,hint);
 
                 // to see we need add or update a task
                 boolean isComplete = false;
@@ -368,18 +370,22 @@ public class Toupdate extends AppCompatActivity implements
     }
 
     //set the notification with a specific time and necessary text
-    private void startAlarm(Calendar c, String title, String message, String priority ){
+    private void startAlarm(Calendar c, String title, String message){
         AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
         Intent intent = new Intent(this, AlarmReceiver.class);
         intent.putExtra("TaskName", title);
         intent.putExtra("Hint", message);
-        intent.putExtra("Priority", priority);
-        PendingIntent pendingIntent = PendingIntent.getBroadcast(this, 1, intent, 0);
 
+//have a random request code makes the jump out notification no longer have the same data
+        int r = (int) ((new Date().getTime() / 1000L) % Integer.MAX_VALUE);
+        r += new Random().nextInt(100) + 1;
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(this, r, intent, 0);
+
+//if the start time is behind the current date, then no notification (kind of tricky here)
 //        if(c.before(Calendar.getInstance())){
 //            c.add(Calendar.DATE, 1);
 //        }
 
-        alarmManager.set(AlarmManager.RTC_WAKEUP, c.getTimeInMillis(), pendingIntent);
+        alarmManager.setExact(AlarmManager.RTC_WAKEUP, c.getTimeInMillis(), pendingIntent);
     }
 }

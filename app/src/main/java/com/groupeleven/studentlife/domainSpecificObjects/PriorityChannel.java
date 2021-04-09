@@ -11,9 +11,7 @@ import androidx.core.app.NotificationCompat;
 import com.groupeleven.studentlife.R;
 
 public class PriorityChannel extends ContextWrapper {
-    public static final String CHANNEL_HIGH_ID = "channel_high";
-    public static final String CHANNEL_MED_ID = "channel_med";
-    public static final String CHANNEL_LOW_ID = "channel_low";
+    public static final String CHANNEL_ID = "channel_med";
 
     private NotificationManager myManager;
 
@@ -22,27 +20,16 @@ public class PriorityChannel extends ContextWrapper {
         createNotificationChannels();
     }
 
-
+//create 3 channels which have different priority
     private void createNotificationChannels(){
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            NotificationChannel channel1 = new NotificationChannel(
-                    CHANNEL_HIGH_ID, "Channel High", NotificationManager.IMPORTANCE_HIGH);
 
-            channel1.setDescription("This is High priority Channel");
+            NotificationChannel channel = new NotificationChannel(
+                    CHANNEL_ID, "Channel Med", NotificationManager.IMPORTANCE_DEFAULT);
 
-            NotificationChannel channel2 = new NotificationChannel(
-                    CHANNEL_MED_ID, "Channel Med", NotificationManager.IMPORTANCE_DEFAULT);
+            channel.setDescription("This is Medium priority Channel");
 
-            channel2.setDescription("This is Medium priority Channel");
-
-            NotificationChannel channel3 = new NotificationChannel(
-                    CHANNEL_LOW_ID, "Channel Low", NotificationManager.IMPORTANCE_LOW);
-
-            channel3.setDescription("This is Low priority Channel");
-
-            getManager().createNotificationChannel(channel1);
-            getManager().createNotificationChannel(channel2);
-            getManager().createNotificationChannel(channel3);
+            getManager().createNotificationChannel(channel);
         }
     }
 
@@ -53,24 +40,8 @@ public class PriorityChannel extends ContextWrapper {
         return myManager;
     }
 
-    public NotificationCompat.Builder getChannel1Notification(String title, String message){
-        return new NotificationCompat.Builder(getApplicationContext(), CHANNEL_HIGH_ID)
-                .setContentTitle(title)
-                .setContentText(message)
-                .setSmallIcon(R.drawable.ic_notifications_black_24dp)
-                .setAutoCancel(true);
-    }
-
-    public NotificationCompat.Builder getChannel2Notification(String title, String message){
-        return new NotificationCompat.Builder(getApplicationContext(), CHANNEL_MED_ID)
-                .setContentTitle(title)
-                .setContentText(message)
-                .setSmallIcon(R.drawable.ic_notifications_black_24dp)
-                .setAutoCancel(true);
-    }
-
-    public NotificationCompat.Builder getChannel3Notification(String title, String message){
-        return new NotificationCompat.Builder(getApplicationContext(), CHANNEL_LOW_ID)
+    public NotificationCompat.Builder getChannelNotification(String title, String message){
+        return new NotificationCompat.Builder(getApplicationContext(), CHANNEL_ID)
                 .setContentTitle(title)
                 .setContentText(message)
                 .setSmallIcon(R.drawable.ic_notifications_black_24dp)

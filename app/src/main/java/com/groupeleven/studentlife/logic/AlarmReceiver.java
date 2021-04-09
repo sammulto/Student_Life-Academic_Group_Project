@@ -10,6 +10,9 @@ import androidx.core.app.NotificationManagerCompat;
 
 import com.groupeleven.studentlife.domainSpecificObjects.PriorityChannel;
 
+import java.util.Date;
+import java.util.Random;
+
 public class AlarmReceiver extends BroadcastReceiver {
 
     PriorityChannel myPriorityChannel;
@@ -19,24 +22,17 @@ public class AlarmReceiver extends BroadcastReceiver {
         myPriorityChannel = new PriorityChannel(context);
         createNotification(context, intent,
                 intent.getStringExtra("TaskName"),
-                intent.getStringExtra("Hint"),
-                intent.getStringExtra("Priority"));
+                intent.getStringExtra("Hint"));
     }
 
-    public void createNotification(Context context, Intent intent, String title, String message, String priority){
-        NotificationCompat.Builder bd = null;
+    public void createNotification(Context context, Intent intent, String title, String message){
+        NotificationCompat.Builder bd = myPriorityChannel.getChannelNotification(title, message);
 
-        if(priority.equals("High")) {
-            bd = myPriorityChannel.getChannel1Notification(title, message);
-        }else if (priority.equals("Medium")){
-            bd = myPriorityChannel.getChannel2Notification(title, message);
-        }else if (priority.equals("Low")){
-            bd = myPriorityChannel.getChannel3Notification(title, message);
-        }
+//have a random number for notification id so we can have multiple notification showed up
+        int r = (int) ((new Date().getTime() / 1000L) % Integer.MAX_VALUE);
+        r += new Random().nextInt(100) + 1;
 
         NotificationManagerCompat notificationManagerCompat = NotificationManagerCompat.from(context);
-        if(bd != null) {
-            notificationManagerCompat.notify(7, bd.build());
-        }
+        notificationManagerCompat.notify(r, bd.build());
     }
 }
