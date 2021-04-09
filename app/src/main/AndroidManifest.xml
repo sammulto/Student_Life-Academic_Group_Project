@@ -46,6 +46,8 @@
         <uses-library android:name="android.test.mock"
             android:required="false" />
 
+        <receiver android:name=".logic.AlarmReceiver"/>
+
     </application>
 
 </manifest>

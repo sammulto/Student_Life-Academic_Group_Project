@@ -17,6 +17,7 @@ allprojects {
         google()
         jcenter()
         maven { url = uri("https://jitpack.io") }  // for the material calendar view
+        maven{ url 'https://maven.google.com'} //for notification to work
     }
 }
 

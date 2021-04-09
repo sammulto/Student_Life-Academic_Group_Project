@@ -1,7 +1,11 @@
 package com.groupeleven.studentlife.ui.todolist;
 
+import android.app.AlarmManager;
 import android.app.DatePickerDialog;
+import android.app.Notification;
+import android.app.PendingIntent;
 import android.app.TimePickerDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -20,8 +24,12 @@ import android.widget.TimePicker;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.NotificationCompat;
+import androidx.core.app.NotificationManagerCompat;
 
 import com.groupeleven.studentlife.R;
+import com.groupeleven.studentlife.domainSpecificObjects.PriorityChannel;
+import com.groupeleven.studentlife.logic.AlarmReceiver;
 import com.groupeleven.studentlife.logic.ITodolistLogic;
 import com.groupeleven.studentlife.logic.TodolistLogic;
 
@@ -54,6 +62,10 @@ public class Toupdate extends AppCompatActivity implements
     // to see which type of output we want in unit
     private int resource = 0;
 
+    //notification variable
+    private NotificationManagerCompat notificationManager;
+    private PriorityChannel myPriorityChannel;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -78,6 +90,10 @@ public class Toupdate extends AppCompatActivity implements
         unitSpinner = findViewById(R.id.unitSpinner);
 
         button = findViewById(R.id.updateButton);
+
+
+        notificationManager = NotificationManagerCompat.from(this);
+        myPriorityChannel = new PriorityChannel(this);
 //--------------------------------------------------------------------------------------------------
 // handle date passed by adapter
         Intent in = getIntent();
@@ -103,6 +119,7 @@ public class Toupdate extends AppCompatActivity implements
                 if(parent.getItemAtPosition(position).equals("Choose priority")){
                     ((TextView) view).setTextColor(Color.GRAY);
                 }
+
             }
 
             @Override
@@ -151,6 +168,7 @@ public class Toupdate extends AppCompatActivity implements
 // add or update button
 // final process in this activity
 
+
         button.setOnClickListener(new View.OnClickListener(){
             public void onClick(View v){
                 String taskName = name.getText().toString();
@@ -173,6 +191,14 @@ public class Toupdate extends AppCompatActivity implements
                 if(!quantity.getText().toString().equals("")){
                     num = Integer.parseInt(quantity.getText().toString());
                 }
+
+//--------------------------------------------------------------------------------------------------
+//notification added
+//--------------------------------------------------------------------------------------------------
+                String hint = taskName + " begins from " + taskStart;
+                Calendar c = Calendar.getInstance();
+                c.set(sYear, sMonth, sDay, sHour, sMinute);
+                startAlarm(c, taskName,hint, taskPriority);
 
                 // to see we need add or update a task
                 boolean isComplete = false;
@@ -345,5 +371,21 @@ public class Toupdate extends AppCompatActivity implements
     public void finish() {
         setResult(RESULT_OK);
         super.finish();
+    }
+
+    //set the notification with a specific time and necessary text
+    private void startAlarm(Calendar c, String title, String message, String priority ){
+        AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
+        Intent intent = new Intent(this, AlarmReceiver.class);
+        intent.putExtra("TaskName", title);
+        intent.putExtra("Hint", message);
+        intent.putExtra("Priority", priority);
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(this, 1, intent, 0);
+
+        if(c.before(Calendar.getInstance())){
+            c.add(Calendar.DATE, 1);
+        }
+
+        alarmManager.setExact(AlarmManager.RTC_WAKEUP, c.getTimeInMillis(), pendingIntent);
     }
 }
