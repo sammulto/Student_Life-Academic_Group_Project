@@ -17,15 +17,19 @@ public class AlarmReceiver extends BroadcastReceiver {
 
     PriorityChannel myPriorityChannel;
 
+    //variable for testing if onReceive is called properly
+    boolean receiveFlag = false;
+
     @Override
     public void onReceive(Context context, Intent intent) {
         myPriorityChannel = new PriorityChannel(context);
         createNotification(context, intent,
                 intent.getStringExtra("TaskName"),
                 intent.getStringExtra("Hint"));
+        receiveFlag = true;
     }
 
-    public void createNotification(Context context, Intent intent, String title, String message){
+    private void createNotification(Context context, Intent intent, String title, String message){
         NotificationCompat.Builder bd = myPriorityChannel.getChannelNotification(title, message);
 
 //have a random number for notification id so we can have multiple notification showed up
@@ -34,5 +38,9 @@ public class AlarmReceiver extends BroadcastReceiver {
 
         NotificationManagerCompat notificationManagerCompat = NotificationManagerCompat.from(context);
         notificationManagerCompat.notify(r, bd.build());
+    }
+
+    public boolean getFlag(){
+        return receiveFlag;
     }
 }

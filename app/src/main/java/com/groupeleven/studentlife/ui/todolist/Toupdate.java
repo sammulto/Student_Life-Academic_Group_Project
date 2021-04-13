@@ -64,6 +64,9 @@ public class Toupdate extends AppCompatActivity implements
     // to see which type of output we want in unit
     private int resource = 0;
 
+    // displayed message on the pop up notification
+    private String hint;
+
 
 
     @Override
@@ -191,7 +194,7 @@ public class Toupdate extends AppCompatActivity implements
 //--------------------------------------------------------------------------------------------------
 //notification added
 //--------------------------------------------------------------------------------------------------
-                String hint = taskName + " begins from " + taskStart;
+                hint = taskName + " begins from " + taskStart;
                 Calendar c = Calendar.getInstance();
                 c.set(sYear, sMonth, sDay, sHour, sMinute);
                 startAlarm(c, taskName,hint);
