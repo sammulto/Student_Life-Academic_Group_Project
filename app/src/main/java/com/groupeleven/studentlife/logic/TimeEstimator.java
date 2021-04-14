@@ -124,21 +124,4 @@ public class TimeEstimator implements ITimeEstimator {
         }
         return result;
     }
-
-    public int getNumCourses() {
-        return numCourses;
-    }
-
-    public void setNumCourses(int numCourses) {
-        this.numCourses = numCourses;
-    }
-
-    public int getMinutesPerWeek() {
-        return minutesPerWeek;
-    }
-
-    public void setMinutesPerWeek(int minutesPerWeek) {
-        this.minutesPerWeek = minutesPerWeek;
-    }
-
 }
