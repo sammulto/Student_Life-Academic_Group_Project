@@ -1,4 +1,4 @@
-package com.groupeleven.studentlife.logicTests;
+package com.groupeleven.studentlife.UnitTests;
 
 import com.groupeleven.studentlife.faskDB.FakeDB;
 import com.groupeleven.studentlife.domainSpecificObjects.ITaskObject;
