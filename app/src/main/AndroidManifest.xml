@@ -47,7 +47,7 @@
             android:required="false" />
 
         //logic for notification
-        <receiver android:name=".logic.AlarmReceiver">
+        <receiver android:name=".ui.notification.AlarmReceiver">
             <intent-filter>
                 <action android:name="ALARM" />
                 <category android:name="android.intent.category.DEFAULT" />
