@@ -2,7 +2,6 @@ package com.groupeleven.studentlife.ui.todolist;
 
 import android.app.AlarmManager;
 import android.app.DatePickerDialog;
-import android.app.Notification;
 import android.app.PendingIntent;
 import android.app.TimePickerDialog;
 import android.content.Context;
@@ -24,12 +23,9 @@ import android.widget.TimePicker;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.NotificationCompat;
-import androidx.core.app.NotificationManagerCompat;
 
 import com.groupeleven.studentlife.R;
-import com.groupeleven.studentlife.domainSpecificObjects.PriorityChannel;
-import com.groupeleven.studentlife.logic.AlarmReceiver;
+import com.groupeleven.studentlife.ui.notification.AlarmReceiver;
 import com.groupeleven.studentlife.logic.ITodolistLogic;
 import com.groupeleven.studentlife.logic.TodolistLogic;
 

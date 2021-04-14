@@ -1,4 +1,4 @@
-package com.groupeleven.studentlife.logicTests;
+package com.groupeleven.studentlife.UnitTests;
 
 import com.groupeleven.studentlife.domainSpecificObjects.ITaskObject;
 import com.groupeleven.studentlife.logic.TimeEstimator;

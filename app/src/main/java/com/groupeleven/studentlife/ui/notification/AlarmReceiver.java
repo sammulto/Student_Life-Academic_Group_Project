@@ -1,4 +1,4 @@
-package com.groupeleven.studentlife.logic;
+package com.groupeleven.studentlife.ui.notification;
 
 import android.app.Notification;
 import android.content.BroadcastReceiver;

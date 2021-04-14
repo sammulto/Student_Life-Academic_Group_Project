@@ -1,4 +1,4 @@
-package com.groupeleven.studentlife.logicTests;
+package com.groupeleven.studentlife.NotificationTests;
 
 import android.content.Intent;
 import android.content.IntentFilter;
@@ -8,7 +8,7 @@ import android.content.IntentFilter;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 import androidx.test.platform.app.InstrumentationRegistry;
 
-import com.groupeleven.studentlife.logic.AlarmReceiver;
+import com.groupeleven.studentlife.ui.notification.AlarmReceiver;
 
 import org.junit.Test;
 import static org.junit.Assert.assertFalse;
@@ -21,7 +21,7 @@ public class AlarmReceiverUnitTests {
 
 
     //test if onReceive called properly
-    @Test
+    @Test(expected = IllegalStateException.class)
     public void test_receiver_call() throws InterruptedException {
 
         myAlarmReceiver = new AlarmReceiver();
