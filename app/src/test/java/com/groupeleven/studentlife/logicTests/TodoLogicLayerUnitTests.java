@@ -29,16 +29,13 @@ public class TodoLogicLayerUnitTests {
         assertTrue(retrievedDataSafety.addTask("Meeting", "High", "2020-03-01 07:10:12","2220-05-02 01:02:12","Reading",10,"pages"));
         assertTrue(retrievedDataSafety.addTask("project", "Medium", "2020-03-12 04:20:12","2220-05-02 01:02:12","Reading",10,"pages"));
 
-        assertEquals(5, retrievedDataSafety.getData().length);
+        assertEquals(5, retrievedDataSafety.getUncompleted().length);
         db.deleteAllTask();
-
-
     }
     //No data loss: amount retrieved data should be equals to the amount of pushed data
 
     @Test
     public void addTask() {
-//        public boolean addTask(String name, int priority,String endTime ){
 
         FakeDB db = new FakeDB();
 
@@ -61,32 +58,41 @@ public class TodoLogicLayerUnitTests {
     //Task can't be added without the task name
 
 
+    //after first task addition, uncompleted task list shouldn't be empty, and completed task list should be empty
+    @Test
+    public void checkCompletedIsEmpty() {
+        FakeDB db = new FakeDB();
+        ITodolistLogic listIsNotEmpty = new TodolistLogic(db);
+        assertTrue(listIsNotEmpty.addTask("Task1", "High", "2020-01-01 12:12:12","2220-05-02 01:02:12","Reading",10,"pages"));
+        assertNotNull(listIsNotEmpty.getUncompleted());
+        assertNull(listIsNotEmpty.getCompleted());
+        db.deleteAllTask();
+    }
+    //after first task addition, uncompleted task list shouldn't be empty, and completed task list should be empty
+
+
     //after first task addition database shouldn't be empty, and data can be pulled out to logic layer
     @Test
     public void retrievedDataListIsNotEmpty() {
         FakeDB db = new FakeDB();
         ITodolistLogic listIsNotEmpty = new TodolistLogic(db);
         assertTrue(listIsNotEmpty.addTask("Task1", "High", "2020-01-01 12:12:12","2220-05-02 01:02:12","Reading",10,"pages"));
-        assertNotNull(listIsNotEmpty.getData());
+        assertNotNull(listIsNotEmpty.getUncompleted());
         db.deleteAllTask();
-
-
     }
     //after first task addition database shouldn't be empty, and data can be pulled out to logic layer
 
 
-    //after first task addition database shouldn't be empty, and data can be pulled out to logic layer
-
+    //no task addition database should be empty
     @Test
     public void noTaskAdded() {
         FakeDB db = new FakeDB();
         ITodolistLogic listIsNotEmpty = new TodolistLogic(db);
-
-        assertEquals(0, listIsNotEmpty.getData().length);
+        assertNull(listIsNotEmpty.getUncompleted());
+        assertNull(listIsNotEmpty.getCompleted());
         db.deleteAllTask();
-
     }
-    // after first task addition database shouldn't be empty, and data can be pulled out to logic layer
+    //no task addition database should be empty
 
 
     //Task can be edited
@@ -113,21 +119,21 @@ public class TodoLogicLayerUnitTests {
 
 
 
-    //Task edit should return false with no priority
+    //Uncompleted task can be deleted
     @Test
-    public void deleteTask() {
+    public void deleteUnTask() {
         FakeDB db = new FakeDB();
         ITodolistLogic deleteTaskSuccess = new TodolistLogic(db);
         assertTrue(deleteTaskSuccess.addTask("it-1", "High", "2020-01-01 12:12:12","2220-05-02 01:02:12","Reading",10,"pages"));
-        assertTrue(deleteTaskSuccess.deleteTask(0));
+        assertTrue(deleteTaskSuccess.deleteTask(false,0));
         db.deleteAllTask();
     }
-    //Task edit should return false with no priority
+    //Uncompleted task can be deleted
 
 
-    //Delete Data safety, deleting only desired items
+    //Delete Data safety, deleting only desired uncompleted task
     @Test
-    public void deleteTaskSafety() {
+    public void deleteUnTaskSafety() {
         FakeDB db = new FakeDB();
         ITodolistLogic deleteDataSafety = new TodolistLogic(db);
         assertTrue(deleteDataSafety.addTask("it-1", "High", "2020-01-01 12:12:12","2220-05-02 01:02:12","Reading",10,"pages"));
@@ -135,13 +141,51 @@ public class TodoLogicLayerUnitTests {
         assertTrue(deleteDataSafety.addTask("Meeting", "High", "2020-03-01 07:10:12","2220-05-02 01:02:12","Reading",10,"pages"));
         assertTrue(deleteDataSafety.addTask("project", "Medium", "2020-03-12 04:20:12","2220-05-02 01:02:12","Reading",10,"pages"));
 
-        assertTrue(deleteDataSafety.deleteTask(1));
-        assertTrue(deleteDataSafety.deleteTask(2));
-        assertEquals(2,deleteDataSafety.getData().length);
+        assertTrue(deleteDataSafety.deleteTask(false,1));
+        assertTrue(deleteDataSafety.deleteTask(false,2));
+        assertEquals(2,deleteDataSafety.getUncompleted().length);
 
         db.deleteAllTask();
     }
-    //Task edit should return false with no priority
+    //Delete Data safety, deleting only desired items
+
+
+    //Uncompleted task can be changed to completed task
+    @Test
+    public void CompletedTest() {
+        FakeDB db = new FakeDB();
+        ITodolistLogic checkTaskSuccess = new TodolistLogic(db);
+        assertTrue(checkTaskSuccess.addTask("it-1", "High", "2020-01-01 12:12:12","2220-05-02 01:02:12","Reading",10,"pages"));
+        assertTrue(checkTaskSuccess.setCompleted(false,0,true));
+        db.deleteAllTask();
+    }
+    //Uncompleted task can be changed to completed task
+
+
+    //Completed task can be changed to uncompleted task
+    @Test
+    public void UncompletedTest() {
+        FakeDB db = new FakeDB();
+        ITodolistLogic checkTaskSuccess = new TodolistLogic(db);
+        assertTrue(checkTaskSuccess.addTask("it-1", "High", "2020-01-01 12:12:12","2220-05-02 01:02:12","Reading",10,"pages"));
+        assertTrue(checkTaskSuccess.setCompleted(false,0,true));
+        assertTrue(checkTaskSuccess.setCompleted(true,0,false));
+        db.deleteAllTask();
+    }
+    //Completed task can be changed to uncompleted task
+
+
+    //Completed task can be deleted
+    @Test
+    public void deleteTask() {
+        FakeDB db = new FakeDB();
+        ITodolistLogic deleteTaskSuccess = new TodolistLogic(db);
+        assertTrue(deleteTaskSuccess.addTask("it-1", "High", "2020-01-01 12:12:12","2220-05-02 01:02:12","Reading",10,"pages"));
+        assertTrue(deleteTaskSuccess.setCompleted(false,0,true));
+        assertTrue(deleteTaskSuccess.deleteTask(true,0));
+        db.deleteAllTask();
+    }
+    //Completed task can be deleted
 
 
   //Input Validation Exceptional tests
