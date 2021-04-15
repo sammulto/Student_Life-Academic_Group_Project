@@ -11,7 +11,7 @@ Student Life a time management App for students. The App can be used to assist s
 * build the project
 
 ## Run
- * The project is tested on Google Pixel 3
+ * The project is tested on Google Pixel 3a
  * The app can be run by the emulator in Android Studio
  * Alternative, an unsigned debug APK file can be built by using Android Studio.
 
