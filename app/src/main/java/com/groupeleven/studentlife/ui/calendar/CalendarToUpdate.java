@@ -1,6 +1,5 @@
 package com.groupeleven.studentlife.ui.calendar;
 
-import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.content.Intent;
@@ -34,8 +33,6 @@ public class CalendarToUpdate extends AppCompatActivity implements
     private EditText name;
     private EditText startTime;
     private EditText endTime;
-    private EditText priorityText;
-    private EditText taskType;
     private EditText quantity;
     private EditText unit;
     private Spinner priority;
@@ -76,11 +73,9 @@ public class CalendarToUpdate extends AppCompatActivity implements
 
         button = findViewById(R.id.updateButton);
 
-        priorityText = findViewById(R.id.editPriority);
         priority = findViewById((R.id.prioritySpinner));
         name = findViewById(R.id.name);
 
-        taskType = findViewById(R.id.taskType);
         quantity = findViewById(R.id.quantity);
         unit = findViewById(R.id.unit);
         taskTypeSpinner = findViewById(R.id.taskTypeSpinner);
@@ -92,7 +87,6 @@ public class CalendarToUpdate extends AppCompatActivity implements
         int positon = in.getExtras().getInt("id",-1);
         String mySelectedDate=in.getExtras().getString("selectedDate");
 
-//        int positon = -1;
         if (positon == -1) {
             button.setText("Add");
         }
@@ -118,18 +112,6 @@ public class CalendarToUpdate extends AppCompatActivity implements
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
 
-            }
-        });
-
-//--------------------------------------------------------------------------------------------------
-// priority show up
-// after we clicked priority box we can see the spinner
-
-        priorityText.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                priorityText.setHint("");
-                priority.setVisibility(View.VISIBLE);
             }
         });
 
@@ -169,6 +151,7 @@ public class CalendarToUpdate extends AppCompatActivity implements
             }
         });
 
+
 //--------------------------------------------------------------------------------------------------
 // add or update button
 // final process in this activity
@@ -196,6 +179,10 @@ public class CalendarToUpdate extends AppCompatActivity implements
                     num = Integer.parseInt(quantity.getText().toString());
                 }
 
+
+//--------------------------------------------------------------------------------------------------
+//notification added
+
                 // to see we need add or update a task
                 boolean isComplete = false;
                 String message = "";
@@ -209,7 +196,6 @@ public class CalendarToUpdate extends AppCompatActivity implements
                 }
 
                 // pass to logic to check is add complete
-
                 if (isComplete) {
                     finish();
                     Toast toast = Toast.makeText(CalendarToUpdate.this, message, Toast.LENGTH_SHORT);
@@ -225,15 +211,12 @@ public class CalendarToUpdate extends AppCompatActivity implements
                         Toast.makeText(CalendarToUpdate.this, e.getMessage(), Toast.LENGTH_SHORT).show();
                     }
                 }
-
-
-
             }
-
         });
-
-
 //--------------------------------------------------------------------------------------------------
+
+
+
 // time estimator part
 //--------------------------------------------------------------------------------------------------
 // task type spinner
@@ -260,8 +243,16 @@ public class CalendarToUpdate extends AppCompatActivity implements
                 } else if (parent.getItemAtPosition(position).equals("Lecture")) {
                     resource = R.array.lecture;
                     setUnitSpinner();
+                } else if(parent.getItemAtPosition(position).equals("Lab")){
+                    resource = R.array.lab;
+                    setUnitSpinner();
+                } else if(parent.getItemAtPosition(position).equals("Term paper")){
+                    resource = R.array.paper;
+                    setUnitSpinner();
+                } else if(parent.getItemAtPosition(position).equals("Studying")){
+                    resource = R.array.study;
+                    setUnitSpinner();
                 }
-
             }
 
             @Override
@@ -269,23 +260,10 @@ public class CalendarToUpdate extends AppCompatActivity implements
 
             }
         });
-
-
-//--------------------------------------------------------------------------------------------------
-// task type show up
-// after we clicked task type box we can see the spinner
-
-        taskType.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                taskType.setHint("");
-                taskTypeSpinner.setVisibility(View.VISIBLE);
-            }
-        });
     }
 
 
-    //--------------------------------------------------------------------------------------------------
+//--------------------------------------------------------------------------------------------------
 // unit spinner
     public void setUnitSpinner() {
         unit.setHint("");
@@ -309,8 +287,8 @@ public class CalendarToUpdate extends AppCompatActivity implements
 
             }
         });
-
     }
+
 
 //--------------------------------------------------------------------------------------------------
 // for date/time picker
