@@ -373,14 +373,14 @@ public class Toupdate extends AppCompatActivity implements
     }
 
 
-    //set the notification with a specific time and necessary text
+    // set the notification with a specific time and necessary text
     private void startAlarm(Calendar c, String title, String message){
         AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
         Intent intent = new Intent(this, AlarmReceiver.class);
         intent.putExtra("TaskName", title);
         intent.putExtra("Hint", message);
 
-     //have a random request code makes the jump out notification no longer have the same data
+     // have a random request code makes the jump out notification no longer have the same data
         int r = (int) ((new Date().getTime() / 1000L) % Integer.MAX_VALUE);
         r += new Random().nextInt(100) + 1;
         PendingIntent pendingIntent = PendingIntent.getBroadcast(this, r, intent, 0);
