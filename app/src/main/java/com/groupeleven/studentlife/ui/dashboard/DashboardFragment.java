@@ -42,22 +42,6 @@ public class DashboardFragment extends Fragment {
         mcv = (MaterialCalendarView) root.findViewById(R.id.weeklyCalendarView);
         mcv.setDateSelected(today(),true);
 
-
-        //TODO
-        //add day list
-        //set decorator
-//        mcv.addDecorator(new DayViewDecorator() {
-//            @Override
-//            public boolean shouldDecorate(CalendarDay day) {
-//                return day.equals(CalendarDay.today());
-//            }
-//
-//            @Override
-//            public void decorate(DayViewFacade view) {
-//                view.addSpan(new DotSpan(10, Color.BLUE));
-//            }
-//        });
-
         return root;
     }
 

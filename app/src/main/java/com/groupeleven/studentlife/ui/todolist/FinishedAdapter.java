@@ -94,10 +94,11 @@ public class FinishedAdapter extends RecyclerView.Adapter<FinishedAdapter.ViewHo
                     if(!taskBox.isChecked()){
                         if(logic.setCompleted(true,getAdapterPosition(),false)) {
                             Toast toast = Toast.makeText(itemView.getContext(), "Uncheck", Toast.LENGTH_SHORT);
-                            toast.setGravity(Gravity.CENTER_HORIZONTAL | Gravity.BOTTOM, 0, 400);
                             toast.show();
-                            taskBox.setEnabled(false);
-                            delete.setEnabled(false);
+
+                            // refresh the list
+                            FinishedAdapter.this.taskList = logic.getCompleted();
+                            refreshAdapterData();
                         }
                         else{
                             throw new RuntimeException("Uncheck task fail");
@@ -117,8 +118,9 @@ public class FinishedAdapter extends RecyclerView.Adapter<FinishedAdapter.ViewHo
                     }
                     else{
                         Toast toast = Toast.makeText(itemView.getContext(),"Task deleted task successfully",Toast.LENGTH_SHORT);
-                        toast.setGravity(Gravity.CENTER_HORIZONTAL | Gravity.BOTTOM, 0, 400);
                         toast.show();
+
+                        // refresh the list
                         FinishedAdapter.this.taskList = logic.getCompleted();
                         refreshAdapterData();
                     }
