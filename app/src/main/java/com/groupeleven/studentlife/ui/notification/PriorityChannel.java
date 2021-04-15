@@ -1,4 +1,4 @@
-package com.groupeleven.studentlife.domainSpecificObjects;
+package com.groupeleven.studentlife.ui.notification;
 
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
