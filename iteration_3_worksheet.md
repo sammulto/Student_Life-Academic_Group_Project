@@ -7,20 +7,20 @@ However, we ended up with only recommended websites and no inserting function fo
 
 In iteration 3, we decide that recommended websites is enough to support our system and concept, so we removed all function and element related to the customization of websites.
 
-It is deliberate and Prudent because we don't have enough time to build the whole system and what we can only do is to cut it and pick up the most valuable part.
+It is deliberate and prudent because we don't have enough time to build the whole system and what we can only do is to cut it and pick up the most valuable part.
 
 [Useless code removed](https://code.cs.umanitoba.ca/3350-winter-2021-a01/your-internet-neighbours-group-11/-/commit/b0ac02a21af2fa1f19816633c6a3b9a29fe30248)
 
 # What technical debt did you leave?
 ## Deliberate and Prudent Technical Debt
 
-A new feature we added in iteration 3 is the notifiication, and the notification is supposed to have different priorites.
+A new feature we added in iteration 3 is the notifiication, and the notification is supposed to be a separate activity with a logic unit to get data from database.
 
-However, to reduce the time we need to implement and test the function, we make all different priority options in the task have the same result, which is a default priority.
+However, due to the limited time, we decide to put the function inside another class and using data from that class rather than get it by a logic unit.
 
-It is deliberate and prudent because the time is limited and we give up some unnecessary functionality to get the stability.
+It is deliberate and prudent because we do not have enough time to build a whole system for it (an activity, a receiver, a set-up class, a logic unit, an unit test for the logic unit). We choose to make it work for now and deal with the consequences in iteration 4, if we have one. 
 
-[Delete the parameter for priority](https://code.cs.umanitoba.ca/3350-winter-2021-a01/your-internet-neighbours-group-11/-/commit/42c9ba21ec31eaf96103f8b16e312b7163b49728/Toupdate.java#L195)
+[Notification code added in Toupdata.class - L195 -](https://code.cs.umanitoba.ca/3350-winter-2021-a01/your-internet-neighbours-group-11/-/commit/65e986a5db342be864a72fb15f3061e6928c40a9)
 
 # Discuss a Feature or User Story that was cut/re-prioritized
 
