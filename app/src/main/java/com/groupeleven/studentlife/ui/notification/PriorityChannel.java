@@ -20,7 +20,7 @@ public class PriorityChannel extends ContextWrapper {
         createNotificationChannels();
     }
 
-//create 3 channels which have different priority
+    //create 3 channels which have different priority
     private void createNotificationChannels(){
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
 
