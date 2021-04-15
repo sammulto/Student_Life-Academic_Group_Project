@@ -111,7 +111,7 @@ public class CalendarFragment extends Fragment {
         taskList = calendarLogic.viewTask(date);
         taskRecycle.setLayoutManager(new LinearLayoutManager(getContext()));
 
-        taskAdapter = new CalendarAdapter(taskList, date, materialCalendarView);
+        taskAdapter = new CalendarAdapter(taskList, date);
         taskRecycle.setAdapter(taskAdapter);
 
 

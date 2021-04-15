@@ -20,6 +20,11 @@
             android:parentActivityName=".ui.calendar.CalendarToUpdate"></activity>
 
         <activity
+            android:name=".ui.calendar.CalendarDelete"
+            android:label="@string/title_update"
+            android:parentActivityName=".ui.calendar.CalendarDelete"></activity>
+
+        <activity
             android:name=".ui.usefullinks.Tutorial"
             android:label="@string/title_tutorial"
             android:parentActivityName=".ui.usefullinks.Tutorial"></activity>
