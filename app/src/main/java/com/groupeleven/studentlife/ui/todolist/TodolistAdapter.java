@@ -92,9 +92,10 @@ public class TodolistAdapter extends RecyclerView.Adapter<TodolistAdapter.ViewHo
                             Toast toast = Toast.makeText(itemView.getContext(), "Check", Toast.LENGTH_SHORT);
                             toast.setGravity(Gravity.CENTER_HORIZONTAL | Gravity.BOTTOM, 0, 400);
                             toast.show();
-                            taskBox.setEnabled(false);
-                            delete.setEnabled(false);
-                            edit.setEnabled(false);
+
+                            // refresh the list
+                            TodolistAdapter.this.taskList = logic.getUncompleted();
+                            refreshAdapterData();
                         }
                         else{
                             throw new RuntimeException("Check task fail");
