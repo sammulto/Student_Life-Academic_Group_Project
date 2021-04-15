@@ -33,18 +33,14 @@ public class CalendarAdapter extends RecyclerView.Adapter<CalendarAdapter.ViewHo
     private ICalendarLogic logic;
     private String date;
     private MaterialCalendarView calendar;
+
     public CalendarAdapter(ITaskObject[] taskList, String selectedDate) {
         this.taskList = taskList;
         this.logic = new CalendarLogic();
         this.date = selectedDate;
     }
 
-    public CalendarAdapter(ITaskObject[] taskList, String selectedDate, MaterialCalendarView calendarView) {
-        this.taskList = taskList;
-        this.logic = new CalendarLogic();
-        this.date = selectedDate;
-        calendar=calendarView;
-    }
+
 
     @NotNull
     @Override
@@ -93,29 +89,6 @@ public class CalendarAdapter extends RecyclerView.Adapter<CalendarAdapter.ViewHo
         FloatingActionButton delete;
 
 
-        //update the adapter with new data
-        public void refreshAdapterData() {
-            CalendarAdapter.this.taskList = logic.viewTask(date);
-
-            CalendarAdapter.this.notifyDataSetChanged();
-
-            calendar.removeDecorators();
-            ArrayList<CalendarDay> dayList = logic.getDayList();
-
-            calendar.addDecorator(new DayViewDecorator() {
-                @Override
-                public boolean shouldDecorate(CalendarDay day) {
-                    return dayList.contains(day);
-                }
-
-                @Override
-                public void decorate(DayViewFacade view) {
-                    view.addSpan(new DotSpan(10, Color.RED));
-                }
-            });
-        }
-
-
         //itemView is the entire row in RecyclerView
         public ViewHolder(View itemView) {
             super(itemView);
@@ -130,30 +103,27 @@ public class CalendarAdapter extends RecyclerView.Adapter<CalendarAdapter.ViewHo
             taskBox.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    if(taskBox.isChecked()){
-                        if(logic.setCompleted(date,getAdapterPosition(),true)) {
+                    if (taskBox.isChecked()) {
+                        if (logic.setCompleted(date, getAdapterPosition(), true)) {
                             Toast toast = Toast.makeText(itemView.getContext(), "Check", Toast.LENGTH_SHORT);
                             toast.setGravity(Gravity.CENTER_HORIZONTAL | Gravity.BOTTOM, 0, 200);
                             toast.show();
-                        }
-                        else{
+                        } else {
                             throw new RuntimeException("Check task fail");
                         }
                     }
-                    if(!taskBox.isChecked()){
-                        if(logic.setCompleted(date,getAdapterPosition(),false)) {
+                    if (!taskBox.isChecked()) {
+                        if (logic.setCompleted(date, getAdapterPosition(), false)) {
                             Toast toast = Toast.makeText(itemView.getContext(), "Uncheck", Toast.LENGTH_SHORT);
                             toast.setGravity(Gravity.CENTER_HORIZONTAL | Gravity.BOTTOM, 0, 200);
                             toast.show();
-                        }
-                        else{
+                        } else {
                             throw new RuntimeException("Uncheck task fail");
                         }
                     }
-                    refreshAdapterData();
+
                 }
             });
-
 
 
 //"edit" button action, jump to edit activity
@@ -163,11 +133,10 @@ public class CalendarAdapter extends RecyclerView.Adapter<CalendarAdapter.ViewHo
 
                     Intent in = new Intent(itemView.getContext(), CalendarToUpdate.class);
                     in.putExtra("id", getAdapterPosition());
-                    System.out.println("Selected Date="+ date);
-                    in.putExtra("selectedDate",date);
+                    System.out.println("Selected Date=" + date);
+                    in.putExtra("selectedDate", date);
                     itemView.getContext().startActivity(in);
 
-                    refreshAdapterData();
                 }
             });
 
@@ -181,17 +150,11 @@ public class CalendarAdapter extends RecyclerView.Adapter<CalendarAdapter.ViewHo
             delete.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    if (!logic.deleteTask(date,getAdapterPosition())) {
-                        throw new RuntimeException("Delete task fail");
+                    Intent in = new Intent(itemView.getContext(), CalendarDelete.class);
+                    in.putExtra("id", getAdapterPosition());
+                    in.putExtra("selectedDate", date);
+                    itemView.getContext().startActivity(in);
 
-                    } else {
-                        Toast toast = Toast.makeText(itemView.getContext(), "Task deleted task successfully", Toast.LENGTH_SHORT);
-                        toast.setGravity(Gravity.CENTER_HORIZONTAL | Gravity.BOTTOM, 0, 200);
-                        toast.show();
-                        com.groupeleven.studentlife.ui.calendar.CalendarAdapter.this.taskList = logic.viewTask(date);
-
-                        refreshAdapterData();
-                    }
                 }
             });
         }
