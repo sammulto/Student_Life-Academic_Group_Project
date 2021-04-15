@@ -5,15 +5,15 @@ import com.groupeleven.studentlife.domainSpecificObjects.ITaskObject;
 import com.groupeleven.studentlife.domainSpecificObjects.Task;
 import com.groupeleven.studentlife.logic.CalendarLogic;
 import com.groupeleven.studentlife.logic.ICalendarLogic;
-import com.groupeleven.studentlife.logic.ITodolistLogic;
-import com.groupeleven.studentlife.logic.TodolistLogic;
 import com.prolificinteractive.materialcalendarview.CalendarDay;
 
 import org.junit.Test;
 
+import java.text.ParseException;
 import java.util.ArrayList;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
@@ -29,33 +29,25 @@ public class CalendarLogicTest {
         ICalendarLogic logic = new CalendarLogic(db);
 
         ITaskObject[] taskList = null;
-        taskList = logic.viewTask("2021-04-01");
-        assertNull("No Task in a day return NULL array", taskList);
+        assertNull("No Task in a day return NULL array", logic.viewTask("2021-04-01"));
         db.deleteAllTask();
     }
 
     @Test
     public void getTaskFromADayTest() {
         FakeDB db = new FakeDB();
-        ITodolistLogic todoListLogic = new TodolistLogic(db);
+        ICalendarLogic logic = new CalendarLogic(db);
 
+        logic.addTask("Task 1", "High", "2021-05-01 05:12:12", "2021-05-01 07:02:12",  "Reading", 10, "pages");
+        logic.addTask("Task 2", "High", "2021-05-01 05:12:12", "2021-05-01 07:02:12",  "Reading", 10, "pages");
+        logic.addTask("Task 3", "High", "2021-05-01 05:12:12", "2021-05-01 07:02:12", "Reading", 10, "pages");
 
-        ITaskObject task1 = new Task("Task 1", null, "2021-05-01 12:12:12", "2021-05-01 01:02:12", 10, "Reading", 10, "Reading");
-        ITaskObject task2 = new Task("Task 2", null, "2021-05-01 12:12:12", "2021-05-01 01:02:12", 10, "Reading", 10, "Reading");
-        ITaskObject task3 = new Task("Task 3", null, "2021-05-01 12:12:12", "2021-05-01 01:02:12", 10, "Reading", 10, "Reading");
 
         ITaskObject[] taskList = null;
 
-        db.insertTask(task1);
-        db.insertTask(task2);
-        db.insertTask(task3);
-
-
-        ICalendarLogic logic = new CalendarLogic(db);
 
         ITaskObject[] tasksList = logic.viewTask("2021-05-01");
 
-        assertNotNull(tasksList);
         assertEquals("2021-05-01 Should have 3 task for the day", 3, tasksList.length);
         db.deleteAllTask();
     }
@@ -65,11 +57,11 @@ public class CalendarLogicTest {
     public void taskPriorityTest() {
         FakeDB db = new FakeDB();
 
-        ITaskObject task1 = new Task("Task 1", ITaskObject.Priority.HIGH, "2021-05-01 12:12:12", "2021-05-01 01:02:12", 10, "Reading", 10, "Reading");
-
-        db.insertTask(task1);
-
         ICalendarLogic logic = new CalendarLogic(db);
+
+        logic.addTask("Task 1", "High", "2021-05-01 05:12:12", "2021-05-01 07:02:12",  "Reading", 10, "pages");
+
+
 
         ITaskObject[] tasksList = logic.viewTask("2021-05-01");
 
@@ -80,32 +72,174 @@ public class CalendarLogicTest {
 
 
     @Test
-    public void getDayListTest(){
+    public void getDayListTest() {
         FakeDB db = new FakeDB();
         ICalendarLogic logic = new CalendarLogic(db);
 
-        ITaskObject task1 = new Task("Task1");
-        ITaskObject task2 = new Task("Task2");
-        ITaskObject task3 = new Task("Task3");
-        task1.setEndTime("2021-05-01 01:02:12");
-        task2.setEndTime("2022-06-02 01:02:12");
-        task3.setEndTime("2023-07-03 01:02:12");
-        db.insertTask(task1);
-        db.insertTask(task2);
-        db.insertTask(task3);
+        logic.addTask("Task 1", "High", "2021-05-01 05:12:12", "2021-05-01 07:02:12",  "Reading", 10, "pages");
+        logic.addTask("Task 2", "High", "2021-05-01 05:12:12", "2021-05-01 07:02:12",  "Reading", 10, "pages");
+        logic.addTask("Task 3", "High", "2021-05-01 05:12:12", "2021-05-01 07:02:12", "Reading", 10, "pages");
 
-        CalendarDay day1 = CalendarDay.from(2021,05,01);
-        CalendarDay day2 = CalendarDay.from(2022,06,02);
-        CalendarDay day3 = CalendarDay.from(2023,07,03);
+
+
 
         ArrayList<CalendarDay> dayList = logic.getDayList();
 
-        assertEquals("The returned list should have 3 items.",3,dayList.size());
-        assertTrue("The list should contian day1.",dayList.contains(day1));
-        assertTrue("The list should contian day2.",dayList.contains(day2));
-        assertTrue("The list should contian day3.",dayList.contains(day3));
+        assertNotNull(dayList);
+        assertEquals("The returned list should have 3 items.", 3, dayList.size());
 
         db.deleteAllTask();
     }
 
+
+    @Test
+    public void getTaskFromADayTestAndDeleteIt() {
+        FakeDB db = new FakeDB();
+        ICalendarLogic logic = new CalendarLogic(db);
+
+
+        logic.addTask("Task 1", "High", "2021-05-01 05:12:12", "2021-05-01 07:02:12",  "Reading", 10, "pages");
+        logic.addTask("Task 2", "High", "2021-05-01 05:12:12", "2021-05-01 07:02:12",  "Reading", 10, "pages");
+        logic.addTask("Task 3", "High", "2021-05-01 05:12:12", "2021-05-01 07:02:12", "Reading", 10, "pages");
+
+        ITaskObject[] taskList = null;
+
+
+        ITaskObject[] tasksList = logic.viewTask("2021-05-01");
+
+        assertEquals("2021-05-01 Should have 3 task for the day", 3, tasksList.length);
+        assertTrue("Task deleted successfully", logic.deleteTask("2021-05-01", 1));
+
+        assertEquals("Still, 2021-05-01 Should have 3 task for the day", 2, logic.viewTask("2021-05-01").length);
+        db.deleteAllTask();
+
+    }
+
+
+    @Test
+    public void editTaskTest() {
+        FakeDB db = new FakeDB();
+        ICalendarLogic logic = new CalendarLogic(db);
+
+
+        logic.addTask("Task 1", "High", "2021-05-01 05:12:12", "2021-05-01 07:02:12",  "Reading", 10, "pages");
+        logic.addTask("Task 2", "High", "2021-05-01 05:12:12", "2021-05-01 07:02:12",  "Reading", 10, "pages");
+        logic.addTask("Task 3", "High", "2021-05-01 05:12:12", "2021-05-01 07:02:12", "Reading", 10, "pages");
+
+        ITaskObject[] taskList = null;
+
+
+
+
+        ITaskObject[] tasksList = logic.viewTask("2021-05-01");
+
+        assertNotNull(tasksList);
+        assertEquals("2021-05-01 Should have 3 task for the day", 3, tasksList.length);
+        assertTrue(logic.editTask("2021-05-01", 1, "Task-5", "LOW", "2021-05-01 01:02:12", "2021-05-01 02:02:12", "Reading", 10, "Pages"));
+
+        db.deleteAllTask();
+
+    }
+
+
+    @Test
+    public void setCompletedTest() {
+
+        FakeDB db = new FakeDB();
+
+        ICalendarLogic logic = new CalendarLogic(db);
+
+        logic.addTask("Task 1", "High", "2021-05-01 05:12:12", "2021-05-01 07:02:12",  "Reading", 10, "pages");
+
+
+
+
+        ITaskObject[] tasksList = logic.viewTask("2021-05-01");
+
+
+        assertTrue("Task should be completed should be True", logic.setCompleted("2021-05-01", 0, true));
+        db.deleteAllTask();
+    }
+
+
+    @Test
+    public void addTaskTest() {
+        FakeDB db = new FakeDB();
+
+        ICalendarLogic noName = new CalendarLogic(db);
+
+        assertTrue(noName.addTask("T-0", "High", "2020-01-01 12:12:12", "2220-05-02 01:02:12", "Reading", 10, "pages"));
+        db.deleteAllTask();
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void validateEmptyDateInputTest() throws IllegalArgumentException {
+        FakeDB db = new FakeDB();
+        ICalendarLogic missingFields = new CalendarLogic(db);
+        missingFields.checkUserInput(5, "Choose priority", 0, 0, "Reading", 1, "pages");
+
+    }
+
+
+    @Test
+    public void allTaskTest() {
+
+        FakeDB db = new FakeDB();
+
+        ICalendarLogic logic = new CalendarLogic(db);
+        logic.addTask("Task 1", "High", "2021-05-01 05:12:12", "2021-05-01 07:02:12",  "Reading", 10, "pages");
+
+
+        ArrayList<ITaskObject> allTask = logic.getDayList();
+
+        assertEquals("Task List should not be empty", allTask.size(), 1);
+
+        db.deleteAllTask();
+
+    }
+
+    @Test
+    public void getEstimatedTimeTest() {
+        FakeDB db = new FakeDB();
+        ICalendarLogic logic = new CalendarLogic(db);
+
+
+
+        ITaskObject[] taskList = null;
+
+        logic.addTask("Task 1", "High", "2021-05-01 05:12:12", "2021-05-01 07:02:12",  "Reading", 10, "pages");
+        logic.addTask("Task 2", "High", "2021-05-01 05:12:12", "2021-05-01 07:02:12",  "Reading", 1500, "words");
+        logic.addTask("Task 3", "High", "2021-05-01 05:12:12", "2021-05-01 07:02:12", "Reading", 10, "pages");
+
+
+        int estimatedTime = logic.getTimeEstimate(0, logic.viewTask("2021-05-01"));
+
+
+        assertEquals(20, estimatedTime);
+        estimatedTime = logic.getTimeEstimate(1, logic.viewTask("2021-05-01"));
+
+        assertEquals(10, estimatedTime);
+        db.deleteAllTask();
+
+
+    }
+
+    //    (Excepted= ParseException.class)
+    @Test(expected = ParseException.class)
+    public void dateTest() throws ParseException {
+        FakeDB db = new FakeDB();
+
+
+        ICalendarLogic logic = new CalendarLogic(db);
+
+        ITaskObject[] tasksList = logic.viewTask("2021-05-01");
+
+        assertTrue(logic.dateCheck("2021-05-01", "2021-05-01"));
+        assertFalse(logic.dateCheck("05-2021-01", "2021-05-01"));
+
+        db.deleteAllTask();
+
+
+    }
 }
+
