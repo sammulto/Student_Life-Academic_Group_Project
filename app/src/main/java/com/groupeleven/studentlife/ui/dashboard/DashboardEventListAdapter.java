@@ -52,7 +52,6 @@ public class DashboardEventListAdapter extends RecyclerView.Adapter<DashboardEve
         TextView taskStatusView = holder.taskStatusTextView;
         TextView taskEndTimeView = holder.taskEndTimeTextView;
         ITaskObject task = taskList[position];
-        ITaskObject.Priority priority = task.getPriority();
         String priorityText = logic.getPriorityText(task);
 
         //for date formatting
