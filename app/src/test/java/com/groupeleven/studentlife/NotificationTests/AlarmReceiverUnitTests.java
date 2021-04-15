@@ -15,7 +15,7 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 
-public class AlarmReceiverUnitTests {
+public class AlarmReceiverTests {
 
     private AlarmReceiver myAlarmReceiver;
 
