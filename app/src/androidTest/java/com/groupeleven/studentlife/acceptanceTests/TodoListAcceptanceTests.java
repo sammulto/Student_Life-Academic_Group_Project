@@ -29,6 +29,7 @@ import static androidx.test.espresso.Espresso.onView;
 import static androidx.test.espresso.Espresso.pressBack;
 import static androidx.test.espresso.action.ViewActions.click;
 import static androidx.test.espresso.action.ViewActions.typeText;
+import static androidx.test.espresso.assertion.ViewAssertions.doesNotExist;
 import static androidx.test.espresso.assertion.ViewAssertions.matches;
 import static androidx.test.espresso.matcher.ViewMatchers.isChecked;
 import static androidx.test.espresso.matcher.ViewMatchers.isDisplayed;
@@ -82,7 +83,7 @@ public class TodoListAcceptanceTests {
 
         //test the check box
         onView(withId(R.id.task_recyclerView)).perform(RecyclerViewActions.actionOnItemAtPosition(0,click()));
-        onView(withId(R.id.todoCheckBox)).check(matches(isChecked()));
+        onView(withId(R.id.todoCheckBox)).check(doesNotExist());
 
         //test if the the checked task display in finished tasks list
         onView(withId(R.id.finished_tasks_button)).perform(click());
@@ -91,7 +92,6 @@ public class TodoListAcceptanceTests {
         //uncheck the check box to put task back to the to-do list
         onView(withId(R.id.finished)).perform(RecyclerViewActions.actionOnItemAtPosition(0,click()));
         pressBack();
-
 
         //check if the new task is displayed in dashboard
         onView(withId(R.id.navigation_dashboard)).perform(click());
