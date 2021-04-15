@@ -213,7 +213,7 @@ public class CalendarToUpdate extends AppCompatActivity implements
                 if (isComplete) {
                     finish();
                     Toast toast = Toast.makeText(CalendarToUpdate.this, message, Toast.LENGTH_SHORT);
-                    toast.setGravity(Gravity.CENTER_HORIZONTAL | Gravity.BOTTOM, 0, 400);
+                    toast.setGravity(Gravity.CENTER_HORIZONTAL | Gravity.BOTTOM, 0, 200);
                     toast.show();
                 }
 
