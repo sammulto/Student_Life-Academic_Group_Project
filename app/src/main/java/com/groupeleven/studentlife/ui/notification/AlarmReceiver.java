@@ -29,7 +29,7 @@ public class AlarmReceiver extends BroadcastReceiver {
     private void createNotification(Context context, Intent intent, String title, String message){
         NotificationCompat.Builder bd = myPriorityChannel.getChannelNotification(title, message);
 
-//have a random number for notification id so we can have multiple notification showed up
+        //have a random number for notification id so we can have multiple notification showed up
         int r = (int) ((new Date().getTime() / 1000L) % Integer.MAX_VALUE);
         r += new Random().nextInt(100) + 1;
 
