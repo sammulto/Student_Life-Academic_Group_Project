@@ -159,6 +159,7 @@ public class Toupdate extends AppCompatActivity implements
             }
         });
 
+
 //--------------------------------------------------------------------------------------------------
 // add or update button
 // final process in this activity
@@ -187,9 +188,9 @@ public class Toupdate extends AppCompatActivity implements
                     num = Integer.parseInt(quantity.getText().toString());
                 }
 
+
 //--------------------------------------------------------------------------------------------------
-//notification added
-//--------------------------------------------------------------------------------------------------
+// notification added
                 
                 hint = taskName + " begins from " + taskStart;
                 Calendar c = Calendar.getInstance();
@@ -230,9 +231,10 @@ public class Toupdate extends AppCompatActivity implements
                 }
             }
         });
-
-
 //--------------------------------------------------------------------------------------------------
+
+
+
 // time estimator part
 //--------------------------------------------------------------------------------------------------
 // task type spinner
@@ -274,7 +276,6 @@ public class Toupdate extends AppCompatActivity implements
                     resource = R.array.study;
                     setUnitSpinner();
                 }
-
             }
 
             @Override
@@ -309,8 +310,8 @@ public class Toupdate extends AppCompatActivity implements
 
             }
         });
-
     }
+
 
 //--------------------------------------------------------------------------------------------------
 // for date/time picker
