@@ -190,10 +190,11 @@ public class Toupdate extends AppCompatActivity implements
 //--------------------------------------------------------------------------------------------------
 //notification added
 //--------------------------------------------------------------------------------------------------
+                
                 hint = taskName + " begins from " + taskStart;
                 Calendar c = Calendar.getInstance();
                 c.set(sYear, sMonth, sDay, sHour, sMinute);
-                startAlarm(c, taskName,hint);
+
 
                 // to see we need add or update a task
                 boolean isComplete = false;
@@ -214,6 +215,9 @@ public class Toupdate extends AppCompatActivity implements
                     Toast toast = Toast.makeText(Toupdate.this,message,Toast.LENGTH_SHORT);
                     toast.setGravity(Gravity.CENTER_HORIZONTAL | Gravity.BOTTOM, 0, 400);
                     toast.show();
+
+                    // pop-up notification
+                    startAlarm(c, taskName, hint);
                 }
 
                 // if not complete show the error
@@ -368,6 +372,7 @@ public class Toupdate extends AppCompatActivity implements
         super.finish();
     }
 
+
     //set the notification with a specific time and necessary text
     private void startAlarm(Calendar c, String title, String message){
         AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
@@ -375,15 +380,10 @@ public class Toupdate extends AppCompatActivity implements
         intent.putExtra("TaskName", title);
         intent.putExtra("Hint", message);
 
-//have a random request code makes the jump out notification no longer have the same data
+     //have a random request code makes the jump out notification no longer have the same data
         int r = (int) ((new Date().getTime() / 1000L) % Integer.MAX_VALUE);
         r += new Random().nextInt(100) + 1;
         PendingIntent pendingIntent = PendingIntent.getBroadcast(this, r, intent, 0);
-
-//if the start time is behind the current date, then no notification (kind of tricky here)
-//        if(c.before(Calendar.getInstance())){
-//            c.add(Calendar.DATE, 1);
-//        }
 
         alarmManager.setExact(AlarmManager.RTC_WAKEUP, c.getTimeInMillis(), pendingIntent);
     }
