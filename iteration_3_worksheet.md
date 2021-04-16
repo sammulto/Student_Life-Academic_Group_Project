@@ -41,5 +41,7 @@ Writing acceptance test by using Espresso is straight forward but also tedious. 
 
 For the first iteration, we could not meet up with the Estimated time. There are six people in our group, every one of us decided to spend 5 hours a week on the project. So, we were able to commit 60 hours of work in two weeks. For iteration two, we had three weeks in hand. Considering the previous iteration, we thought for three weeks might be able to contribute 80 hours of work for the project as a team. But to release a deliverable application we had to move a few features to the next iteration and for the leftover features, it took a bit less time than the estimated time. For iteration three, we decided to put our best to meet our visions and to provide a clean application. For this iteration, there were a few tasks where it took less time than the estimated time and vice versa. But at the end of the project, it took the same amount of time we estimated for the iteration.
 
-![](velocity.jpg)
+![](velocity.jpg)   
+
+
 [Velocity.xlsx](Velocity.xlsx)
