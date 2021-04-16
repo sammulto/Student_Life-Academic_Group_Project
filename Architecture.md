@@ -12,9 +12,12 @@ The packages for the major source code files are:
   * Calendar `package com.groupeleven.studentlife.ui.calendar`
   * To-do List  `package com.groupeleven.studentlife.ui.todolist`
   * Useful Links  `package com.groupeleven.studentlife.ui.usefullinks`
+  * Notification  `package com.groupeleven.studentlife.ui.notification`
 * Unit Tests
-  * Logic Unit Tests `package com.groupeleven.studentlife.logicTests`
+  * Unit Tests `package com.groupeleven.studentlife.UnitTests`
   * Database Tests `package com.groupeleven.studentlife.databaseTests`
+* IntegrationTests `package com.groupeleven.studentlife.IntegrationTests`
+* Acceptance Tests `com.groupeleven.studentlife.acceptanceTests`
 
 
 
@@ -44,49 +47,64 @@ Below is a sketch for the overall architecture:
 ```
 
 
-   com.groupeleven.studentlife
+com.groupeleven.studentlife
 
-   ../ =  app/src/main/java/com/groupeleven/studentlife/
+../ =  app/src/main/java/com/groupeleven/studentlife/
 
-   +-----------------------+
-   |     Main Activity     |
-   |                       |
-   |   MainActivity.java   |
-   +-----------------------+
-      |
-      |   ../ui/dashboard/
-      |   +----------------------------------+   ../logic/
-      |   |          Dashboard UI            |   +-----------------------+
-      |   |                                  |   |    Dashboard Logic    |
-      +---+      DashboardFragment.java      +---+                       +-+
-      |   |      DashboardViewModel.java     |   |  DashboardLogic.Java  | |   ../data/
-      |   |  DashboardElentListAdapter.java  |   +-----------------------+ |   +----------------+
-      |   +----------------------------------+                             |   |    Database    |
-      |                                                                    +---+                |
-      |    ../ui/todolist/                       ../logic/                 |   |    DB.java     |
-      |   +----------------------------------+   +--------------------+    |   +----------------+
-      |   |           To-do List UI          |   |  To-do List Logic  |    |      |
-      |   |                                  +---+                    +----+      |
-      +---+       TodolistFragment.java      |   | TodolistLogic.Java |    |      |
-      |   |       TodolistViewModel.ja^a     |   +--------------------+    |      |
-      |   +----------------------------------+                             |      |  ../domainSpecificobjects/
-      |                                                                    |      |   +---------------------+
-      |    ../ui/calendar/                       ../logic/                 |      |   |        Task         |
-      |   +----------------------------------+   +--------------------+    |      +---+                     |
-      |   |           Calendar UI            |   |    Calendar Logic  |    |      |   |      Task.java      |
-      |   |                                  +---+                    +----+      |   +---------------------+
-      +---+      CalenderFragment.java       |   | CalendarLogic.Java |           |
-      |   |      CalendarViewModel.java      |   +--------------------+           |  ../domainSpecificobjects/
-      |   +----------------------------------+                                    |   +---------------------+
-      |                                                                           |   |        Link         |
-      |    ../ui/usefullinks/                                                     +---+
-      |   +----------------------------------+                                        |      Link.java      |
-      |   |       Useful Links UI            |                                        +---------------------+
-      |   |                                  |
-      +---+     UsefullinksFragment.java     |
-          |     UsefullinksViewModel.java    |
-          +----------------------------------+
-
++-----------------------+
+|     Main Activity     |
+|                       |
+|   MainActivity.java   |
++--+--------------------+
+   |
+   |   ../ui/dashboard/
+   |   +----------------------------------+   ../logic/
+   |   |          Dashboard UI            |   +-----------------------+
+   |   |                                  |   |    Dashboard Logic    |
+   +---+      DashboardFragment.java      +---+                       +-+
+   |   |      DashboardViewModel.java     |   |  DashboardLogic.Java  | |   ../data/
+   |   |  DashboardElentListAdapter.java  |   +-----------------------+ |   +----------------+
+   |   +----------------------------------+                             |   |    Database    |
+   |                                                                    +---+                |
+   |    ../ui/todolist/                                                 |   |    DB.java     |
+   |   +----------------------------------+                             |   +--+-------------+
+   |   |           To+do List UI          |   ../logic/                 |      |
+   |   |                                  |   +--------------------+    |      |
+   +---+       TodolistFragment.java      |   |  To+do List Logic  |    |      |
+   |   |       TodolistViewModel.java     +---+                    +----+      |
+   |   |       TodolistAdapter.java       |   | TodolistLogic.Java |    |      |  ../domainSpecificobjects/
+   |   |       Toupdate.java              |   +--------------------+    |      |   +---------------------+
+   |   |       Viewtask.java              |                             |      |   |        Task         |
+   |   |       FinishedAdapter.java       |                             |      +---+                     |
+   |   +----------------------------------+                             |      |   |      Task.java      |
+   |                                                                    |      |   +---------------------+
+   |    ../ui/calendar/                                                 |      |
+   |   +----------------------------------+                             |      |  ../domainSpecificobjects/
+   |   |           Calendar UI            |   ../logic/                 |      |   +---------------------+
+   |   |                                  |   +--------------------+    |      |   |        Link         |
+   +---+      CalenderFragment.java       |   |    Calendar Logic  |    |      +---+                     |
+   |   |      CalendarViewModel.java      +---+                    +----+          |      Link.java      |
+   |   |      CalendarAdapter.java        |   | CalendarLogic.Java |               +---------------------+
+   |   |      CalendarToUpdate.java       |   +--------------------+
+   |   |      CalendarDelete.java         |
+   |   +----------------------------------+
+   |
+   |    ../ui/usefullinks/
+   |   +----------------------------------+
+   |   |       Useful Links UI            |
+   |   |                                  |
+   +---+     UsefullinksFragment.java     |
+   |   |     UsefullinksViewModel.java    |
+   |   |          Tutorial.java           |
+   |   +----------------------------------+
+   |
+   |    ../ui/notification/
+   |   +----------------------------------+
+   |   |        Notification UI           |
+   |   |                                  |
+   +---+      AlarmReceiver.Java          |
+       |      PriorityChannel.java        |
+       +----------------------------------+
 
 
 
