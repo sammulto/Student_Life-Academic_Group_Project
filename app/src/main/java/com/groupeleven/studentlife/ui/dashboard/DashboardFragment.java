@@ -1,6 +1,5 @@
 package com.groupeleven.studentlife.ui.dashboard;
 
-import android.graphics.Color;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,14 +15,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.groupeleven.studentlife.R;
 import com.groupeleven.studentlife.domainSpecificObjects.ITaskObject;
 import com.groupeleven.studentlife.logic.DashboardLogic;
-import com.prolificinteractive.materialcalendarview.CalendarDay;
-import com.prolificinteractive.materialcalendarview.DayViewDecorator;
-import com.prolificinteractive.materialcalendarview.DayViewFacade;
+
 import com.prolificinteractive.materialcalendarview.MaterialCalendarView;
-import com.prolificinteractive.materialcalendarview.spans.DotSpan;
-
-import java.util.Calendar;
-
 import static com.prolificinteractive.materialcalendarview.CalendarDay.today;
 
 public class DashboardFragment extends Fragment {

@@ -1,6 +1,5 @@
 package com.groupeleven.studentlife.ui.usefullinks;
 
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.method.LinkMovementMethod;
@@ -8,7 +7,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.ImageButton;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -23,16 +21,12 @@ public class UsefullinksFragment extends Fragment {
     private Button button;
     private UsefullinksViewModel usefullinksViewModel;
 
- //   private ImageButton tutorial;
-
-
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         usefullinksViewModel =
                 new ViewModelProvider(this).get(UsefullinksViewModel.class);
         View root = inflater.inflate(R.layout.fragment_usefullinks, container, false);
 
-//
         button = root.findViewById(R.id.tutorial_button);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -42,12 +36,8 @@ public class UsefullinksFragment extends Fragment {
 
             }
         });
-
-
         return root;
-
     }
-
 
 
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {

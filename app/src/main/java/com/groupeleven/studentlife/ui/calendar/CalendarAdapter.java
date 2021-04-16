@@ -2,7 +2,6 @@ package com.groupeleven.studentlife.ui.calendar;
 
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Color;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,29 +16,20 @@ import com.groupeleven.studentlife.R;
 import com.groupeleven.studentlife.domainSpecificObjects.ITaskObject;
 import com.groupeleven.studentlife.logic.CalendarLogic;
 import com.groupeleven.studentlife.logic.ICalendarLogic;
-import com.prolificinteractive.materialcalendarview.CalendarDay;
-import com.prolificinteractive.materialcalendarview.DayViewDecorator;
-import com.prolificinteractive.materialcalendarview.DayViewFacade;
-import com.prolificinteractive.materialcalendarview.MaterialCalendarView;
-import com.prolificinteractive.materialcalendarview.spans.DotSpan;
 
 import org.jetbrains.annotations.NotNull;
-
-import java.util.ArrayList;
 
 
 public class CalendarAdapter extends RecyclerView.Adapter<CalendarAdapter.ViewHolder> {
     private ITaskObject[] taskList;
     private ICalendarLogic logic;
     private String date;
-    private MaterialCalendarView calendar;
 
     public CalendarAdapter(ITaskObject[] taskList, String selectedDate) {
         this.taskList = taskList;
         this.logic = new CalendarLogic();
         this.date = selectedDate;
     }
-
 
 
     @NotNull
@@ -51,7 +41,7 @@ public class CalendarAdapter extends RecyclerView.Adapter<CalendarAdapter.ViewHo
         LayoutInflater inflater = LayoutInflater.from(context);
         View eventView =
                 inflater.inflate(R.layout.calendar_task_layout, parent, false);
-//        LayoutInflater.from(parent.getContext()).inflate(R.layout.calendar_task_layout,parent,false);
+
         //create and return View Holder
         return new CalendarAdapter.ViewHolder(eventView);
     }
@@ -63,7 +53,7 @@ public class CalendarAdapter extends RecyclerView.Adapter<CalendarAdapter.ViewHo
         String output = task.getTaskName() + "\n" + "Due: " +
                 task.getEndTime().substring(0, task.getEndTime().length() - 3) + "\n" +
                 "Priority: " + logic.getTaskPriorityText(task) + "\n" +
-                task.getType() + " estimated: " + logic.getTimeEstimate(position, taskList) + " minutes";
+                task.getType() + " estimated:\n" + logic.getTimeEstimate(position, taskList) + " minutes";
 
 //--------------------------------------------------------------------------------------------------
 // show task detail in check box
@@ -125,7 +115,7 @@ public class CalendarAdapter extends RecyclerView.Adapter<CalendarAdapter.ViewHo
                 }
             });
 
-
+//--------------------------------------------------------------------------------------------------
 //"edit" button action, jump to edit activity
             edit.setOnClickListener(new View.OnClickListener() {
                 @Override

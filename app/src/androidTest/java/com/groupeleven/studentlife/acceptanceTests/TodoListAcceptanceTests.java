@@ -128,7 +128,7 @@ public class TodoListAcceptanceTests {
     @Test
     public void d_deleteTaskTest() {
 
-        ITaskObject taskObject = new Task("Before Edit", ITaskObject.Priority.LOW, "2021-04-01 12:12:12", "2021-04-29 06:02:12", 0, "Reading", 10, "Pages");
+        ITaskObject taskObject = new Task("Delete Task", ITaskObject.Priority.LOW, "2021-04-01 12:12:12", "2021-04-29 06:02:12", 0, "Reading", 10, "Pages");
         testDB.insertTask(taskObject);
         onView(withId(R.id.navigation_todolist)).perform(click());
 

@@ -1,8 +1,10 @@
 package com.groupeleven.studentlife.ui.calendar;
 
-import android.app.Activity;
+import android.app.AlarmManager;
 import android.app.DatePickerDialog;
+import android.app.PendingIntent;
 import android.app.TimePickerDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -25,8 +27,11 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.groupeleven.studentlife.R;
 import com.groupeleven.studentlife.logic.CalendarLogic;
 import com.groupeleven.studentlife.logic.ICalendarLogic;
+import com.groupeleven.studentlife.ui.notification.AlarmReceiver;
 
 import java.util.Calendar;
+import java.util.Date;
+import java.util.Random;
 
 public class CalendarToUpdate extends AppCompatActivity implements
         DatePickerDialog.OnDateSetListener, TimePickerDialog.OnTimeSetListener {
@@ -34,8 +39,6 @@ public class CalendarToUpdate extends AppCompatActivity implements
     private EditText name;
     private EditText startTime;
     private EditText endTime;
-    private EditText priorityText;
-    private EditText taskType;
     private EditText quantity;
     private EditText unit;
     private Spinner priority;
@@ -57,6 +60,9 @@ public class CalendarToUpdate extends AppCompatActivity implements
     // to see which type of output we want in unit
     private int resource = 0;
 
+    // displayed message on the pop up notification
+    private String hint;
+
 
 
     @Override
@@ -76,11 +82,9 @@ public class CalendarToUpdate extends AppCompatActivity implements
 
         button = findViewById(R.id.updateButton);
 
-        priorityText = findViewById(R.id.editPriority);
         priority = findViewById((R.id.prioritySpinner));
         name = findViewById(R.id.name);
 
-        taskType = findViewById(R.id.taskType);
         quantity = findViewById(R.id.quantity);
         unit = findViewById(R.id.unit);
         taskTypeSpinner = findViewById(R.id.taskTypeSpinner);
@@ -92,7 +96,6 @@ public class CalendarToUpdate extends AppCompatActivity implements
         int positon = in.getExtras().getInt("id",-1);
         String mySelectedDate=in.getExtras().getString("selectedDate");
 
-//        int positon = -1;
         if (positon == -1) {
             button.setText("Add");
         }
@@ -118,18 +121,6 @@ public class CalendarToUpdate extends AppCompatActivity implements
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
 
-            }
-        });
-
-//--------------------------------------------------------------------------------------------------
-// priority show up
-// after we clicked priority box we can see the spinner
-
-        priorityText.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                priorityText.setHint("");
-                priority.setVisibility(View.VISIBLE);
             }
         });
 
@@ -169,6 +160,7 @@ public class CalendarToUpdate extends AppCompatActivity implements
             }
         });
 
+
 //--------------------------------------------------------------------------------------------------
 // add or update button
 // final process in this activity
@@ -196,6 +188,14 @@ public class CalendarToUpdate extends AppCompatActivity implements
                     num = Integer.parseInt(quantity.getText().toString());
                 }
 
+
+//--------------------------------------------------------------------------------------------------
+//notification added
+
+                hint = "Task: " + taskName + " (Begins from " + taskStart + ")";
+                Calendar c = Calendar.getInstance();
+                c.set(sYear, sMonth, sDay, sHour, sMinute);
+
                 // to see we need add or update a task
                 boolean isComplete = false;
                 String message = "";
@@ -209,12 +209,14 @@ public class CalendarToUpdate extends AppCompatActivity implements
                 }
 
                 // pass to logic to check is add complete
-
                 if (isComplete) {
                     finish();
                     Toast toast = Toast.makeText(CalendarToUpdate.this, message, Toast.LENGTH_SHORT);
                     toast.setGravity(Gravity.CENTER_HORIZONTAL | Gravity.BOTTOM, 0, 200);
                     toast.show();
+
+                    // pop-up notification
+                    startAlarm(c, taskName, hint);
                 }
 
                 // if not complete show the error
@@ -225,15 +227,12 @@ public class CalendarToUpdate extends AppCompatActivity implements
                         Toast.makeText(CalendarToUpdate.this, e.getMessage(), Toast.LENGTH_SHORT).show();
                     }
                 }
-
-
-
             }
-
         });
-
-
 //--------------------------------------------------------------------------------------------------
+
+
+
 // time estimator part
 //--------------------------------------------------------------------------------------------------
 // task type spinner
@@ -260,8 +259,16 @@ public class CalendarToUpdate extends AppCompatActivity implements
                 } else if (parent.getItemAtPosition(position).equals("Lecture")) {
                     resource = R.array.lecture;
                     setUnitSpinner();
+                } else if(parent.getItemAtPosition(position).equals("Lab")){
+                    resource = R.array.lab;
+                    setUnitSpinner();
+                } else if(parent.getItemAtPosition(position).equals("Term paper")){
+                    resource = R.array.paper;
+                    setUnitSpinner();
+                } else if(parent.getItemAtPosition(position).equals("Studying")){
+                    resource = R.array.study;
+                    setUnitSpinner();
                 }
-
             }
 
             @Override
@@ -269,23 +276,10 @@ public class CalendarToUpdate extends AppCompatActivity implements
 
             }
         });
-
-
-//--------------------------------------------------------------------------------------------------
-// task type show up
-// after we clicked task type box we can see the spinner
-
-        taskType.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                taskType.setHint("");
-                taskTypeSpinner.setVisibility(View.VISIBLE);
-            }
-        });
     }
 
 
-    //--------------------------------------------------------------------------------------------------
+//--------------------------------------------------------------------------------------------------
 // unit spinner
     public void setUnitSpinner() {
         unit.setHint("");
@@ -309,8 +303,8 @@ public class CalendarToUpdate extends AppCompatActivity implements
 
             }
         });
-
     }
+
 
 //--------------------------------------------------------------------------------------------------
 // for date/time picker
@@ -370,5 +364,21 @@ public class CalendarToUpdate extends AppCompatActivity implements
     public void finish() {
         setResult(RESULT_OK);
         super.finish();
+    }
+
+
+    // set the notification with a specific time and necessary text
+    private void startAlarm(Calendar c, String title, String message){
+        AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
+        Intent intent = new Intent(this, AlarmReceiver.class);
+        intent.putExtra("TaskName", title);
+        intent.putExtra("Hint", message);
+
+        // have a random request code makes the jump out notification no longer have the same data
+        int r = (int) ((new Date().getTime() / 1000L) % Integer.MAX_VALUE);
+        r += new Random().nextInt(100) + 1;
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(this, r, intent, 0);
+
+        alarmManager.setExact(AlarmManager.RTC_WAKEUP, c.getTimeInMillis(), pendingIntent);
     }
 }
