@@ -1,7 +1,10 @@
 package com.groupeleven.studentlife.ui.calendar;
 
+import android.app.AlarmManager;
 import android.app.DatePickerDialog;
+import android.app.PendingIntent;
 import android.app.TimePickerDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -24,8 +27,11 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.groupeleven.studentlife.R;
 import com.groupeleven.studentlife.logic.CalendarLogic;
 import com.groupeleven.studentlife.logic.ICalendarLogic;
+import com.groupeleven.studentlife.ui.notification.AlarmReceiver;
 
 import java.util.Calendar;
+import java.util.Date;
+import java.util.Random;
 
 public class CalendarToUpdate extends AppCompatActivity implements
         DatePickerDialog.OnDateSetListener, TimePickerDialog.OnTimeSetListener {
@@ -53,6 +59,9 @@ public class CalendarToUpdate extends AppCompatActivity implements
 
     // to see which type of output we want in unit
     private int resource = 0;
+
+    // displayed message on the pop up notification
+    private String hint;
 
 
 
@@ -183,6 +192,10 @@ public class CalendarToUpdate extends AppCompatActivity implements
 //--------------------------------------------------------------------------------------------------
 //notification added
 
+                hint = "Task: " + taskName + " (Begins from " + taskStart + ")";
+                Calendar c = Calendar.getInstance();
+                c.set(sYear, sMonth, sDay, sHour, sMinute);
+
                 // to see we need add or update a task
                 boolean isComplete = false;
                 String message = "";
@@ -201,6 +214,9 @@ public class CalendarToUpdate extends AppCompatActivity implements
                     Toast toast = Toast.makeText(CalendarToUpdate.this, message, Toast.LENGTH_SHORT);
                     toast.setGravity(Gravity.CENTER_HORIZONTAL | Gravity.BOTTOM, 0, 200);
                     toast.show();
+
+                    // pop-up notification
+                    startAlarm(c, taskName, hint);
                 }
 
                 // if not complete show the error
@@ -348,5 +364,21 @@ public class CalendarToUpdate extends AppCompatActivity implements
     public void finish() {
         setResult(RESULT_OK);
         super.finish();
+    }
+
+
+    // set the notification with a specific time and necessary text
+    private void startAlarm(Calendar c, String title, String message){
+        AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
+        Intent intent = new Intent(this, AlarmReceiver.class);
+        intent.putExtra("TaskName", title);
+        intent.putExtra("Hint", message);
+
+        // have a random request code makes the jump out notification no longer have the same data
+        int r = (int) ((new Date().getTime() / 1000L) % Integer.MAX_VALUE);
+        r += new Random().nextInt(100) + 1;
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(this, r, intent, 0);
+
+        alarmManager.setExact(AlarmManager.RTC_WAKEUP, c.getTimeInMillis(), pendingIntent);
     }
 }
