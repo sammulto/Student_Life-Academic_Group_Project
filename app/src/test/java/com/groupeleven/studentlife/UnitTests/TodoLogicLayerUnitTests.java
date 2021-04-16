@@ -256,7 +256,5 @@ public class TodoLogicLayerUnitTests {
 
         assertEquals("no exception should be raised",false, exceptionRaised);
     }
-
-
-
+    
 }
