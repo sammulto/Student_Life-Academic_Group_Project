@@ -8,11 +8,8 @@ import com.groupeleven.studentlife.data.DB;
 import com.groupeleven.studentlife.data.IDatabase;
 import com.groupeleven.studentlife.domainSpecificObjects.ITaskObject;
 import com.groupeleven.studentlife.domainSpecificObjects.Task;
-import com.groupeleven.studentlife.faskDB.FakeDB;
 import com.groupeleven.studentlife.logic.CalendarLogic;
 import com.groupeleven.studentlife.logic.ICalendarLogic;
-import com.groupeleven.studentlife.logic.ITodolistLogic;
-import com.groupeleven.studentlife.logic.TodolistLogic;
 import com.prolificinteractive.materialcalendarview.CalendarDay;
 
 
@@ -20,14 +17,10 @@ import org.junit.After;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import java.text.ParseException;
 import java.util.ArrayList;
 
-import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
 public class CalendarAndDBTests {

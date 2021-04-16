@@ -12,10 +12,8 @@ import com.groupeleven.studentlife.logic.ICalendarLogic;
 
 public class CalendarDelete extends AppCompatActivity {
 
-
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
 
         Intent in = getIntent();
         int position = in.getExtras().getInt("id");
@@ -39,5 +37,4 @@ public class CalendarDelete extends AppCompatActivity {
         setResult(RESULT_OK);
         super.finish();
     }
-
 }

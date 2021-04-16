@@ -7,15 +7,12 @@ package com.groupeleven.studentlife.IntegrationTests;
 
 import com.groupeleven.studentlife.data.DB;
 import com.groupeleven.studentlife.data.IDatabase;
-import com.groupeleven.studentlife.domainSpecificObjects.ITaskObject;
-import com.groupeleven.studentlife.domainSpecificObjects.Task;
 import com.groupeleven.studentlife.logic.ITimeEstimator;
 import com.groupeleven.studentlife.logic.ITodolistLogic;
 import com.groupeleven.studentlife.logic.TimeEstimator;
 import com.groupeleven.studentlife.logic.TodolistLogic;
 
 import org.junit.AfterClass;
-import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.assertEquals;
 
@@ -41,9 +38,6 @@ public class TodoLogicAndTimeEstimatorTests {
 
         assertEquals("Retun Est. Time should be 20", 20,readingTime);
     }
-
-
-
 
 }
 
