@@ -89,6 +89,7 @@ public class Toupdate extends AppCompatActivity implements
         unitSpinner = findViewById(R.id.unitSpinner);
 
         button = findViewById(R.id.updateButton);
+
 //--------------------------------------------------------------------------------------------------
 // handle date passed by adapter
         Intent in = getIntent();
@@ -192,7 +193,7 @@ public class Toupdate extends AppCompatActivity implements
 //--------------------------------------------------------------------------------------------------
 // notification added
                 
-                hint = taskName + " begins from " + taskStart;
+                hint = "Task: " + taskName + " (Begins from " + taskStart + ")";
                 Calendar c = Calendar.getInstance();
                 c.set(sYear, sMonth, sDay, sHour, sMinute);
 
