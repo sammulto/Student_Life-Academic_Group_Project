@@ -221,17 +221,12 @@ public class TodolistLogic implements ITodolistLogic {
 // Given two date in String
 // Compare them, if the start time is after end end time return false
     public boolean dateCheck(String start, String end) throws ParseException {
-        boolean result = false;
+
         DateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         Date sDate = format.parse(start);
         Date eDate = format.parse(end);
-        if(sDate.after(eDate)){
-            result = false;
-        }
-        else{
-            result = true;
-        }
-        return result;
+
+        return !sDate.after(eDate);
     }
 
 }
