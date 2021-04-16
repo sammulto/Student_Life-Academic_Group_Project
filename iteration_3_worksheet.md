@@ -23,7 +23,7 @@ It is deliberate and prudent because we do not have enough time to build a whole
 [Notification code added in Toupdata.class - L195 -](https://code.cs.umanitoba.ca/3350-winter-2021-a01/your-internet-neighbours-group-11/-/commit/65e986a5db342be864a72fb15f3061e6928c40a9)
 
 # Discuss a Feature or User Story that was cut/re-prioritized
-
+We found a bug in iteration 2 and moved the edit/delete task feature to iteration 3. We did however keep the interactive calendar as a feature in the current iteration. We did this by breaking up a feature into individual ones and kept them for the next iteration, and made sure we did not pivot from the original goal.
 # Acceptance test/end-to-end
 
 One of the acceptance tests is the to-do list acceptance test.  This test tests the interactions between user and the to-do list interface. These interactions include adding task to the list, editing the already existent task, and deleting task from the list. These tests are written base on the user stores. To ensure the test is not flaky, the database will be clean up during each sub-test. Also, the sub-tests are enforced to run in an order that matches the user scenarios.
